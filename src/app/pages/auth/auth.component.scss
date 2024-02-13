@@ -1,0 +1,125 @@
+/* LOGIN Y REGISTRO RECUADRO */
+.container12 {
+  width: 100%;
+  max-width: 600px; /* Ajusta el ancho máximo según tus necesidades */
+  text-align: center;
+  background: #f8f9fd;
+  background: linear-gradient(
+    0deg,
+    rgb(255, 255, 255) 0%,
+    rgb(244, 247, 251) 100%
+  );
+  border-radius: 40px;
+  padding: 25px 35px;
+  border: 5px solid rgb(255, 255, 255);
+  box-shadow: rgba(64, 202, 168, 0.878) 0px 30px 30px -20px;
+  /* margin: 20px; */
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 100px;
+  margin-bottom: 100px;
+
+  /* Fondo de imagen (INVESTIGAR) */
+  &::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh; /* Altura del viewport */
+    width: 100vw; /* Ancho del viewport */
+    z-index: -1; /* Para que el fondo quede detrás del contenido */
+    background-image: url("../../../assets/FondoFinal.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+}
+
+/* Aparece y desaparece el logo del registro y login */
+.fade-in {
+  animation: fadeIn ease 5s;
+  -webkit-animation: fadeIn ease 5s;
+  -moz-animation: fadeIn ease 5s;
+  -o-animation: fadeIn ease 5s;
+  -ms-animation: fadeIn ease 5s;
+}
+
+/* Boton de casa */
+.btnCasa {
+  display: grid;
+  place-items: center;
+  background: #dfe9e79f;
+  padding: 1.4em;
+  border-radius: 100px;
+  box-shadow: 6px 6px 10px -1px rgba(0, 0, 0, 0.15),
+    -6px -6px 10px -1px rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(0, 0, 0, 0);
+  cursor: pointer;
+  transition: transform 0.5s;
+  position: fixed;
+  right: 20px;
+  bottom: 40px;
+  
+  &:hover {
+    box-shadow: inset 4px 4px 6px -1px rgba(0, 0, 0, 0.2),
+      inset -4px -4px 6px -1px rgba(255, 255, 255, 0.7),
+      -0.5px -0.5px 0px rgba(255, 255, 255, 1),
+      0.5px 0.5px 0px rgba(0, 0, 0, 0.15), 0px 12px 10px -10px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    transform: translateY(0.5em);
+  }
+  
+  & svg {
+    transition: transform 0.5s;
+}
+
+&:hover svg {
+    transform: scale(0.9);
+    fill: #333333;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@-moz-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@-o-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@-ms-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+

@@ -1,0 +1,14 @@
+@keyframes masthead {
+  from {
+    background-position: 50% 0;
+    height: 100dvh;
+    width: 100%;
+    font-size: calc(4vw + 1em);
+  }
+  to {
+    background-position: 50% 100%;
+    background-color: #fff;
+    height: 100dvh;
+    width: 100%;
+  }
+}

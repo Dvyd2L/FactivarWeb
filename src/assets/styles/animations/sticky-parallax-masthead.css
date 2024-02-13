@@ -1,0 +1,10 @@
+@keyframes sticky-parallax-masthead {
+  from {
+    opacity: 0;
+    scale: 0.5;
+  }
+  to {
+    opacity: 100%;
+    scale: 1;
+  }
+}

@@ -1,1 +1,69 @@
 /* You can add global styles to this file, and also import other style files */
+@import url("assets/styles/colors/colors.css");
+@import url("assets/styles/animations");
+
+:root {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  color-scheme: dark light;
+}
+
+
+::view-transition-old(:host) {
+  // --name: view-transition;
+  // --duration: 1s;
+  // --timing-function: ease;
+  // --delay: 0s;
+  // --iteration-count: 1;
+  // --direction: normal;
+  // --fil-mode: forwards;
+
+  // animation: var(--name) var(--duration) var(--timing-function) var(--delay)
+  //   var(--iteration-count) var(--direction) var(--fill-mode);
+  animation: view-transition 0.5s ease 0s 1 normal forwards;
+}
+
+::view-transition-new(:host) {
+  // --name: view-transition;
+  // --duration: 1s;
+  // --timing-function: ease;
+  // --delay: 1s;
+  // --iteration-count: 1;
+  // --direction: reverse;
+  // --fil-mode: backwards;
+
+  // animation: var(--name) var(--duration) var(--timing-function) var(--delay)
+  //   var(--iteration-count) var(--direction) var(--fill-mode);
+  animation: view-transition 0.5s ease 0s 1 reverse backwards;
+}
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+  margin: 0;
+
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-bg-hexagons) transparent;
+}
+
+a {
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
