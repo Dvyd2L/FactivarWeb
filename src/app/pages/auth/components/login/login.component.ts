@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -6,6 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { AuthService } from '@/app/pages/auth/services/auth.service';
 
 type LoginForm = FormGroup<{
   email: FormControl<string | null>;
@@ -18,12 +19,13 @@ type LoginForm = FormGroup<{
   imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
-  // providers: [MessageService, AuthService],
+  providers: [/* MessageService, */ AuthService],
 })
 export class LoginComponent {
-  // private auth = inject(AuthService);
+  private auth = inject(AuthService);
   // private messageService = inject(MessageService);
-  private regexp_password = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,15}/;
+  private regexp_password =
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,15}/;
   public loginForm: LoginForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [
@@ -41,23 +43,23 @@ export class LoginComponent {
    */
   public login() {
     if (this.loginForm.valid) {
-      // Realiza acciones como iniciar sesión o enviar datos al servidor
-      console.log('Formulario válido. Datos enviados:', this.loginForm.value);
-      // this.auth.login(this.infoLogin).subscribe({
-      //   next: (data) => console.log({ data }),
-      //   error: (err) => {
-      //     console.error({ err });
-      //     if (err instanceof HttpErrorResponse) {
-      //       this.errorMessage(err, this.messageService);
-      //     }
-      //   },
-      // });
-    } else {
-      // Muestra errores si el formulario no es válido
-      console.log('Formulario inválido. Verifica los campos.');
+      const { email, password } = this.loginForm.value;
+      if (email && password) {
+        this.auth.login({ email, password }).subscribe({
+          next: (data) => console.log({ data }),
+          error: (err) => {
+            // console.error({ err });
+            // if (err instanceof HttpErrorResponse) {
+            //   this.errorMessage(err, this.messageService);
+            // }
+          },
+        });
+      } else {
+        // Muestra errores si el formulario no es válido
+        console.log('Formulario inválido. Verifica los campos.');
+      }
     }
   }
-
   /**
    * Realiza el inicio de sesión con Google.
    * @param idToken - Token de identificación de Google.

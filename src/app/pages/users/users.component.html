@@ -1,1 +1,6 @@
-<p>users works!</p>
+<h1>USUARIOS</h1>
+@if (response$ | async; as res) { 
+  @for (item of res; track $index) {
+    <pre>{{ item | json }}</pre>
+  } 
+}

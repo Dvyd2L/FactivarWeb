@@ -1,4 +1,6 @@
 import { Routes } from '@angular/router';
+import { authGuard } from '@/app/guards/auth.guard';
+import { adminGuard } from '@/app/guards/admin.guard';
 
 export const routes: Routes = [
   {
@@ -33,6 +35,7 @@ export const routes: Routes = [
   {
     path: 'clientes',
     title: 'Clientes',
+    canActivate: [authGuard],
     children: [
       {
         path: '',
@@ -56,6 +59,7 @@ export const routes: Routes = [
   {
     path: 'facturas',
     title: 'Facturas',
+    canActivate: [authGuard],
     children: [
       {
         path: '',
@@ -79,6 +83,7 @@ export const routes: Routes = [
   {
     path: 'usuarios',
     title: 'Usuarios',
+    canActivate: [adminGuard],
     loadComponent: () =>
       import('./pages/users/users.component').then((c) => c.UsersComponent),
   },

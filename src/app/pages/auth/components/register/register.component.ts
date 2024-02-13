@@ -1,16 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
+import { AuthService } from '@/app/pages/auth/services/auth.service';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
 })
 export class RegisterComponent {
   // private router = inject(Router);
-  // private auth = inject(AuthService);
+  private auth = inject(AuthService);
   // private messageService = inject(MessageService);
   public infoRegister = {
     nombre: '',
@@ -37,17 +39,17 @@ export class RegisterComponent {
    * Realiza el registro del usuario.
    */
   public register() {
-    // this.auth.register(this.infoRegister).subscribe({
-    //   next: (data) => {
-    //     console.log(data);
-    //     this.router.navigateByUrl('login');
-    //   },
-    //   error: (err) => {
-    //     if (err instanceof HttpErrorResponse) {
-    //       this.errorMessage(err, this.messageService);
-    //     }
-    //   },
-    // });
+    this.auth.register(this.infoRegister).subscribe({
+      next: (data) => {
+        console.log(data);
+        // this.router.navigateByUrl('login');
+      },
+      error: (err) => {
+        // if (err instanceof HttpErrorResponse) {
+        //   this.errorMessage(err, this.messageService);
+        // }
+      },
+    });
   }
   /**
    * Valida si la contraseña y la contraseña de repetición coinciden.

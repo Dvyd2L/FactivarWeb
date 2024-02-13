@@ -1,9 +1,10 @@
-@if (response$ | async; as res) { 
-  <pre>{{ res | json }}</pre>
-  @for (f of res.facturaClientes; track f.facturaId) {
-    <a [routerLink]="['/facturas', f.facturaId]">{{f.facturaId}}</a><br>
-  }
-  @for (f of res.facturaProveedors; track f.facturaId) {
-    <a [routerLink]="['/facturas', f.facturaId]">{{f.facturaId}}</a><br>
-  }
-}
+@if (response$ | async; as res) {
+<h1>{{ res.nombre }}</h1>
+<pre>{{ res | json }}</pre>
+@for (f of res.facturaClientes; track f.facturaId) {
+<a [routerLink]="['/facturas', f.facturaId]">{{ f.facturaId }}</a
+><br />
+} @for (f of res.facturaProveedors; track f.facturaId) {
+<a [routerLink]="['/facturas', f.facturaId]">{{ f.facturaId }}</a
+><br />
+} }
