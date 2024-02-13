@@ -1,51 +1,39 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
-import { environment } from '../../environments/environment.development';
+import { environment } from '@/environments/environment.development';
+import { ApiEndpointEnum } from '@/app/enums/api.enum';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ApiService {
-  // private userService = inject(UserService<IUserPayload>);
   private http = inject(HttpClient);
   private urlAPI = environment.urlAPI + 'api';
+  private endpoint!:string;
+
+  public setEndpoint(endpoint: ApiEndpointEnum) {
+    this.endpoint = endpoint;
+  }
   /**
    * Obtiene datos de la API, si no se proporciona el id obtiene todos los registros
+   * @template TId El tipo de dato del id
+   * @template TResponse El tipo de dato de la respuesta
    * @param {TId} id El id de los datos
    * @returns Un Observable que emite un objeto de tipo TResponse si se proporciona el id y una colección de objetos TResponse[] en el caso contrario.
    */
   public read<TId, TResponse>(
     id?: TId
-  ): Observable<TResponse> | Observable<TResponse[]> {
+  ): Observable<TResponse> {
     const headers = this.setHeaders();
-
     return id
-      ? this.http.get<TResponse>(`${this.urlAPI}/clientes/${id}`, {
+      ? this.http.get<TResponse>(`${this.urlAPI}/${this.endpoint}/${id}`, {
           headers,
         })
-      : this.http.get<TResponse[]>(`${this.urlAPI}/clientes/all`, {
+      : this.http.get<TResponse>(`${this.urlAPI}/${this.endpoint}/all`, {
           headers,
         });
   }
-  /**
-   * Obtiene los clientes dados de alta entre dos fechas.
-   * @param fechamin La fecha mínima.
-   * @param fechamax La fecha máxima.
-   * @returns Un Observable que emite un array de objetos de tipo ICliente.
-   */
-  // public getClienteEntreFechas(
-  //   fechamin: string | Date,
-  //   fechamax: string | Date
-  // ): Observable<ICliente[]> {
-  //   const headers = this.setHeaders();
-  //   return this.http.get<ICliente[]>(
-  //     `${this.urlAPI}/clientes/alta-entre-fechas/${fechamin}/${fechamax}`,
-  //     {
-  //       headers,
-  //     }
-  //   );
-  // }
   /**
    * Agrega un nuevo cliente.
    * @param cliente El objeto de tipo ICliente a agregar.
@@ -53,7 +41,7 @@ export class ApiService {
    */
   public create<TData, TResponse>(data: TData): Observable<TResponse> {
     const headers = this.setHeaders();
-    return this.http.post<TResponse>(`${this.urlAPI}/clientes`, data, {
+    return this.http.post<TResponse>(`${this.urlAPI}/${this.endpoint}`, data, {
       headers,
     });
   }
@@ -64,13 +52,9 @@ export class ApiService {
    */
   public update<TData, TResponse>(data: TData): Observable<TResponse> {
     const headers = this.setHeaders();
-    return this.http.put<TResponse>(
-      `${this.urlAPI}/clientes` /* /${cliente.cif} */,
-      data,
-      {
-        headers,
-      }
-    );
+    return this.http.put<TResponse>(`${this.urlAPI}/${this.endpoint}`, data, {
+      headers,
+    });
   }
   /**
    * Elimina un cliente por su CIF.
@@ -79,17 +63,16 @@ export class ApiService {
    */
   public delete<TId, TResponse>(id: TId): Observable<TResponse> {
     const headers = this.setHeaders();
-    return this.http.delete<TResponse>(`${this.urlAPI}/clientes/${id}`, {
+    return this.http.delete<TResponse>(`${this.urlAPI}/${this.endpoint}/${id}`, {
       headers,
     });
   }
   /**
-   *
-   * @returns
+   * Establece los encabezados de la solicitud HTTP.
+   * @returns {HttpHeaders} 'Content-Type': 'application/json'
    */
-  private setHeaders = () =>
+  private setHeaders = (): HttpHeaders =>
     new HttpHeaders({
       'Content-Type': 'application/json',
-      // Authorization: `Bearer ${this.userService.getToken()}`,
     });
 }

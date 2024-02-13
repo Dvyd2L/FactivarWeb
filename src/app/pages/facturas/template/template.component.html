@@ -1,1 +1,3 @@
-<p>template works!</p>
+@if (response$ | async; as res) { 
+  <pre>{{ res | json }}</pre>
+}

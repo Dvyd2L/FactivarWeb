@@ -1,12 +1,26 @@
 import { ApplicationConfig } from '@angular/core';
-import { provideRouter, withViewTransitions } from '@angular/router';
-import { routes } from '../app.routes';
+import {
+  provideRouter,
+  withComponentInputBinding,
+  withViewTransitions,
+} from '@angular/router';
+import { routes } from '@/app/app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
-
+import {
+  provideHttpClient,
+  withFetch,
+  withInterceptors,
+} from '@angular/common/http';
+import { errorResponseInterceptorFn } from '@/app/shared/error-response.interceptor';
+import { tokenInterceptorFn } from '@/app/shared/token-fn.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideRouter(routes, withViewTransitions()),
+    provideRouter(routes, withViewTransitions(), withComponentInputBinding()),
     provideClientHydration(),
+    provideHttpClient(
+      withFetch(),
+      withInterceptors([errorResponseInterceptorFn, tokenInterceptorFn])
+    ),
   ],
 };

@@ -1,2 +1,7 @@
 <h1>CLIENTES</h1>
-<a [routerLink]="['/clientes', 1]">Clientes detail</a>
+@if (response$ | async; as res) { 
+  @for (item of res; track item.cif) {
+    <pre>{{ item | json }}</pre>
+    <a [routerLink]="['/clientes', item.cif]">Ver {{ item.nombre }}</a>
+  } 
+}
