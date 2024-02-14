@@ -8,7 +8,8 @@
   color-scheme: dark light;
 }
 
-::view-transition-old(:host) {
+// ::view-transition-old(:host) {
+::view-transition-old(root) {
   // --name: view-transition;
   // --duration: 1s;
   // --timing-function: ease;
@@ -22,7 +23,8 @@
   animation: view-transition 0.5s ease 0s 1 normal forwards;
 }
 
-::view-transition-new(:host) {
+// ::view-transition-new(:host) {
+::view-transition-new(root) {
   // --name: view-transition;
   // --duration: 1s;
   // --timing-function: ease;
