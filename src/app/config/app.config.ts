@@ -5,7 +5,10 @@ import {
   withViewTransitions,
 } from '@angular/router';
 import { routes } from '@/app/app.routes';
-import { provideClientHydration } from '@angular/platform-browser';
+import {
+  provideClientHydration,
+  withHttpTransferCacheOptions,
+} from '@angular/platform-browser';
 import {
   provideHttpClient,
   withFetch,
@@ -17,7 +20,11 @@ import { tokenInterceptorFn } from '@/app/shared/token-fn.interceptor';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes, withViewTransitions(), withComponentInputBinding()),
-    provideClientHydration(),
+    provideClientHydration(
+      withHttpTransferCacheOptions({
+        includePostRequests: true,
+      })
+    ),
     provideHttpClient(
       withFetch(),
       withInterceptors([errorResponseInterceptorFn, tokenInterceptorFn])
