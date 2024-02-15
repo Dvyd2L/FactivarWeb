@@ -1,0 +1,64 @@
+.form {
+  margin-top: 20px;
+}
+
+.form .input {
+  width: 100%;
+  border: none;
+  padding: 15px 20px;
+  border-radius: 20px;
+  margin-top: 15px;
+  box-shadow: #cff0ff 0px 10px 10px -5px;
+  border-inline: 2px solid transparent;
+}
+
+.form .input::-moz-placeholder {
+  color: rgb(170, 170, 170);
+}
+
+.form .input::placeholder {
+  color: rgb(170, 170, 170);
+}
+
+.form .input:focus {
+  outline: none;
+  border-inline: 2px solid #12b1d1;
+}
+
+.form .forgot-password {
+  display: block;
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
+.form .forgot-password a {
+  font-size: 11px;
+  color: #0099ff;
+  text-decoration: none;
+}
+
+.social-account-container {
+  margin-top: 25px;
+}
+
+.social-account-container .title {
+  display: block;
+  text-align: center;
+  font-size: 10px;
+}
+
+.social-account-container .social-accounts {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 5px;
+}
+
+.title1 {
+  font-size: 15px;
+}
+
+a {
+  text-decoration: none;
+}

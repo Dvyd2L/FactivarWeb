@@ -1,10 +1,1 @@
-@if (isHome()) {
-<app-home />
-<app-footer class="factivar-footer" />
-} @else if (isLogin()) {
-<app-login />
-} @else if (isRegister()) {
-<app-register />
-} @else {
-<app-layout />
-}
+<router-outlet></router-outlet>

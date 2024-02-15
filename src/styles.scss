@@ -8,33 +8,11 @@
   color-scheme: dark light;
 }
 
-// ::view-transition-old(:host) {
 ::view-transition-old(root) {
-  // --name: view-transition;
-  // --duration: 1s;
-  // --timing-function: ease;
-  // --delay: 0s;
-  // --iteration-count: 1;
-  // --direction: normal;
-  // --fil-mode: forwards;
-
-  // animation: var(--name) var(--duration) var(--timing-function) var(--delay)
-  //   var(--iteration-count) var(--direction) var(--fill-mode);
   animation: view-transition 0.5s ease 0s 1 normal forwards;
 }
 
-// ::view-transition-new(:host) {
 ::view-transition-new(root) {
-  // --name: view-transition;
-  // --duration: 1s;
-  // --timing-function: ease;
-  // --delay: 1s;
-  // --iteration-count: 1;
-  // --direction: reverse;
-  // --fil-mode: backwards;
-
-  // animation: var(--name) var(--duration) var(--timing-function) var(--delay)
-  //   var(--iteration-count) var(--direction) var(--fill-mode);
   animation: view-transition 0.5s ease 0s 1 reverse backwards;
 }
 

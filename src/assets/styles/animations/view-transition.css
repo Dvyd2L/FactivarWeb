@@ -1,10 +1,13 @@
 @keyframes view-transition {
-  from {
-    opacity: 1;
-    scale: 1;
+  to {
+    filter: grayscale() /* blur(1px)  */ /* invert() */ /* hue-rotate(1turn) */;
+    opacity: 0.25;
   }
+}
+
+/* @keyframes view-transition {
   to {
     opacity: 0;
     scale: 0.75;
   }
-}
+} */
