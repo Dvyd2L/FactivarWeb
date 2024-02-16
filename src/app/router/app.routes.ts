@@ -18,27 +18,27 @@ export const routes: Routes = [
   {
     path: 'clientes',
     title: 'Clientes',
-    canActivate: [authGuard],
+    // canActivate: [authGuard],
     loadComponent: () =>
-      import('@/app/views/layout/layout.component').then((c) => c.LayoutComponent),
+      import('@/app/shared/layout/layout.component').then((c) => c.LayoutComponent),
     loadChildren: () =>
       import('@/app/router/clientes.routes').then((m) => m.clientesRoutes),
   },
   {
     path: 'facturas',
     title: 'Facturas',
-    canActivate: [authGuard],
+    // canActivate: [authGuard],
     loadComponent: () =>
-      import('@/app/views/layout/layout.component').then((c) => c.LayoutComponent),
+      import('@/app/shared/layout/layout.component').then((c) => c.LayoutComponent),
     loadChildren: () =>
       import('@/app/router/facturas.routes').then((m) => m.facturasRoutes),
   },
   {
     path: 'usuarios',
     title: 'Usuarios',
-    canActivate: [adminGuard],
+    // canActivate: [adminGuard],
     loadComponent: () =>
-      import('@/app/views/layout/layout.component').then((c) => c.LayoutComponent),
+      import('@/app/shared/layout/layout.component').then((c) => c.LayoutComponent),
     loadChildren: () =>
       import('@/app/router/usuarios.routes').then((m) => m.usuariosRoutes),
   },
