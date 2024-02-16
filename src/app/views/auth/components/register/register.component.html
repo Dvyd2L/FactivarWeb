@@ -1,16 +1,17 @@
 <!-- Container12 es EL PADRE -->
-<div class="container12">
-  <div class="text-center">
+<article class="container12">
+  <figure class="text-center">
     <img
       class="fade-in mb-4"
       src="assets/images/LogoNegroFondoTransparente.png"
       alt="login"
       style="max-width: 100%"
     />
-  </div>
+  </figure>
 
   <form class="form-signin" (ngSubmit)="register()">
     <div class="form-group mb-3">
+      <label for="nombre" hidden aria-label="nombre">Nombre</label>
       <input
         id="nombre"
         type="text"
@@ -19,15 +20,16 @@
         name="nombre"
         required
       />
-
     </div>
 
     <div class="form-group mb-3">
+      <label for="apellidos" hidden aria-label="apellidos">Apellidos</label>
       <input
         type="text"
         class="form-control"
         placeholder="Apellidos"
-        name="apellido"
+        id="apellidos"
+        name="apellidos"
         required
       />
     </div>
@@ -35,29 +37,33 @@
     <div class="form-group mb-3">
       <label for="avatar" hidden aria-label="Avatar">Avatar</label>
       <input
-        type="file"
-        class="form-control"
-        placeholder="Avatar"
-        name="avatar"
-        (change)="onFileSelected($event)"
+      type="file"
+      class="form-control"
+      placeholder="Avatar"
+      name="avatar"
+      (change)="onFileSelected($event)"
       />
     </div>
-
+    
     <div class="form-group mb-3">
+      <label for="email" hidden aria-label="email">E-mail</label>
       <input
-        type="email"
-        class="form-control"
-        placeholder="E-mail"
-        name="email"
-        required
+      type="email"
+      class="form-control"
+      placeholder="E-mail"
+      id="email"
+      name="email"
+      required
       />
     </div>
-
+    
     <div class="form-group mb-3">
+      <label for="telefono" hidden aria-label="teléfono">Teléfono</label>
       <input
         type="text"
         class="form-control"
         placeholder="Teléfono"
+        id="telefono"
         name="telefono"
         required
       />
@@ -99,9 +105,7 @@
       } -->
   </form>
 
-  <div class="mt-2 d-flex justify-content-center">
-    <!-- <app-boton-accesos texto="Continuar" (click)="register()" /> -->
-  </div>
+  <!-- <app-boton-accesos class="mt-2 d-flex justify-content-center" texto="Continuar" (click)="register()" /> -->
 
   <div class="checkbox-wrapper">
     <input id="terms-checkbox-37" name="checkbox" type="checkbox" />
@@ -128,15 +132,16 @@
           class="checkbox-tick"
         ></path>
       </svg>
-      <span class="label-text"
-        ><strong
-          >Si aceptas, estás de acuerdo con los Términos del servicio y el Aviso
-          de privacidad.</strong
-        ></span
-      >
+      <span class="label-text" (click)="toggleServiceTermsVisibility()">
+        <strong>
+          Si aceptas, estás de acuerdo con los Términos del servicio y el Aviso
+          de privacidad.
+        </strong>
+      </span>
     </label>
   </div>
-</div>
+</article>
+
 <a class="btnCasa" [routerLink]="['/home']">
   <svg
     fill="#000000"
@@ -156,3 +161,7 @@
   Inicio
 </a>
 <!-- <p-toast /> -->
+<dialog [open]="serviceTermsVisibility">
+  <button type="button" (click)="toggleServiceTermsVisibility()">❌</button>
+  <app-service-terms />
+</dialog>

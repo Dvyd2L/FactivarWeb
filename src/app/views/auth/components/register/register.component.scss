@@ -99,3 +99,27 @@
 .checkbox-wrapper input[type="checkbox"]:checked + .terms-label .checkbox-tick {
   stroke-dashoffset: 0;
 }
+
+dialog {
+  height: 66dvh;
+  width: 50dvw;
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  padding: 1rem;
+  overflow: auto;
+  border: none;
+  border-radius: 1rem;
+  &::backdrop {
+    backdrop-filter: blur(5px) grayscale(1);
+  }
+  & > button {
+    border: none;
+    border-radius: 1rem;
+    background-color: transparent;
+    cursor: pointer;
+    position: sticky;
+    top: 0;
+    backdrop-filter: blur(2px);
+  }
+}
