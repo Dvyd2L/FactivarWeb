@@ -3,13 +3,19 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '@/app/views/auth/services/auth.service';
 import { ServiceTermsComponent } from '../service-terms/service-terms.component';
+import { ModalComponent } from '../../../../shared/components/modal/modal.component';
 
 @Component({
   selector: 'app-register',
   standalone: true,
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss', '../../auth.component.scss'],
-  imports: [ReactiveFormsModule, RouterLink, ServiceTermsComponent],
+  imports: [
+    ReactiveFormsModule,
+    RouterLink,
+    ServiceTermsComponent,
+    ModalComponent,
+  ],
 })
 export class RegisterComponent {
   // private router = inject(Router);
@@ -24,12 +30,10 @@ export class RegisterComponent {
     password: '',
   };
   public password: string = '';
-  public serviceTermsVisibility = false;
-  /**
-   * Cambia el estado de visibilidad de las condiciones de servicio.
-   */
+  public termsModal = false;
+
   public toggleServiceTermsVisibility() {
-    this.serviceTermsVisibility = !this.serviceTermsVisibility;
+    this.termsModal = !this.termsModal;
   }
   /**
    * Maneja el evento de selección de archivo.

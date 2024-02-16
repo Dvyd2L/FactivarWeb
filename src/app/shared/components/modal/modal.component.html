@@ -1,0 +1,8 @@
+<dialog #modalWindow>
+  <menu>
+    <button type="button" (click)="close()">❌</button>
+  </menu>
+  <article>
+    <ng-content select=".modal-content" />
+  </article>
+</dialog>

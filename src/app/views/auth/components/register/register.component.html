@@ -37,26 +37,26 @@
     <div class="form-group mb-3">
       <label for="avatar" hidden aria-label="Avatar">Avatar</label>
       <input
-      type="file"
-      class="form-control"
-      placeholder="Avatar"
-      name="avatar"
-      (change)="onFileSelected($event)"
+        type="file"
+        class="form-control"
+        placeholder="Avatar"
+        name="avatar"
+        (change)="onFileSelected($event)"
       />
     </div>
-    
+
     <div class="form-group mb-3">
       <label for="email" hidden aria-label="email">E-mail</label>
       <input
-      type="email"
-      class="form-control"
-      placeholder="E-mail"
-      id="email"
-      name="email"
-      required
+        type="email"
+        class="form-control"
+        placeholder="E-mail"
+        id="email"
+        name="email"
+        required
       />
     </div>
-    
+
     <div class="form-group mb-3">
       <label for="telefono" hidden aria-label="teléfono">Teléfono</label>
       <input
@@ -109,7 +109,11 @@
 
   <div class="checkbox-wrapper">
     <input id="terms-checkbox-37" name="checkbox" type="checkbox" />
-    <label class="terms-label" for="terms-checkbox-37">
+    <label
+      class="terms-label"
+      for="terms-checkbox-37"
+      (click)="toggleServiceTermsVisibility()"
+      >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
@@ -132,7 +136,7 @@
           class="checkbox-tick"
         ></path>
       </svg>
-      <span class="label-text" (click)="toggleServiceTermsVisibility()">
+      <span class="label-text">
         <strong>
           Si aceptas, estás de acuerdo con los Términos del servicio y el Aviso
           de privacidad.
@@ -161,7 +165,6 @@
   Inicio
 </a>
 <!-- <p-toast /> -->
-<dialog [open]="serviceTermsVisibility">
-  <button type="button" (click)="toggleServiceTermsVisibility()">❌</button>
-  <app-service-terms />
-</dialog>
+<app-modal [show]="termsModal">
+  <app-service-terms class="modal-content"/>
+</app-modal>
