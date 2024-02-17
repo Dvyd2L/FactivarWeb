@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -11,6 +11,9 @@ import {
   oldPassword,
   newPassword,
 } from '@/app/views/auth/forms-config.json';
+import { AuthService } from '../../services/auth.service';
+import { Email } from '@/app/models/interfaces/user';
+import { tap } from 'rxjs';
 
 @Component({
   selector: 'app-change-password',
@@ -18,8 +21,10 @@ import {
   imports: [ReactiveFormsModule],
   templateUrl: './change-password.component.html',
   styleUrl: './change-password.component.scss',
+  providers: [AuthService],
 })
 export class ChangePasswordComponent {
+  private auth = inject(AuthService);
   public form = new FormGroup(
     {
       email: new FormControl({ value: '', disabled: false }, [
@@ -50,7 +55,15 @@ export class ChangePasswordComponent {
   };
 
   public onSubmit() {
-    console.log(this.form.value);
-    this.form.reset();
+    if (this.form.valid) {
+      this.auth
+        .changePassword({
+          email: this.form.value.email as Email,
+          password: this.form.value.oldPassword!,
+        })
+        .subscribe((res) => console.log({ res }));
+
+      this.form.reset();
+    }
   }
 }

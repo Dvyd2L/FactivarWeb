@@ -4,7 +4,8 @@ import { IRegisterRequest } from '@/app/models/interfaces/auth';
 import { environment } from '@/environments/environment.development';
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { tap, Observable } from 'rxjs';
+import { tap, Observable, mergeMap } from 'rxjs';
+import { ILoginRequest } from '@/app/models/interfaces/user';
 
 @Injectable({
   providedIn: 'root',
@@ -17,12 +18,12 @@ export class AuthService {
    * Realiza el inicio de sesión.
    * @param credenciales Las credenciales del usuario.
    */
-  public login(credenciales?: { email: string; password: string }) {
+  public login(credenciales?: ILoginRequest) {
     return this.http
       .post<{ token: string }>(`${this.urlAPI}/login`, credenciales)
       .pipe(
         tap(({ token }) => {
-          StorageHelper.setItem(StorageKeyEnum.Token, token)
+          StorageHelper.setItem(StorageKeyEnum.Token, token);
           // const helper = new JwtHelperService();
           // const payload = helper.decodeToken(token) as IUserPayload;
           // this.userService.updateUser({
@@ -43,12 +44,12 @@ export class AuthService {
     return this.http
       .post<{ token: string }>(`${this.urlAPI}/google-authenticate`, idToken)
       .pipe(
-        tap((data) => {
+        tap((response) => {
           // const helper = new JwtHelperService();
-          // const payload = helper.decodeToken(data.token);
+          // const payload = helper.decodeToken(response.token);
           // const user: IUserPayload = {
           //   ...payload,
-          //   token: data.token,
+          //   token: response.token,
           // };
           // this.userService.updateUser(user);
         })
@@ -98,5 +99,15 @@ export class AuthService {
    */
   public clearStorage() {
     // this.userService.clearUser();
+  }
+
+  public changePassword(data: ILoginRequest) {
+    return this.http
+      .put<{ msg: string }>(`${this.urlAPI}/change-password`, data)
+      .pipe(
+        mergeMap(({ msg }) =>
+          this.http.get(`${this.urlAPI}/change-password/${msg}`)
+        )
+      );
   }
 }

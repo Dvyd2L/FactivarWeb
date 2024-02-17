@@ -9,7 +9,7 @@ import { ModalComponent } from '../../../../shared/components/modal/modal.compon
   selector: 'app-register',
   standalone: true,
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss', '../../auth.component.scss'],
+  styleUrls: ['./register.component.scss'],
   imports: [
     ReactiveFormsModule,
     RouterLink,

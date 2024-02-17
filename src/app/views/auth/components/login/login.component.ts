@@ -16,7 +16,7 @@ import { email, password } from '@/app/views/auth/forms-config.json';
   standalone: true,
   imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss', '../../auth.component.scss'],
+  styleUrls: ['./login.component.scss'],
   providers: [/* MessageService, */ AuthService],
 })
 export class LoginComponent {
@@ -52,9 +52,9 @@ export class LoginComponent {
       const { email, password } = this.loginForm.value as ILoginRequest;
       if (email && password) {
         this.auth.login({ email, password }).subscribe({
-          next: (data) => console.log({ data }),
+          next: (response) => console.log({ response }),
           error: (err) => {
-            // console.error({ err });
+            console.error({ err });
             // if (err instanceof HttpErrorResponse) {
             //   this.errorMessage(err, this.messageService);
             // }
