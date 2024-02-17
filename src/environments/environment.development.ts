@@ -1,7 +1,6 @@
 export const environment = {
   production: false,
-  // urlAPI: 'https://localhost:7230/',
-  urlAPI: 'http://localhost:5053/',
+  urlAPI: 'https://localhost:7230/',
   googleOauth2: {
     client_id:
       '1010715603937-euj34hajhc3hbhqeq42hvvp6nuk6jnr6.apps.googleusercontent.com',
