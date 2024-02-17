@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { AuthService } from '@/app/views/auth/services/auth.service';
 import { ServiceTermsComponent } from '../service-terms/service-terms.component';
 import { ModalComponent } from '../../../../shared/components/modal/modal.component';
@@ -16,11 +16,11 @@ import { ModalComponent } from '../../../../shared/components/modal/modal.compon
     ServiceTermsComponent,
     ModalComponent,
   ],
-  providers: [Router]
+  providers: []
 })
 export class RegisterComponent {
   // private messageService = inject(MessageService);
-  private router = inject(Router);
+  // private router = inject(Router);
   private auth = inject(AuthService);
   public infoRegister = {
     nombre: '',
@@ -54,7 +54,7 @@ export class RegisterComponent {
     this.auth.register(this.infoRegister).subscribe({
       next: (data) => {
         console.log(data);
-        this.router.navigate(['/auth','login']);
+        // this.router.navigate(['/auth','login']);
       },
       error: (err) => {
         // if (err instanceof HttpErrorResponse) {

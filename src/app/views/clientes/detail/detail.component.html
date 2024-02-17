@@ -7,4 +7,166 @@
 } @for (f of res.facturaProveedors; track f.facturaId) {
 <a [routerLink]="['/facturas', f.facturaId]">{{ f.facturaId }}</a
 ><br />
-} }
+} } @defer (on timer(1s)) { @if (response$ | async; as res) {
+<article class="card" style="width: 80dvw">
+  <div class="card-body">
+    <header>
+      <h5 class="card-title">{{ res.nombre }}</h5>
+      <h6 class="card-subtitle mb-2 text-body-secondary">CIF: {{ res.cif }}</h6>
+    </header>
+    <p class="card-text">Fecha de alta: {{ res.fechaAlta | date }}</p>
+    <p class="card-text">
+      Telefono:
+      <a href="callto:{{ res.telefono }}" class="card-link">
+        {{ res.telefono }}
+      </a>
+    </p>
+    <p class="card-text">
+      Email:
+      <a href="mailto:{{ res.email }}" class="card-link">{{ res.email }}</a>
+    </p>
+    <p class="card-text">Dirección: {{ res.direccion }}</p>
+    <form
+      class="edit_invoice"
+      id="busqueda-form"
+      accept-charset="UTF-8"
+      data-remote="true"
+    >
+      <div>
+        <label for="busquedaNumeroFactura" class="form-label"
+          ><i class="fa fa-search icon"></i>&nbsp;&nbsp;N° de factura</label
+        >
+        <input
+          class="form-control form-control-sm"
+          placeholder="Número Factura"
+          maxlength="100"
+          size="100"
+          type="text"
+          [formControl]="numeroFactuC"
+          name="busquedaNumeroFactura"
+          id="busquedaNumeroFactura"
+          aria-label="Número de factura"
+          (ngModelChange)="buscarFacturaCli($event)"
+        />
+      </div>
+    </form>
+
+    <hr />
+
+    <h6 class="card-subtitle mb-4 text-body-secondary">Facturas Compradas</h6>
+    @if (facturasCli2) {
+    <ul class="facturas">
+      @for (item of facturasCli2; track $index) {
+      <li>
+        <p>Numero factura: {{ item.numeroFactura }}</p>
+        <figure style="--c: #fff5">
+          <img
+            src="https://www.educadictos.com/wp-content/uploads/2014/02/Factura-Proforma.png"
+            alt="Invoice"
+          />
+          <figcaption>
+            <p>Numero factura: {{ item.numeroFactura }}</p>
+            <p>Descripción Operación: {{ item.descripcionOperacion }}</p>
+            <p>Fecha Expedición: {{ item.fechaExpedicion | date }}</p>
+            <p>Fecha Cobro: {{ item.fechaCobro | date }}</p>
+            <p>Pendiente Pago: {{ item.pendientePago ? "SI" : "NO" }}</p>
+            <!-- <p>Total: {{ item.total | currency }}</p> -->
+          </figcaption>
+        </figure>
+        <button
+          class="btn btn-success"
+          type="button"
+          [routerLink]="['facturas', 'detail', item.facturaId]"
+        >
+          Ver factura
+        </button>
+
+        <!-- <p>Numero factura: {{ item.numeroFactura }}</p>
+            <p>Descripción Operación: {{ item.descripcionOperacion }}</p>
+            <p>Fecha Expedición: {{ item.fechaExpedicion | date }}</p>
+            <p>Fecha Cobro: {{ item.fechaCobro | date }}</p>
+            <p>Pendiente Pago: {{ item.pendientePago ? "SI" : "NO" }}</p>
+            <button
+              class="btn btn-success"
+              type="button"
+              (click)="verFactura(item.facturaId)"
+              >
+            Ver factura
+          </button>
+        </li> -->
+        <!-- <pre>{{ item | json }}</pre> -->
+      </li>
+      } @empty {
+      <p>No hay datos.</p>
+      }
+    </ul>
+    }
+
+    <hr />
+
+    <form
+      class="edit_invoice"
+      id="busqueda-form"
+      accept-charset="UTF-8"
+      data-remote="true"
+    >
+      <div>
+        <label for="busquedaNumeroFactura" class="form-label"
+          ><i class="fa fa-search icon"></i>&nbsp;&nbsp;N° de factura</label
+        >
+        <input
+          class="form-control form-control-sm"
+          placeholder="Número Factura"
+          maxlength="100"
+          size="100"
+          type="text"
+          [formControl]="numeroFactuP"
+          name="busquedaNumeroFactura"
+          id="busquedaNumeroFactura"
+          aria-label="Número de factura"
+          (ngModelChange)="buscarFacturaProv($event)"
+        />
+      </div>
+    </form>
+
+    <h6 class="card-subtitle mb-4 text-body-secondary">Facturas Vendidas</h6>
+    @if (facturasProv2) {
+    <ul class="facturas">
+      @for (item of facturasProv2; track $index) {
+      <li>
+        <p>Numero factura: {{ item.numeroFactura }}</p>
+        <figure style="--c: #fff5">
+          <img
+            src="https://www.educadictos.com/wp-content/uploads/2014/02/Factura-Proforma.png"
+            alt="Invoice"
+          />
+          <figcaption>
+            <p>Numero factura: {{ item.numeroFactura }}</p>
+            <p>Descripción Operación: {{ item.descripcionOperacion }}</p>
+            <p>Fecha Expedición: {{ item.fechaExpedicion | date }}</p>
+            <p>Fecha Cobro: {{ item.fechaCobro | date }}</p>
+            <p>Pendiente Pago: {{ item.pendientePago ? "SI" : "NO" }}</p>
+          </figcaption>
+        </figure>
+        <!-- <p>Total: {{ item.total | currency }}</p> -->
+        <button
+          class="btn btn-success"
+          type="button"
+          [routerLink]="['facturas', 'detail', item.facturaId]"
+        >
+          Ver factura
+        </button>
+      </li>
+      <!-- <pre>{{ item | json }}</pre> -->
+      } @empty {
+      <p>No hay datos.</p>
+      }
+    </ul>
+    }
+  </div>
+</article>
+} } @loading (after 100ms; minimum 1s) {
+<app-loader />
+} @placeholder {
+<app-loader />
+}
