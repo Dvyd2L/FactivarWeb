@@ -8,20 +8,12 @@
   color-scheme: dark light;
 }
 
-::view-transition-old(root) {
-  animation: view-transition 0.5s ease 0s 1 normal forwards;
-}
-
-::view-transition-new(root) {
-  animation: view-transition 0.5s ease 0s 1 reverse backwards;
-}
-
 *,
 *::after,
 *::before {
   box-sizing: border-box;
   margin: 0;
-
+  
 
   scrollbar-width: thin;
   scrollbar-color: var(--color-bg-hexagons) transparent;
@@ -46,4 +38,16 @@ h6 {
 
 p {
   text-wrap: pretty;
+}
+
+.main-view-transition {
+  view-transition-name: main-transition;
+}
+
+::view-transition-old(main-transition) {
+  animation: view-transition 0.5s ease 0s 1 normal forwards;
+}
+
+::view-transition-new(main-transition) {
+  animation: view-transition 0.5s ease 0s 1 reverse backwards;
 }

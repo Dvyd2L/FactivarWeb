@@ -9,11 +9,7 @@ import { RouterLink } from '@angular/router';
 import { AuthService } from '@/app/views/auth/services/auth.service';
 import { REGEXP } from '@/app/views/auth/validators/regexp';
 import { ILoginRequest } from '@/app/models/interfaces/user';
-
-type LoginForm = FormGroup<{
-  email: FormControl<string | null>;
-  password: FormControl<string | null>;
-}>;
+import { email, password } from '@/app/views/auth/forms-config.json';
 
 @Component({
   selector: 'app-login',
@@ -26,7 +22,7 @@ type LoginForm = FormGroup<{
 export class LoginComponent {
   private auth = inject(AuthService);
   // private messageService = inject(MessageService);
-  public loginForm: LoginForm = new FormGroup({
+  public loginForm = new FormGroup({
     email: new FormControl({ value: '', disabled: false }, [
       Validators.required,
       Validators.email,
@@ -36,6 +32,14 @@ export class LoginComponent {
       Validators.pattern(REGEXP['PASSWORD']),
     ]),
   });
+  public formConfig = {
+    email: {
+      ...email
+    },
+    password: {
+      ...password,
+    },
+  };
 
   public setPassword(value: string) {
     // this.infoLogin.password = value;

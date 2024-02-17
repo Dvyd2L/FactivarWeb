@@ -1,36 +1,53 @@
 <form class="form form-signin" [formGroup]="loginForm" (ngSubmit)="login()">
   <div class="form-group mb-3">
-    <label for="email" class="sr-only">Usuario</label>
+    <label for="email" class="sr-only" hidden aria-label="email del usuario">{{
+      formConfig.email.label
+    }}</label>
     <input
-      formControlName="email"
-      autocomplete="email"
-      id="email"
-      name="email"
-      type="email"
       class="form-control"
-      placeholder="E-mail"
+      [autocomplete]="formConfig.email.autocomplete"
+      [formControl]="loginForm.controls.email"
+      [id]="formConfig.email.id"
+      [name]="formConfig.email.name"
+      [type]="formConfig.email.type"
+      [placeholder]="formConfig.email.placeholder"
     />
   </div>
 
   <div class="form-group mb-3">
-    <label for="password" class="sr-only">Contraseña</label>
+    <label
+      [for]="formConfig.password.id"
+      class="sr-only"
+      hidden
+      aria-label="contraseña"
+      >{{ formConfig.password.label }}</label
+    >
     <input
-      formControlName="password"
-      autocomplete="current-password"
-      id="password"
-      name="password"
-      type="password"
       class="form-control"
-      placeholder="Contraseña"
+      [autocomplete]="formConfig.password.autocomplete"
+      [formControl]="loginForm.controls.password"
+      [id]="formConfig.password.id"
+      [name]="formConfig.password.name"
+      [type]="formConfig.password.type"
+      [placeholder]="formConfig.password.placeholder"
     />
   </div>
 
   <div class="mt-2 d-flex justify-content-center">
-    <button class="btn btn-success" type="submit">Continuar</button>
+    <button
+      class="btn btn-success"
+      title="Enviar"
+      type="submit"
+      [disabled]="loginForm.valid"
+    >
+      Continuar
+    </button>
   </div>
 </form>
 
-<a class="forgot-password" [routerLink]="['/auth', 'forgot-password']">¿Te olvidaste de tu contraseña?</a>
+<a class="forgot-password" [routerLink]="['/auth', 'forgot-password']"
+  >¿Te olvidaste de tu contraseña?</a
+>
 
 <section>
   <span id="span23">¿Aún no tienes cuenta?&nbsp;</span>
