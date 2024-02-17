@@ -7,6 +7,8 @@ import {
 } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '@/app/views/auth/services/auth.service';
+import { REGEXP } from '@/app/views/auth/validators/regexp';
+import { ILoginRequest } from '@/app/models/interfaces/user';
 
 type LoginForm = FormGroup<{
   email: FormControl<string | null>;
@@ -24,14 +26,14 @@ type LoginForm = FormGroup<{
 export class LoginComponent {
   private auth = inject(AuthService);
   // private messageService = inject(MessageService);
-  private regexp_password =
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,15}/;
   public loginForm: LoginForm = new FormGroup({
-    email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [
+    email: new FormControl({ value: '', disabled: false }, [
       Validators.required,
-      // Validators.minLength(8),
-      Validators.pattern(this.regexp_password),
+      Validators.email,
+    ]),
+    password: new FormControl({ value: '', disabled: false }, [
+      Validators.required,
+      Validators.pattern(REGEXP['PASSWORD']),
     ]),
   });
 
@@ -43,7 +45,7 @@ export class LoginComponent {
    */
   public login() {
     if (this.loginForm.valid) {
-      const { email, password } = this.loginForm.value;
+      const { email, password } = this.loginForm.value as ILoginRequest;
       if (email && password) {
         this.auth.login({ email, password }).subscribe({
           next: (data) => console.log({ data }),

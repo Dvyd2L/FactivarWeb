@@ -12,6 +12,8 @@ export const routes: Routes = [
   {
     path: 'auth',
     title: 'Auth',
+    loadComponent: () =>
+      import('@/app/views/auth/auth.component').then((c) => c.AuthComponent),
     loadChildren: () =>
       import('@/app/router/auth.routes').then((m) => m.authRoutes),
   },
@@ -20,7 +22,9 @@ export const routes: Routes = [
     title: 'Clientes',
     // canActivate: [authGuard],
     loadComponent: () =>
-      import('@/app/shared/layout/layout.component').then((c) => c.LayoutComponent),
+      import('@/app/shared/layout/layout.component').then(
+        (c) => c.LayoutComponent
+      ),
     loadChildren: () =>
       import('@/app/router/clientes.routes').then((m) => m.clientesRoutes),
   },
@@ -29,7 +33,9 @@ export const routes: Routes = [
     title: 'Facturas',
     // canActivate: [authGuard],
     loadComponent: () =>
-      import('@/app/shared/layout/layout.component').then((c) => c.LayoutComponent),
+      import('@/app/shared/layout/layout.component').then(
+        (c) => c.LayoutComponent
+      ),
     loadChildren: () =>
       import('@/app/router/facturas.routes').then((m) => m.facturasRoutes),
   },
@@ -38,7 +44,9 @@ export const routes: Routes = [
     title: 'Usuarios',
     // canActivate: [adminGuard],
     loadComponent: () =>
-      import('@/app/shared/layout/layout.component').then((c) => c.LayoutComponent),
+      import('@/app/shared/layout/layout.component').then(
+        (c) => c.LayoutComponent
+      ),
     loadChildren: () =>
       import('@/app/router/usuarios.routes').then((m) => m.usuariosRoutes),
   },

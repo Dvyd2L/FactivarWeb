@@ -1,0 +1,37 @@
+{
+    "email": {
+        "label": "Email",
+        "type": "email",
+        "name": "email",
+        "id": "email",
+        "placeholder": "email@example.com"
+    },
+    "password": {
+        "label": "Contraseña",
+        "type": "password",
+        "name": "password",
+        "id": "password",
+        "placeholder": "Introduce la contraseña (obligatorio)"
+    },
+    "repeatPassword": {
+        "label": "Repetir contraseña",
+        "type": "password",
+        "name": "repeatPassword",
+        "id": "repeatPassword",
+        "placeholder": "Repite la contraseña (obligatorio)"
+    },
+    "oldPassword": {
+        "label": "Contraseña antigua",
+        "type": "password",
+        "name": "oldPassword",
+        "id": "oldPassword",
+        "placeholder": "Introduce la contraseña antigua (obligatorio)"
+    },
+    "newPassword": {
+        "label": "Nueva contraseña",
+        "type": "password",
+        "name": "newPassword",
+        "id": "newPassword",
+        "placeholder": "Introduce la nueva contraseña (obligatorio)"
+    }
+}
