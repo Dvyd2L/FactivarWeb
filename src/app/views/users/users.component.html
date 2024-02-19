@@ -29,6 +29,7 @@
       <img src="{{ user.avatarUrl }}" alt="Avatar de {{ user.nombre }}" />
       }
     </div>
+    <a type="button" class="btn btn-outline-secondary" [routerLink]="['/auth', 'change-password']">Cambiar contraseña</a>
   </article>
   } @loading (after 100ms; minimum 1s) {
   <article class="card mb-2" style="min-width: 20dvw; height: min(400px, 20dvw)">
