@@ -1,5 +1,5 @@
 import { StorageKeyEnum } from '@/app/models/enums/storage.enum';
-// import { afterRender } from '@angular/core';
+import { afterRender } from '@angular/core';
 /**
  * Clase de ayuda para el manejo del almacenamiento local y de sesión.
  */
@@ -15,12 +15,10 @@ export class StorageHelper {
     value: any,
     useSessionStorage: boolean = false
   ): void {
-    // afterRender(() => {
-    //   const storage = useSessionStorage ? sessionStorage : localStorage;
-    //   storage.setItem(key, JSON.stringify(value));
-    // });
-    const storage = useSessionStorage ? sessionStorage : localStorage;
-    storage.setItem(key, JSON.stringify(value));
+    afterRender(() => {
+      const storage = useSessionStorage ? sessionStorage : localStorage;
+      storage.setItem(key, JSON.stringify(value));
+    });
   }
   /**
    * Obtiene un valor del almacenamiento local o de sesión.
@@ -32,14 +30,14 @@ export class StorageHelper {
     key: StorageKeyEnum,
     useSessionStorage: boolean = false
   ): T | null {
-    // let item = null;
-    // afterRender(() => {
-    //   const storage = useSessionStorage ? sessionStorage : localStorage;
-    //   item = storage.getItem(key);
-    //   // return item ? JSON.parse(item) : null;
-    // });
-    const storage = useSessionStorage ? sessionStorage : localStorage;
-    const item = storage.getItem(key);
+    let item = null;
+    afterRender(() => {
+      const storage = useSessionStorage ? sessionStorage : localStorage;
+      item = storage.getItem(key);
+      // return item ? JSON.parse(item) : null;
+    });
+    // const storage = useSessionStorage ? sessionStorage : localStorage;
+    // const item = storage.getItem(key);
     return item ? JSON.parse(item) : null;
   }
   /**
@@ -51,23 +49,23 @@ export class StorageHelper {
     key: StorageKeyEnum,
     useSessionStorage: boolean = false
   ): void {
-    // afterRender(() => {
-    //   const storage = useSessionStorage ? sessionStorage : localStorage;
-    //   storage.removeItem(key);
-    // });
-    const storage = useSessionStorage ? sessionStorage : localStorage;
-    storage.removeItem(key);
+    afterRender(() => {
+      const storage = useSessionStorage ? sessionStorage : localStorage;
+      storage.removeItem(key);
+    });
+    // const storage = useSessionStorage ? sessionStorage : localStorage;
+    // storage.removeItem(key);
   }
   /**
    * Limpia todo el almacenamiento local o de sesión.
    * @param useSessionStorage Indica si se debe utilizar el almacenamiento de sesión. Por defecto es verdadero.
    */
   public static clear(useSessionStorage: boolean = false): void {
-    // afterRender(() => {
-    //   const storage = useSessionStorage ? sessionStorage : localStorage;
-    //   storage.clear();
-    // });
-    const storage = useSessionStorage ? sessionStorage : localStorage;
-    storage.clear();
+    afterRender(() => {
+      const storage = useSessionStorage ? sessionStorage : localStorage;
+      storage.clear();
+    });
+    // const storage = useSessionStorage ? sessionStorage : localStorage;
+    // storage.clear();
   }
 }
