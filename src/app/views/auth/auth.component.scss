@@ -102,13 +102,15 @@
 // }
 
 /* Estilos para el tema oscuro */
-[data-bs-theme="dark"] .background {
-  filter: invert(1) grayscale(1);
+[data-bs-theme="dark"]  {
+  .background{
+    filter: invert(1) grayscale(1);
+  }
+  .container12 {
+    color: canvas;
+  }
 }
 
-[data-bs-theme="dark"] .container12 {
-  color: canvas;
-}
 
 // @media (prefers-color-scheme: dark) {
 //   // @media (prefers-color-scheme: light) {
