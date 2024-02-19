@@ -54,10 +54,16 @@ h4,
 h5,
 h6 {
   text-wrap: balance;
+  &::first-letter {
+    text-transform: uppercase;
+  }
 }
 
 p {
   text-wrap: pretty;
+  &::first-letter {
+    text-transform: uppercase;
+  }
 }
 
 .main-view-transition {
