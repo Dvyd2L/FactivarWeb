@@ -4,7 +4,9 @@
 <article class="container invoice" id="factura">
   <div class="row">
     <div class="col-xs-6">
-      <h1><!-- <app-factivar-brand /> -->Factivar</h1>
+      <picture>
+        <img src="../../../../assets/images/svg/factivar_text.svg" />
+      </picture>
     </div>
     <div class="col-xs-6 text-right">
       <div class="panel panel-default">
@@ -40,8 +42,11 @@
         <div class="panel panel-default">
           <div class="panel-heading">
             <h4>
-              Ciudad, <a href="#">{{ i.fechaExpedicion.toString().split("-")[2] }}</a> de
-              <a href="#">{{ i.fechaExpedicion.toString().split("-")[1] }}</a> de
+              Ciudad,
+              <a href="#">{{ i.fechaExpedicion.toString().split("-")[2] }}</a>
+              de
+              <a href="#">{{ i.fechaExpedicion.toString().split("-")[1] }}</a>
+              de
               <a href="#">{{ i.fechaExpedicion.toString().split("-")[0] }}</a>
             </h4>
           </div>
@@ -145,7 +150,7 @@
 
     <div class="row">
       <picture class="col-xs-4">
-        <a href=" "><img alt="" src="image/qr.png" /></a>
+        <a href=" "><img alt="QR Factura" src="image/qr.png" /></a>
       </picture>
 
       <section class="panel panel-info">
