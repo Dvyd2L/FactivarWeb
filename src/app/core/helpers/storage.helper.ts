@@ -1,5 +1,5 @@
 import { StorageKeyEnum } from '@/app/models/enums/storage.enum';
-import { afterRender } from '@angular/core';
+// import { afterRender } from '@angular/core';
 /**
  * Clase de ayuda para el manejo del almacenamiento local y de sesión.
  */
