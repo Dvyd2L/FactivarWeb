@@ -1,5 +1,5 @@
 import { ApiService } from '@/app/core/api/api.service';
-import { ICustomer, IInvoice, IProduct } from '@/app/models/interfaces/api';
+import { IInvoice, IProduct } from '@/app/models/interfaces/api';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, ViewChild, ViewContainerRef, inject } from '@angular/core';
 import {
@@ -53,6 +53,7 @@ export class FacturasComponent {
     ]),
   });
   public listaFacturas: IInvoice[] = [];
+  public listaFacturas: IInvoice[] = [];
   public listaArticulos: IProduct[] = [];
   public ricias = {
     subTotal: 0,
@@ -60,42 +61,32 @@ export class FacturasComponent {
   };
   public max = -1;
 
-  public comprobarNumeroFactura() {
+  comprobarNumeroFactura() {
     return (
       this.facturaForm.value.numeroFactura &&
       this.facturaForm.value.numeroFactura < this.max
     );
   }
 
-  // public comprobarFecha() {
-  //   this.fechaCorrecta.setValue(this.fechaCobro >= this.fecha);
+  // getNumerofactura() {
+  //   if (this.facturaForm.value.proveedorId?.trim() != '') {
+  //     this.api.getFacturasProv(this.nuevaFactu.proveedorId).subscribe({
+  //       next: (facturas) => {
+  //         this.listaFacturas = facturas;
+
+  //         this.nuevaFactu.numeroFactura =
+  //           this.listaFacturas.reduce((max, factura) => {
+  //             return factura.numeroFactura > max ? factura.numeroFactura : max;
+  //           }, this.listaFacturas[0].numeroFactura) + 1;
+
+  //         this.max = this.nuevaFactu.numeroFactura;
+  //       },
+  //       error: (error) => {
+  //         console.error(error);
+  //       },
+  //     });
+  //   }
   // }
-
-  public getNumerofactura() {
-    if (this.facturaForm.value.proveedorId?.trim() != '') {
-      this.api.setEndpoint(ApiEndpointEnum.CLIENTES);
-
-      this.api
-        .read<string, ICustomer>(this.facturaForm.value.proveedorId!)
-        .subscribe({
-          next: (res) => {
-            this.listaFacturas = res.facturaProveedors!;
-
-            this.facturaForm.value.numeroFactura =
-              this.listaFacturas.reduce((max, factura) => {
-                return factura.numeroFactura > max
-                  ? factura.numeroFactura
-                  : max;
-              }, this.listaFacturas[0].numeroFactura) + 1;
-
-            this.max = this.facturaForm.value.numeroFactura;
-          },
-          error: (error) => {
-            console.error(error);
-          },
-        });
-    }
-  }
 
   public addArticulo(item: IProduct) {
     this.listaArticulos.push(item);
