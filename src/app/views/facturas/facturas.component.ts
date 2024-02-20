@@ -1,5 +1,5 @@
 import { ApiService } from '@/app/core/api/api.service';
-import { IProduct } from '@/app/models/interfaces/api';
+import { IInvoice, IProduct } from '@/app/models/interfaces/api';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, ViewChild, ViewContainerRef, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
@@ -32,6 +32,7 @@ export class FacturasComponent {
     clienteId: new FormControl({ value: '', disabled: false }),
     proveedorId: new FormControl({ value: '', disabled: false }),
   });
+  public listaFacturas: IInvoice[] = [];
   public listaArticulos: IProduct[] = [];
   public fecha = new FormControl({
     value: new Date().toISOString().split('T')[0],
@@ -46,6 +47,34 @@ export class FacturasComponent {
     subTotal: 0,
     importeTotal: 0,
   };
+  public max = -1;
+
+  comprobarNumeroFactura() {
+    return (
+      this.facturaForm.value.numeroFactura &&
+      this.facturaForm.value.numeroFactura < this.max
+    );
+  }
+
+  // getNumerofactura() {
+  //   if (this.facturaForm.value.proveedorId?.trim() != '') {
+  //     this.api.getFacturasProv(this.nuevaFactu.proveedorId).subscribe({
+  //       next: (facturas) => {
+  //         this.listaFacturas = facturas;
+
+  //         this.nuevaFactu.numeroFactura =
+  //           this.listaFacturas.reduce((max, factura) => {
+  //             return factura.numeroFactura > max ? factura.numeroFactura : max;
+  //           }, this.listaFacturas[0].numeroFactura) + 1;
+
+  //         this.max = this.nuevaFactu.numeroFactura;
+  //       },
+  //       error: (error) => {
+  //         console.error(error);
+  //       },
+  //     });
+  //   }
+  // }
 
   public addArticulo(item: IProduct) {
     this.listaArticulos.push(item);
