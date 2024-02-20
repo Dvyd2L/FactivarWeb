@@ -117,7 +117,7 @@
                         autocomplete="off"
                         size="100"
                         type="date"
-                        [formControl]="fecha"
+                        [formControl]="facturaForm.controls.fechaExpedicion"
                         name="invoice[date_issued_string]"
                         id="FechaEmision"
                         readonly
@@ -136,10 +136,10 @@
                         class="form-control form-control-sm datepicker hasDatepicker"
                         id="fechaCobro"
                         name="fechaCobro"
-                        [formControl]="fechaCobro"
-                        (ngModelChange)="comprobarFecha()"
+                        [formControl]="facturaForm.controls.fechaCobro"
                         aria-label="Fecha de cobro"
-                      />
+                        />
+                        <!-- (ngModelChange)="comprobarFecha()" -->
                     </div>
     
                     <div>
@@ -151,7 +151,7 @@
                         class="form-control form-control-sm datepicker hasDatepicker"
                         id="pendientePago"
                         name="pendientePago"
-                        [formControl]="fechaCorrecta"
+                        [formControl]="facturaForm.controls.pendientePago"
                         aria-label="Pendiente de pago"
                       >
                         <option value="true">No</option>
