@@ -1,4 +1,166 @@
-<h1>FACTURA Nº{{dataId}}</h1>
-@if (response$ | async; as res) { 
-  <pre>{{ res | json }}</pre>
+<h1>FACTURA Nº{{ dataId }}</h1>
+@if (response$ | async; as i) {
+<pre>{{ i | json }}</pre>
+<article class="container invoice" id="factura">
+  <div class="row">
+    <div class="col-xs-6">
+      <h1><!-- <app-factivar-brand /> -->Factivar</h1>
+    </div>
+    <div class="col-xs-6 text-right">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4>
+            NOMBRE :
+            <a href="#">{{ i.proveedor?.nombre }}</a>
+          </h4>
+          <h4>
+            DNI/CIF :
+            <a href="#">{{ i.proveedor?.cif }}</a>
+          </h4>
+          <h4>
+            DIRECCI&Oacute;N :
+            <a href="#">{{ i.proveedor?.direccion }}</a>
+          </h4>
+        </div>
+        <div class="panel-body">
+          <h4>
+            FACTURA :
+            <a href="#">{{ i.numeroFactura }}</a>
+          </h4>
+        </div>
+      </div>
+    </div>
+
+    <hr />
+
+    <h1 style="text-align: center">FACTURA</h1>
+
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4>
+              Ciudad, <a href="#">{{ i.fechaExpedicion.toString().split("-")[2] }}</a> de
+              <a href="#">{{ i.fechaExpedicion.toString().split("-")[1] }}</a> de
+              <a href="#">{{ i.fechaExpedicion.toString().split("-")[0] }}</a>
+            </h4>
+          </div>
+          <div class="panel-body">
+            <h4>
+              Comprador :
+              <a href="#">{{ i.cliente?.nombre }}</a>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              CIF/DNI :
+              <a href="#">{{ i.cliente?.cif }}</a>
+            </h4>
+          </div>
+        </div>
+      </div>
+    </div>
+    <pre></pre>
+    <table class="table table-light table-bordered">
+      <thead>
+        <tr>
+          <th scope="col" style="text-align: center">
+            <h4>Concepto</h4>
+          </th>
+          <th scope="col" style="text-align: center">
+            <h4>Cantidad</h4>
+          </th>
+          <th scope="col" style="text-align: center">
+            <h4>Precio unitario</h4>
+          </th>
+          <th scope="col" style="text-align: center">
+            <h4>Base imponible</h4>
+          </th>
+          <th scope="col" style="text-align: center">
+            <h4>IVA</h4>
+          </th>
+          <th scope="col" style="text-align: center">
+            <h4>Total</h4>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (item of i.articulos; track $index) {
+        <tr>
+          <th scope="row">
+            <a href="#">{{ item.descripcion }}</a>
+          </th>
+          <td style="text-align: center">{{ item.unidades }}</td>
+          <td class="text-right">{{ item.pUnitario | currency : "EUR" }}</td>
+          <td class="text-right">{{ item.bImponible | currency : "EUR" }}</td>
+          <td class="text-right">{{ item.iva }}%</td>
+          <td class="text-right">
+            {{ item.unidades * item.pUnitario | currency : "EUR" }}
+          </td>
+        </tr>
+        } @if (i.desgloseIva?.cero?.cuota??0 > 0) {
+        <tr>
+          <th colspan="4">IVA 0%</th>
+          <td>{{ i.desgloseIva?.cero?.cuota | currency : "EUR" }}</td>
+          <td>{{ i.desgloseIva?.cero?.total | currency : "EUR" }}</td>
+        </tr>
+        } @if (i.desgloseIva?.superreducido?.cuota??0 > 0) {
+        <tr>
+          <th colspan="4">IVA 4%</th>
+          <td>{{ i.desgloseIva?.superreducido?.cuota | currency : "EUR" }}</td>
+          <td>{{ i.desgloseIva?.superreducido?.total | currency : "EUR" }}</td>
+        </tr>
+        } @if (i.desgloseIva?.especial?.cuota??0 > 0) {
+        <tr>
+          <th colspan="4">IVA 5%</th>
+          <td>{{ i.desgloseIva?.especial?.cuota | currency : "EUR" }}</td>
+          <td>{{ i.desgloseIva?.especial?.total | currency : "EUR" }}</td>
+        </tr>
+        } @if (i.desgloseIva?.reducido?.cuota??0 > 0) {
+        <tr>
+          <th colspan="4">IVA 10%</th>
+          <td>{{ i.desgloseIva?.reducido?.cuota | currency : "EUR" }}</td>
+          <td>{{ i.desgloseIva?.reducido?.total | currency : "EUR" }}</td>
+        </tr>
+        } @if (i.desgloseIva?.general?.cuota??0 > 0) {
+        <tr>
+          <th colspan="4">IVA 21%</th>
+          <td>{{ i.desgloseIva?.general?.cuota | currency : "EUR" }}</td>
+          <td>{{ i.desgloseIva?.general?.total | currency : "EUR" }}</td>
+        </tr>
+        }
+        <tr>
+          <th colspan="4" style="text-align: right">Subtotal</th>
+          <td style="text-align: right">
+            <a href="#"> {{ i.iva | currency : "EUR" }} </a>
+          </td>
+          <td style="text-align: right">
+            <a href="#"> {{ i.importe | currency : "EUR" }} </a>
+          </td>
+        </tr>
+        <tr>
+          <th colspan="6" style="text-align: right">
+            Total: <a href="#">{{ i.total | currency : "EUR" }}</a>
+          </th>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="row">
+      <picture class="col-xs-4">
+        <a href=" "><img alt="" src="image/qr.png" /></a>
+      </picture>
+
+      <section class="panel panel-info">
+        <h6>
+          "De acuerdo con el Reglamento General de Protección de Datos (RGPD),
+          los datos personales proporcionados en esta factura se procesarán con
+          el fin de gestionar la relación comercial y el cumplimiento de las
+          obligaciones legales. Los datos se conservarán durante el tiempo
+          necesario para cumplir con las obligaciones legales y no se cederán a
+          terceros, salvo obligación legal. Puede ejercer sus derechos de
+          acceso, rectificación, supresión, limitación del tratamiento,
+          portabilidad y oposición dirigiéndose al responsable del tratamiento."
+        </h6>
+      </section>
+    </div>
+  </div>
+</article>
 }
