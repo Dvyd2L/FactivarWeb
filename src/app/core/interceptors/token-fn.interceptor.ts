@@ -9,6 +9,7 @@ import { inject } from '@angular/core';
 import { environment } from '@/environments/environment.development';
 import { StorageHelper } from '@/app/core/helpers/storage.helper';
 import { StorageKeyEnum } from '@/app/models/enums/storage.enum';
+import { StorageService } from '../services/storage.service';
 /**
  * Interceptor de autenticación para agregar el token de autenticación a las solicitudes HTTP.
  * @param req - La solicitud HTTP entrante.
@@ -22,7 +23,9 @@ export const tokenInterceptorFn: HttpInterceptorFn = (
   if (req.url.includes(environment.urlAPI)) {
     // const userService = inject(UserService<IUserPayload>);
     // const token = userService.getToken();
-    const token = StorageHelper.getItem<string>(StorageKeyEnum.Token);
+    const storage = inject(StorageService);
+    const token = storage?.getItem<string>(StorageKeyEnum.Token);
+    console.log({ token });
     const authReq = addTokenToRequest(req, token);
 
     return next(authReq);
