@@ -16,6 +16,7 @@ import {
 } from '@angular/common/http';
 import { errorResponseInterceptorFn } from '@/app/core/interceptors/error-response.interceptor';
 import { tokenInterceptorFn } from '@/app/core/interceptors/token-fn.interceptor';
+import { provideNoopAnimations } from '@angular/platform-browser/animations';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -29,5 +30,6 @@ export const appConfig: ApplicationConfig = {
       withFetch(),
       withInterceptors([errorResponseInterceptorFn, tokenInterceptorFn])
     ),
+    provideNoopAnimations(),
   ],
 };

@@ -74,5 +74,6 @@ export class ApiService {
   private setHeaders = (): HttpHeaders =>
     new HttpHeaders({
       'Content-Type': 'application/json',
+      // 'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJTaWQiOiI2ZjIyNjljYi05YmI2LTQ4MTUtYjU0My1jYmIwNmU0YzVlNjAiLCJFbWFpbCI6ImRhdmlkLmxsb3Bpc2xhZ3VuYUBnbWFpbC5jb20iLCJOYW1lIjoiRGF2aWQiLCJTdXJuYW1lIjoiTGxvcGlzIExhZ3VuYSIsIlJvbGUiOiJVc2VyIiwiVGh1bWJwcmludCI6IkM6L0Rldi8uTkVUL0ZhY3RpdmFyUHJvamVjdC9BdXRoTVMvd3d3cm9vdC9JbWFnZXMvZTQyNGM4MTMtOWFmMi00ZWI0LTg0NGItZjk0NmZkMmJlYWFiX2ltYWdlX3BuZy5wbmciLCJNb2JpbGVQaG9uZSI6IjY4NTEwNzAyNyAgICAgICIsImV4cCI6MTcxMTEzMDMyNywiaXNzIjoiRmFjdGl2YXIiLCJhdWQiOiJGYWN0aXZhciJ9.BfjO3Ba62arm_5iOm8twOGCJyM8Vca21eJdVsBu8Hsc`,
     });
 }
