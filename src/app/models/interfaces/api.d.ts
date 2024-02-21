@@ -23,7 +23,7 @@ export interface IInvoice {
   cliente: ICustomer | null;
   proveedorId?: string;
   proveedor: ICustomer | null;
-  articulos: IProduct[] | string;
+  articulos: IProduct[];
   importe?: number;
   iva?: number;
   total?: number;

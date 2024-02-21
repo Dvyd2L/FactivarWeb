@@ -30,7 +30,7 @@ export class ApiService {
       ? this.http.get<TResponse>(`${this.urlAPI}/${this.endpoint}/${id}`, {
           headers,
         })
-      : this.http.get<TResponse>(`${this.urlAPI}/${this.endpoint}/all`, {
+      : this.http.get<TResponse>(`${this.urlAPI}/${this.endpoint}`, {
           headers,
         });
   }

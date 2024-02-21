@@ -1,10 +1,16 @@
 import { ApiService } from '@/app/core/api/api.service';
-import { IProduct } from '@/app/models/interfaces/api';
+import { ICustomer, IInvoice, IProduct } from '@/app/models/interfaces/api';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, ViewChild, ViewContainerRef, inject } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { calculateImportes } from './helpers/facturas.helper';
 import { ArticuloFacturaComponent } from './article/articulo-factura.component';
+import { ApiEndpointEnum } from '@/app/models/enums/api.enum';
 
 @Component({
   selector: 'app-facturas',
@@ -23,37 +29,78 @@ export class FacturasComponent {
    */
   @ViewChild('articuloFactura', { read: ViewContainerRef })
   public articuloFactura!: ViewContainerRef;
-  public facturaForm /* : IFacturaNueva */ = new FormGroup({
-    numeroFactura: new FormControl({ value: 0, disabled: false }),
-    pendientePago: new FormControl({ value: false, disabled: false }),
+  public facturaForm = new FormGroup({
+    numeroFactura: new FormControl({ value: 0, disabled: false }, [
+      Validators.required,
+    ]),
+    pendientePago: new FormControl({ value: false, disabled: false }, [
+      Validators.required,
+    ]),
     descripcionOperacion: new FormControl({ value: '', disabled: false }),
-    fechaExpedicion: new FormControl({ value: '', disabled: false }),
-    fechaCobro: new FormControl({ value: '', disabled: false }),
-    clienteId: new FormControl({ value: '', disabled: false }),
-    proveedorId: new FormControl({ value: '', disabled: false }),
+    fechaExpedicion: new FormControl(
+      { value: new Date().toISOString().split('T')[0], disabled: true },
+      [Validators.required]
+    ),
+    fechaCobro: new FormControl(
+      { value: new Date().toISOString().split('T')[0], disabled: false },
+      [Validators.required]
+    ),
+    clienteId: new FormControl({ value: '', disabled: false }, [
+      Validators.required,
+    ]),
+    proveedorId: new FormControl({ value: '', disabled: false }, [
+      Validators.required,
+    ]),
   });
+  public listaFacturas: IInvoice[] = [];
+  public listaFacturas: IInvoice[] = [];
   public listaArticulos: IProduct[] = [];
-  public fecha = new FormControl({
-    value: new Date().toISOString().split('T')[0],
-    disabled: true,
-  });
-  public fechaCobro = new FormControl({
-    value: new Date().toISOString().split('T')[0],
-    disabled: false,
-  });
-  public fechaCorrecta = new FormControl({ value: false, disabled: false }); // false = pendiente de pago      true = no pendiente de pago
   public ricias = {
     subTotal: 0,
     importeTotal: 0,
   };
+  public max = -1;
+
+  public comprobarNumeroFactura() {
+    return (
+      this.facturaForm.value.numeroFactura &&
+      this.facturaForm.value.numeroFactura < this.max
+    );
+  }
+
+  // public comprobarFecha() {
+  //   this.fechaCorrecta.setValue(this.fechaCobro >= this.fecha);
+  // }
+
+  public getNumerofactura() {
+    if (this.facturaForm.value.proveedorId?.trim() != '') {
+      this.api.setEndpoint(ApiEndpointEnum.CLIENTES);
+
+      this.api
+        .read<string, ICustomer>(this.facturaForm.value.proveedorId!)
+        .subscribe({
+          next: (res) => {
+            this.listaFacturas = res.facturaProveedors!;
+
+            this.facturaForm.value.numeroFactura =
+              this.listaFacturas.reduce((max, factura) => {
+                return factura.numeroFactura > max
+                  ? factura.numeroFactura
+                  : max;
+              }, this.listaFacturas[0].numeroFactura) + 1;
+
+            this.max = this.facturaForm.value.numeroFactura;
+          },
+          error: (error) => {
+            console.error(error);
+          },
+        });
+    }
+  }
 
   public addArticulo(item: IProduct) {
     this.listaArticulos.push(item);
     this.ricias = calculateImportes(this.listaArticulos);
-  }
-
-  public comprobarFecha() {
-    this.fechaCorrecta.setValue(this.fechaCobro >= this.fecha);
   }
 
   public removeArticle(item: number) {
@@ -63,11 +110,11 @@ export class FacturasComponent {
 
   public crearFactura() {
     if (this.facturaForm.valid) {
+      this.api.setEndpoint(ApiEndpointEnum.FACTURAS);
+
       this.api
         .create({
           ...this.facturaForm.value,
-          fechaExpedicion: this.fecha,
-          pendientePago: !this.fechaCorrecta,
           articulos: this.listaArticulos,
         })
         .subscribe({

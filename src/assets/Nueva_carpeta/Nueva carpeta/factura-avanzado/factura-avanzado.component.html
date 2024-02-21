@@ -1,0 +1,221 @@
+<!-- FILEPATH: /C:/Users/manue/OneDrive/Desktop/Factivar/FactivarFrontend/src/app/components/factura-avanzado/factura-avanzado.component.html -->
+
+<!--
+  Componente de la página de creación de una nueva factura.
+  Contiene un formulario para ingresar los datos de la factura, como el proveedor, el cliente, la descripción de la operación, el número de factura, la fecha de emisión, la fecha de cobro y el estado de pago pendiente.
+  También permite agregar y eliminar artículos de la factura, y muestra el subtotal y el total de la factura.
+-->
+<div class="border border-info border-4">
+<div class="container-xl">
+  <div class="row pb-4">
+    <div class="col-lg-10 col-md-11 mx-auto">
+      <div class="text-center">
+        <h1 class="fs-2 my-4" >Nueva Factura</h1>
+      </div>
+
+      <div class="px-4">
+        <div class="p-4 guest-page">
+          <form
+            class="edit_invoice"
+            id="invoice-form"
+            accept-charset="UTF-8"
+            data-remote="true"
+            #fNuevaFatura="ngForm"
+          >
+            <!-- Sección de datos del proveedor -->
+            <div class="row">
+              <div class="col-8">
+                <div>
+                  <label for="invoice_from" class="form-label"
+                    ><i class="fa fa-user icon"></i>&nbsp;&nbsp;De</label
+                  >
+                  <input
+                    class="form-control form-control-sm"
+                    placeholder="CIF del proveedor"
+                    maxlength="10"
+                    type="text"
+                    name="proveedor"
+                    id="proveedor"
+                    [(ngModel)] = "nuevaFactu.proveedorId"
+                    required
+                    aria-label="CIF del proveedor"
+                    (ngModelChange)="getnumfactura()"
+                  />
+                </div>
+              </div>
+              <div class="col-4 col-md-3 offset-md-1">
+                <div>
+                  <label for="invoice_number" class="form-label"
+                    ><i class="fa fa-search icon"></i>&nbsp;&nbsp;N° de factura</label
+                  >
+                  <input
+                    class="form-control form-control-sm"
+                    placeholder="Número Factura"
+                    maxlength="100"
+                    size="100"
+                    type="text"
+                    value="100"
+                    name="numeroFactura"
+                    id="numeroFactura"
+                    [(ngModel)] = "nuevaFactu.numeroFactura"
+                    aria-label="Número de factura"
+                    #numeroFactura="ngModel"
+                  />
+                  @if(comprobarNumeroFactura() && numeroFactura.touched){
+                    <span class="form-text text-danger"> El número de factura no puede ser inferior al último utilizado </span>}
+                </div>
+              </div>
+
+              <!-- Sección de datos del cliente y descripción de la operación -->
+              <div class="col-8">
+                <div class="my-2">
+                  <label for="comprador" class="form-label"
+                    ><i class="fa fa-female icon"></i
+                    ><i class="fa fa-male icon" ></i>&nbsp;&nbsp;Facturar
+                    a</label
+                  >
+                  <input
+                    class="form-control form-control-sm"
+                    placeholder="CIF del cliente"
+                    maxlength="10"
+                    type="text"
+                    name="comprador"
+                    id="comprador"
+                    [(ngModel)] = "nuevaFactu.clienteId"
+                    required
+                    aria-label="CIF del cliente"
+                  />
+                </div>
+
+                <div>
+                  <label for="descripcionOperacion" class="form-label"
+                    ><i class="fa fa-plane icon"></i>&nbsp;&nbsp;Descripción de
+                    la operación</label
+                  >
+                  <textarea
+                    class="form-control form-control-sm"
+                    placeholder=" (Campo opcional)"
+                    rows="5"
+                    style="height: 8em"
+                   
+                    maxlength="5000"
+                    name="descripcionOperacion"
+                    id="descripcionOperacion"
+                    [(ngModel)] = "nuevaFactu.descripcionOperacion"
+                    aria-label="Descripción de la operación"
+                  ></textarea>
+                </div>
+              </div>
+
+              <!-- Sección de número de factura, fecha de emisión, fecha de cobro y estado de pago pendiente -->
+              <div class="col-4 col-md-3 offset-md-1">
+                <div class="my-1">
+                  <label for="FechaEmision" class="form-label"
+                    ><i class="fa-solid fa-calendar"></i>&nbsp;&nbsp;Fecha</label
+                  >
+                  <input
+                    class="form-control form-control-sm datepicker hasDatepicker"
+                    placeholder="dd.mm.aa"
+                    maxlength="100"
+                    autocomplete="off"
+                    size="100"
+                    type="date"
+                    [(ngModel)]="fecha"
+                    name="invoice[date_issued_string]"
+                    id="FechaEmision"
+                    readonly
+                    disabled="true"
+                    aria-label="Fecha de emisión"
+                  />
+                </div>
+
+                <div >
+                  <label for="fechaCobro" class="my-1"
+                    ><i class="fa-solid fa-calendar-check"></i>&nbsp;Fecha de
+                    Cobro</label
+                  >
+                  <input
+                    type="date"
+                    class="form-control form-control-sm datepicker hasDatepicker"
+                    id="fechaCobro"
+                    name="fechaCobro"
+                  
+                    [(ngModel)]="fechaCobro"
+                    (ngModelChange)="comprobarFecha()"
+                    aria-label="Fecha de cobro"
+                  />
+                </div>
+
+                <div>
+                  <label for="pendientePago" class="my-1"
+                    ><i class="fa-solid fa-wallet"></i>&nbsp;&nbsp;Pendiente de
+                    Pago</label
+                  >
+                  <select
+                    class="form-control form-control-sm datepicker hasDatepicker"
+                    id="pendientePago"
+                    name="pendientePago"
+                    [(ngModel)]="fechaCorrecta"
+                    aria-label="Pendiente de pago"
+                    
+                  >
+                    <option value="true">No</option>
+                    <option value="false">Sí</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <hr />
+
+            <!-- Componente de artículo de factura -->
+            <app-articulo-factura [articles]="listaArticulos" (pacos)="removeArticle($event)" (articulos)="addArticulo($event)" />
+
+            <ng-template #articuloFactura> </ng-template>
+
+            <hr />
+
+            <!-- Sección de subtotal y total de la factura -->
+            <div id="total">
+              <div class="row mt-4">
+                <div class="col-6 col-md-3 offset-md-6 fs-6 fw-bold" aria-label="Subtotal">
+                  Subtotal
+                </div>
+                <div class="col-6 col-md-3 text-end fs-6 fw-bold" attr.aria-label="{{ricias.subTotal}} euros">{{ricias.subTotal}} €</div>
+              </div>
+
+              <div class="row my-4">
+                <div class="col-6 col-md-3 offset-md-6 fs-5 fw-bold" aria-label="Total">
+                  <p>TOTAL</p>
+                </div>
+
+                <div class="col-6 col-md-3 text-end fs-5 fw-bold" attr.aria-label="{{ricias.importeTotal}} euros">
+                  <p data-placement="left">{{ricias.importeTotal}} €</p>
+                  <span data-placement="left" style="font-size: 10px">
+                    IVA/incl.
+                  </span>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div style="text-align: right; padding-right: 45px;">
+      <button
+      name="button"
+      type="button"
+      class="btn btn-info btn-sm"
+      id="add-item"
+      (click)="crearFactura()"
+      aria-label="Añadir Factura"
+    >
+      Añadir Factura
+    </button>
+  </div>
+  
+    </div>
+  </div>
+</div>
+</div>
+<p-toast />
