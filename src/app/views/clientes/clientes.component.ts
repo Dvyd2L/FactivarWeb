@@ -19,6 +19,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { ToastComponent } from '@/app/shared/components/toast/toast.component';
 @Component({
   selector: 'app-customeres',
   standalone: true,
@@ -28,6 +29,7 @@ import {
     AsyncPipe,
     DatePipe,
     ReactiveFormsModule,
+    ToastComponent,
     // ConfirmDialogModule,
     // ToastModule,
     // DialogModule,

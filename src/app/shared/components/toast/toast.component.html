@@ -1,0 +1,10 @@
+<dialog #toast attr.toast-type="{{ props.type }}" [hidden]="!show">
+  <img [src]="setIcon()" alt="logo" />
+  <article>
+    <h6>{{ props.title }}</h6>
+    <p>{{ props.message }}</p>
+  </article>
+  <button type="button" title="cerrar" (click)="close()">
+    <img src="assets/images/svg/x.svg" alt="close icon" />
+  </button>
+</dialog>
