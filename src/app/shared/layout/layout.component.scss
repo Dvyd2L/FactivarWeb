@@ -27,7 +27,9 @@
 
 .app-content {
   grid-area: main;
-  // padding: 1rem;
+  padding: 1rem;
+  position: relative;
+  // min-height: 50dvh;
 }
 
 .app-footer {

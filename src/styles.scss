@@ -61,6 +61,7 @@ h6 {
 
 p {
   text-wrap: pretty;
+  margin-bottom: 0;
   &::first-letter {
     text-transform: uppercase;
   }
@@ -76,4 +77,17 @@ p {
 
 ::view-transition-new(main-transition) {
   animation: view-transition 0.5s ease 0s 1 reverse backwards;
+}
+
+.toast-wrapper {
+  position: absolute;
+  bottom: 0;
+  right: 2rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 0.5rem;
+  height: 100%;
+  width: 100%;
+  max-width: 20dvw;
 }
