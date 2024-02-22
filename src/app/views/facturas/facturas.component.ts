@@ -53,7 +53,6 @@ export class FacturasComponent {
     ]),
   });
   public listaFacturas: IInvoice[] = [];
-  public listaFacturas: IInvoice[] = [];
   public listaArticulos: IProduct[] = [];
   public ricias = {
     subTotal: 0,

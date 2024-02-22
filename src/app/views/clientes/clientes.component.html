@@ -2,6 +2,236 @@
 @if (response$ | async; as res) { 
   @for (item of res; track item.cif) {
     <pre>{{ item | json }}</pre>
-    <a [routerLink]="['/clientes', item.cif]">Ver {{ item.nombre }}</a>
+    <a [routerLink]="['/customeres', item.cif]">Ver {{ item.nombre }}</a>
   } 
 }
+<!-- <article>
+  <p-table
+    #dt
+    [value]="(response$ | async)!"
+    [rows]="5"
+    [paginator]="true"
+    [globalFilterFields]="[
+      'cif',
+      'name',
+      'email',
+      'phone',
+      'direction',
+      'date'
+    ]"
+    [tableStyle]="{ 'min-width': '75rem' }"
+    [(selection)]="selectedCustomers"
+    [rowHover]="true"
+    dataKey="cif"
+    currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
+    [showCurrentPageReport]="true"
+    aria-label="Tabla de customeres"
+    role="grid"
+  >
+    <ng-template pTemplate="caption">
+      <p-toolbar styleClass="mb-4 gap-2">
+        <ng-template pTemplate="left">
+          <div class="flex align-items-center justify-content-between">
+            <h5 class="m-0">Clientes</h5>
+            <span class="p-input-icon-right">
+              <i class="pi pi-search"></i>
+              <input
+                pInputText
+                type="text"
+                class="form-control"
+                (input)="dt.filterGlobal(eventHandler($event), 'contains')"
+                placeholder="Buscar..."
+              />
+            </span>
+          </div>
+        </ng-template>
+
+        <ng-template pTemplate="right">
+          <button
+            pButton
+            pRipple
+            label="Nuevo"
+            icon="pi pi-plus"
+            class="p-button-success mr-2"
+            (click)="openNew()"
+          ></button>
+        </ng-template>
+      </p-toolbar>
+    </ng-template>
+
+    <ng-template pTemplate="header">
+      <tr>
+        <th scope="col" style="width: 4rem">
+          <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+        </th>
+        <th scope="col" pSortableColumn="cif" style="min-width: 10rem">
+          CIF <p-sortIcon field="cif"></p-sortIcon>
+        </th>
+        <th scope="col" pSortableColumn="name">
+          Nombre <p-sortIcon field="name"></p-sortIcon>
+        </th>
+        <th scope="col" pSortableColumn="email" style="min-width: 10rem">
+          Email <p-sortIcon field="email"></p-sortIcon>
+        </th>
+        <th scope="col" pSortableColumn="phone">
+          Teléfono <p-sortIcon field="phone"></p-sortIcon>
+        </th>
+        <th scope="col" pSortableColumn="direcction" style="min-width: 10rem">
+          Dirección <p-sortIcon field="direcction"></p-sortIcon>
+        </th>
+        <th scope="col" pSortableColumn="date" style="min-width: 10rem">
+          Fecha Alta <p-sortIcon field="date"></p-sortIcon>
+        </th>
+        <th scope="col" colspan="2"></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-customer>
+      <tr>
+        <td scope="row">
+          <p-tableCheckbox [value]="customer"></p-tableCheckbox>
+        </td>
+        <td>
+          {{ customer.cif }}
+          <a
+            pButton
+            pRipple
+            icon="pi pi-search"
+            class="p-button-rounded p-button-primary mr-2"
+            [routerLink]="['/clientes', customer.cif]"
+          ></a>
+        </td>
+        <td>{{ customer.nombre }}</td>
+        <td>{{ customer.email }}</td>
+        <td>{{ customer.telefono }}</td>
+        <td>{{ customer.direccion }}</td>
+        <td>{{ customer.fechaAlta | date : "dd/MM/yyyy" }}</td>
+        <td>
+        </td>
+        <td>
+          <button
+            pButton
+            pRipple
+            icon="pi pi-pencil"
+            class="p-button-rounded p-button-success mr-2"
+            (click)="editCustomer(customer)"
+          ></button>
+          <button
+            pButton
+            pRipple
+            icon="pi pi-trash"
+            class="p-button-rounded p-button-danger"
+            (click)="confirmDelete(customer)"
+          ></button>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+      <div class="flex align-items-center justify-content-between">
+        En total hay {{ customers ? customers.length : 0 }} clientes.
+      </div>
+    </ng-template>
+  </p-table>
+</article>
+<p-dialog
+  [(visible)]="customerDialog"
+  [style]="{ width: '450px' }"
+  header="{{ newCustomer ? 'Crear' : 'Modificar' }} datos de Cliente"
+  [modal]="true"
+  styleClass="p-fluid"
+
+  role="dialog"
+  attr.aria-label="{{ newCustomer ? 'Crear' : 'Modificar' }} datos de Cliente" 
+> -->
+<!-- attr.aria-label="{{ newCustomer ? 'Crear' : 'Modificar' }} datos de Cliente" Cuidado que es una prueba para accesibilidad -->
+  <!-- <ng-template pTemplate="content">
+    <form action="dialog">
+    <div class="form-floating mb-1">
+      <input
+        [readOnly]="!newCustomer"
+        type="text"
+        pInputText
+        class="form-control"
+        name="cif"
+        [formControl]="form.controls.cif"
+        placeholder="CIF obligatorio"
+        autofocus
+      />
+      <label>CIF</label>
+    </div>
+
+    <div class="form-floating mb-1">
+      <input
+        placeholder="Escribe el nombre (obligatorio)"
+        class="form-control"
+        type="text"
+        pInputText
+        id="name"
+        [formControl]="form.controls.nombre"
+        autofocus
+      />
+      <label for="name">Nombre</label>
+    </div>
+
+    <div class="form-floating mb-1">
+      <input
+        type="text"
+        pInputText
+        class="form-control"
+        name="direccion"
+        [formControl]="form.controls.direccion"
+        placeholder="Localidad obligatoria"
+        autofocus
+      />
+      <label>Direccion</label>
+    </div>
+
+    <div class="form-floating mb-1">
+      <input
+        type="text"
+        pInputText
+        class="form-control"
+        name="telefono"
+        [formControl]="form.controls.telefono"
+        placeholder="Teléfono obligatorio"
+        autofocus
+      />
+      <label>Teléfono</label>
+    </div>
+
+    <div class="form-floating">
+      <input
+        type="text"
+        pInputText
+        class="form-control"
+        name="email"
+        [formControl]="form.controls.email"
+        placeholder="Email obligatorio"
+        autofocus
+      />
+      <label>Email</label>
+    </div>
+  </form>
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <button
+      pButton
+      pRipple
+      label="Cancelar"
+      icon="pi pi-times"
+      class="p-button-text"
+      (click)="hideDialog()"
+    ></button>
+    <button
+      pButton
+      pRipple
+      label="Guardar"
+      icon="pi pi-check"
+      class="p-button-text"
+      (click)="saveCustomer()"
+    ></button>
+  </ng-template>
+</p-dialog>
+
+<p-toast />
+<p-confirmDialog /> -->
