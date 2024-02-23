@@ -7,210 +7,298 @@
 -->
 <h1>FACTURAS</h1>
 <div class="border border-info border-4">
-    <div class="container-xl">
-      <div class="row pb-4">
-        <div class="col-lg-10 col-md-11 mx-auto">
-          <div class="text-center">
-            <h1 class="fs-2 my-4" >Nueva Factura</h1>
-          </div>
-    
-          <div class="px-4">
-            <div class="p-4 guest-page">
-              <form
-                class="edit_invoice"
-                id="invoice-form"
-                accept-charset="UTF-8"
-                data-remote="true"
-                [formGroup]="facturaForm"
-              >
-                <!-- Sección de datos del proveedor -->
-                <div class="row">
-                  <div class="col-8">
-                    <div>
-                      <label for="invoice_from" class="form-label"
-                        ><i class="fa fa-user icon"></i>&nbsp;&nbsp;De</label
+  <div class="container-xl">
+    <div class="row pb-4">
+      <div class="col-lg-10 col-md-11 mx-auto">
+        <div class="text-center">
+          <h1 class="fs-2 my-4">Nueva Factura</h1>
+        </div>
+
+        <div class="px-4">
+          <div class="p-4 guest-page">
+            <form
+              class="edit_invoice"
+              id="invoice-form"
+              accept-charset="UTF-8"
+              data-remote="true"
+              [formGroup]="facturaForm"
+            >
+              <!-- Sección de datos del proveedor -->
+              <div class="row">
+                <div class="col-8">
+                  <div>
+                    <label for="invoice_from" class="form-label"
+                      ><svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 448 512"
+                        fill="currentColor"
+                        width="20"
+                        height="20"
                       >
-                      <input
-                        class="form-control form-control-sm"
-                        placeholder="CIF del proveedor"
-                        maxlength="10"
-                        type="text"
-                        name="proveedor"
-                        id="proveedor"
-                        [formControl] = "facturaForm.controls.proveedorId"
-                        required
-                        aria-label="CIF del proveedor"
-                      />
-                    </div>
-                  </div>
-                  <div class="col-4 col-md-3 offset-md-1">
-                    <div>
-                      <label for="invoice_number" class="form-label"
-                        ><i class="fa fa-search icon"></i>&nbsp;&nbsp;N° de factura</label
-                      >
-                      <input
-                        class="form-control form-control-sm"
-                        placeholder="Número Factura"
-                        maxlength="100"
-                        size="100"
-                        type="text"
-                        value="100"
-                        name="numeroFactura"
-                        id="numeroFactura"
-                        [formControl] = "facturaForm.controls.numeroFactura"
-                        aria-label="Número de factura"
-                      />
-                    </div>
-                  </div>
-    
-                  <!-- Sección de datos del cliente y descripción de la operación -->
-                  <div class="col-8">
-                    <div class="my-2">
-                      <label for="comprador" class="form-label"
-                        ><i class="fa fa-female icon"></i
-                        ><i class="fa fa-male icon" ></i>&nbsp;&nbsp;Facturar
-                        a</label
-                      >
-                      <input
-                        class="form-control form-control-sm"
-                        placeholder="CIF del cliente"
-                        maxlength="10"
-                        type="text"
-                        name="comprador"
-                        id="comprador"
-                        [formControl] = "facturaForm.controls.clienteId"
-                        required
-                        aria-label="CIF del cliente"
-                      />
-                    </div>
-    
-                    <div>
-                      <label for="descripcionOperacion" class="form-label"
-                        ><i class="fa fa-plane icon"></i>&nbsp;&nbsp;Descripción de
-                        la operación</label
-                      >
-                      <textarea
-                        class="form-control form-control-sm"
-                        placeholder=" (Campo opcional)"
-                        rows="5"
-                        style="height: 8em"
-                       
-                        maxlength="5000"
-                        name="descripcionOperacion"
-                        id="descripcionOperacion"
-                        [formControl] = "facturaForm.controls.descripcionOperacion"
-                        aria-label="Descripción de la operación"
-                      ></textarea>
-                    </div>
-                  </div>
-    
-                  <!-- Sección de número de factura, fecha de emisión, fecha de cobro y estado de pago pendiente -->
-                  <div class="col-4 col-md-3 offset-md-1">
-                    <div class="my-1">
-                      <label for="FechaEmision" class="form-label"
-                        ><i class="fa-solid fa-calendar"></i>&nbsp;&nbsp;Fecha</label
-                      >
-                      <input
-                        class="form-control form-control-sm datepicker hasDatepicker"
-                        placeholder="dd.mm.aa"
-                        maxlength="100"
-                        autocomplete="off"
-                        size="100"
-                        type="date"
-                        [formControl]="facturaForm.controls.fechaExpedicion"
-                        name="invoice[date_issued_string]"
-                        id="FechaEmision"
-                        readonly
-                        [disabled]="true"
-                        aria-label="Fecha de emisión"
-                      />
-                    </div>
-    
-                    <div >
-                      <label for="fechaCobro" class="my-1"
-                        ><i class="fa-solid fa-calendar-check"></i>&nbsp;Fecha de
-                        Cobro</label
-                      >
-                      <input
-                        type="date"
-                        class="form-control form-control-sm datepicker hasDatepicker"
-                        id="fechaCobro"
-                        name="fechaCobro"
-                        [formControl]="facturaForm.controls.fechaCobro"
-                        aria-label="Fecha de cobro"
-                        />
-                        <!-- (ngModelChange)="comprobarFecha()" -->
-                    </div>
-    
-                    <div>
-                      <label for="pendientePago" class="my-1"
-                        ><i class="fa-solid fa-wallet"></i>&nbsp;&nbsp;Pendiente de
-                        Pago</label
-                      >
-                      <select
-                        class="form-control form-control-sm datepicker hasDatepicker"
-                        id="pendientePago"
-                        name="pendientePago"
-                        [formControl]="facturaForm.controls.pendientePago"
-                        aria-label="Pendiente de pago"
-                      >
-                        <option value="true">No</option>
-                        <option value="false">Sí</option>
-                      </select>
-                    </div>
+                        <!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                        <path
+                          d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"
+                        /></svg
+                      >&nbsp;&nbsp;De</label
+                    >
+                    <input
+                      class="form-control form-control-sm"
+                      placeholder="CIF del proveedor"
+                      maxlength="10"
+                      type="text"
+                      name="proveedor"
+                      id="proveedor"
+                      [formControl]="facturaForm.controls.proveedorId"
+                      required
+                      aria-label="CIF del proveedor"
+                    />
                   </div>
                 </div>
-    
-                <hr />
-    
-                <!-- Componente de artículo de factura -->
-                <app-articulo-factura [articles]="listaArticulos" (pacos)="removeArticle($event)" (articulos)="addArticulo($event)" />
-    
-                <ng-template #articuloFactura> </ng-template>
-    
-                <hr />
-    
-                <!-- Sección de subtotal y total de la factura -->
-                <div id="total">
-                  <div class="row mt-4">
-                    <div class="col-6 col-md-3 offset-md-6 fs-6 fw-bold" aria-label="Subtotal">
-                      Subtotal
-                    </div>
-                    <div class="col-6 col-md-3 text-end fs-6 fw-bold" attr.aria-label="{{ricias.subTotal}} euros">{{ricias.subTotal}} €</div>
-                  </div>
-    
-                  <div class="row my-4">
-                    <div class="col-6 col-md-3 offset-md-6 fs-5 fw-bold" aria-label="Total">
-                      <p>TOTAL</p>
-                    </div>
-    
-                    <div class="col-6 col-md-3 text-end fs-5 fw-bold" attr.aria-label="{{ricias.importeTotal}} euros">
-                      <p data-placement="left">{{ricias.importeTotal}} €</p>
-                      <span data-placement="left" style="font-size: 10px">
-                        IVA/incl.
-                      </span>
-                    </div>
+                <div class="col-4 col-md-3 offset-md-1">
+                  <div>
+                    <label for="invoice_number" class="form-label"
+                      ><svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 512 512"
+                        fill="currentColor"
+                        width="20"
+                        height="20"
+                      >
+                        <!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                        <path
+                          d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"
+                        /></svg
+                      >&nbsp;&nbsp;N° de factura</label
+                    >
+                    <input
+                      class="form-control form-control-sm"
+                      placeholder="Número Factura"
+                      maxlength="100"
+                      size="100"
+                      type="text"
+                      value="100"
+                      name="numeroFactura"
+                      id="numeroFactura"
+                      [formControl]="facturaForm.controls.numeroFactura"
+                      aria-label="Número de factura"
+                    />
                   </div>
                 </div>
-              </form>
-            </div>
+
+                <!-- Sección de datos del cliente y descripción de la operación -->
+                <div class="col-8">
+                  <div class="my-2">
+                    <label for="comprador" class="form-label">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 640 512"
+                        fill="currentColor"
+                        width="20"
+                        height="20"
+                      >
+                        <!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                        <path
+                          d="M176 288a112 112 0 1 0 0-224 112 112 0 1 0 0 224zM352 176c0 86.3-62.1 158.1-144 173.1V384h32c17.7 0 32 14.3 32 32s-14.3 32-32 32H208v32c0 17.7-14.3 32-32 32s-32-14.3-32-32V448H112c-17.7 0-32-14.3-32-32s14.3-32 32-32h32V349.1C62.1 334.1 0 262.3 0 176C0 78.8 78.8 0 176 0s176 78.8 176 176zM271.9 360.6c19.3-10.1 36.9-23.1 52.1-38.4c20 18.5 46.7 29.8 76.1 29.8c61.9 0 112-50.1 112-112s-50.1-112-112-112c-7.2 0-14.3 .7-21.1 2c-4.9-21.5-13-41.7-24-60.2C369.3 66 384.4 64 400 64c37 0 71.4 11.4 99.8 31l20.6-20.6L487 41c-6.9-6.9-8.9-17.2-5.2-26.2S494.3 0 504 0H616c13.3 0 24 10.7 24 24V136c0 9.7-5.8 18.5-14.8 22.2s-19.3 1.7-26.2-5.2l-33.4-33.4L545 140.2c19.5 28.4 31 62.7 31 99.8c0 97.2-78.8 176-176 176c-50.5 0-96-21.3-128.1-55.4z"
+                        /></svg
+                      >&nbsp;&nbsp;Facturar a</label
+                    >
+                    <input
+                      class="form-control form-control-sm"
+                      placeholder="CIF del cliente"
+                      maxlength="10"
+                      type="text"
+                      name="comprador"
+                      id="comprador"
+                      [formControl]="facturaForm.controls.clienteId"
+                      required
+                      aria-label="CIF del cliente"
+                    />
+                  </div>
+
+                  <div>
+                    <label for="descripcionOperacion" class="form-label"
+                      ><svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 576 512"
+                        fill="currentColor"
+                        width="20"
+                        height="20"
+                      >
+                        <!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                        <path
+                          d="M482.3 192c34.2 0 93.7 29 93.7 64c0 36-59.5 64-93.7 64l-116.6 0L265.2 495.9c-5.7 10-16.3 16.1-27.8 16.1l-56.2 0c-10.6 0-18.3-10.2-15.4-20.4l49-171.6L112 320 68.8 377.6c-3 4-7.8 6.4-12.8 6.4l-42 0c-7.8 0-14-6.3-14-14c0-1.3 .2-2.6 .5-3.9L32 256 .5 145.9c-.4-1.3-.5-2.6-.5-3.9c0-7.8 6.3-14 14-14l42 0c5 0 9.8 2.4 12.8 6.4L112 192l102.9 0-49-171.6C162.9 10.2 170.6 0 181.2 0l56.2 0c11.5 0 22.1 6.2 27.8 16.1L365.7 192l116.6 0z"
+                        /></svg
+                      >&nbsp;&nbsp;Descripción de la operación</label
+                    >
+                    <textarea
+                      class="form-control form-control-sm"
+                      placeholder=" (Campo opcional)"
+                      rows="5"
+                      style="height: 8em"
+                      maxlength="5000"
+                      name="descripcionOperacion"
+                      id="descripcionOperacion"
+                      [formControl]="facturaForm.controls.descripcionOperacion"
+                      aria-label="Descripción de la operación"
+                    ></textarea>
+                  </div>
+                </div>
+
+                <!-- Sección de número de factura, fecha de emisión, fecha de cobro y estado de pago pendiente -->
+                <div class="col-4 col-md-3 offset-md-1">
+                  <div class="my-1">
+                    <label for="FechaEmision" class="form-label"
+                      ><svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 448 512"
+                        fill="currentColor"
+                        width="20"
+                        height="20"
+                      >
+                        <!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                        <path
+                          d="M96 32V64H48C21.5 64 0 85.5 0 112v48H448V112c0-26.5-21.5-48-48-48H352V32c0-17.7-14.3-32-32-32s-32 14.3-32 32V64H160V32c0-17.7-14.3-32-32-32S96 14.3 96 32zM448 192H0V464c0 26.5 21.5 48 48 48H400c26.5 0 48-21.5 48-48V192z"
+                        /></svg
+                      >&nbsp;&nbsp;Fecha</label
+                    >
+                    <input
+                      class="form-control form-control-sm datepicker hasDatepicker"
+                      placeholder="dd.mm.aa"
+                      maxlength="100"
+                      autocomplete="off"
+                      size="100"
+                      type="date"
+                      [formControl]="facturaForm.controls.fechaExpedicion"
+                      name="invoice[date_issued_string]"
+                      id="FechaEmision"
+                      readonly
+                      [disabled]="true"
+                      aria-label="Fecha de emisión"
+                    />
+                  </div>
+
+                  <div>
+                    <label for="fechaCobro" class="my-1"
+                      ><svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 448 512"
+                        fill="currentColor"
+                        width="20"
+                        height="20"
+                      >
+                        <!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                        <path
+                          d="M128 0c17.7 0 32 14.3 32 32V64H288V32c0-17.7 14.3-32 32-32s32 14.3 32 32V64h48c26.5 0 48 21.5 48 48v48H0V112C0 85.5 21.5 64 48 64H96V32c0-17.7 14.3-32 32-32zM0 192H448V464c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V192zM329 305c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-95 95-47-47c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9l64 64c9.4 9.4 24.6 9.4 33.9 0L329 305z"
+                        /></svg
+                      >&nbsp;Fecha de Cobro</label
+                    >
+                    <input
+                      type="date"
+                      class="form-control form-control-sm datepicker hasDatepicker"
+                      id="fechaCobro"
+                      name="fechaCobro"
+                      [formControl]="facturaForm.controls.fechaCobro"
+                      aria-label="Fecha de cobro"
+                    />
+                    <!-- (ngModelChange)="comprobarFecha()" -->
+                  </div>
+
+                  <div>
+                    <label for="pendientePago" class="my-1"
+                      ><svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 512 512"
+                        fill="currentColor"
+                        width="20"
+                        height="20"
+                      >
+                        <!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                        <path
+                          d="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V192c0-35.3-28.7-64-64-64H80c-8.8 0-16-7.2-16-16s7.2-16 16-16H448c17.7 0 32-14.3 32-32s-14.3-32-32-32H64zM416 272a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"
+                        /></svg
+                      >&nbsp;&nbsp;Pendiente de Pago</label
+                    >
+                    <select
+                      class="form-control form-control-sm datepicker hasDatepicker"
+                      id="pendientePago"
+                      name="pendientePago"
+                      [formControl]="facturaForm.controls.pendientePago"
+                      aria-label="Pendiente de pago"
+                    >
+                      <option value="true">No</option>
+                      <option value="false">Sí</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <hr />
+
+              <!-- Componente de artículo de factura -->
+              <app-articulo-factura
+                [articles]="listaArticulos"
+                (pacos)="removeArticle($event)"
+                (articulos)="addArticulo($event)"
+              />
+
+              <ng-template #articuloFactura> </ng-template>
+
+              <hr />
+
+              <!-- Sección de subtotal y total de la factura -->
+              <div id="total">
+                <div class="row mt-4">
+                  <div
+                    class="col-6 col-md-3 offset-md-6 fs-6 fw-bold"
+                    aria-label="Subtotal"
+                  >
+                    Subtotal
+                  </div>
+                  <div
+                    class="col-6 col-md-3 text-end fs-6 fw-bold"
+                    attr.aria-label="{{ ricias.subTotal }} euros"
+                  >
+                    {{ ricias.subTotal }} €
+                  </div>
+                </div>
+
+                <div class="row my-4">
+                  <div
+                    class="col-6 col-md-3 offset-md-6 fs-5 fw-bold"
+                    aria-label="Total"
+                  >
+                    <p>TOTAL</p>
+                  </div>
+
+                  <div
+                    class="col-6 col-md-3 text-end fs-5 fw-bold"
+                    attr.aria-label="{{ ricias.importeTotal }} euros"
+                  >
+                    <p data-placement="left">{{ ricias.importeTotal }} €</p>
+                    <span data-placement="left" style="font-size: 10px">
+                      IVA/incl.
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </form>
           </div>
-    
-          <div style="text-align: right; padding-right: 45px;">
+        </div>
+
+        <div style="text-align: right; padding-right: 45px">
           <button
-          name="button"
-          type="button"
-          class="btn btn-info btn-sm"
-          id="add-item"
-          (click)="crearFactura()"
-          aria-label="Añadir Factura"
-        >
-          Añadir Factura
-        </button>
-      </div>
-      
+            name="button"
+            type="button"
+            class="btn btn-info btn-sm"
+            id="add-item"
+            (click)="crearFactura()"
+            aria-label="Añadir Factura"
+          >
+            Añadir Factura
+          </button>
         </div>
       </div>
     </div>
+  </div>
 </div>
-    <!-- <p-toast /> -->
+<!-- <p-toast /> -->

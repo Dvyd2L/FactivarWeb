@@ -1,0 +1,23 @@
+@keyframes toast-life {
+  to {
+    width: 0%;
+  }
+}
+
+@keyframes toast-open {
+  from {
+    transform: translateY(100px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes toast-close {
+  to {
+    transform: translateX(-200%);
+    opacity: 0;
+  }
+}

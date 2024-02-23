@@ -1,0 +1,84 @@
+dialog {
+  --toast-life: 3000ms;
+
+  &[toast-type="info"] {
+    --bg-color: #1898c0da;
+    --bg-color-hover: #147fa0da;
+  }
+  &[toast-type="warn"] {
+    --bg-color: #bc8c12da;
+    --bg-color-hover: #9b7512da;
+  }
+  &[toast-type="error"] {
+    --bg-color: #bf333bda;
+    --bg-color-hover: #962a31da;
+  }
+  &[toast-type="success"] {
+    --bg-color: #3ab65cda;
+    --bg-color-hover: #2d8a46da;
+  }
+  &:hover {
+    background-color: var(--bg-color-hover);
+  }
+  &::after {
+    content: "";
+    width: calc(max(250px, 20dvw) - 0.1rem);
+    height: 4px;
+    background: rgba(0, 0, 0, 0.5);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+
+    animation-name: toast-life;
+    animation-duration: var(--toast-life);
+    animation-timing-function: ease-out;
+    animation-fill-mode: forwards;
+  }
+  background-color: var(--bg-color);
+  transition: background-color 0.2s ease;
+
+  animation: toast-open 500ms ease 1ms 1 normal forwards,
+    toast-close 200ms ease 2800ms 1 normal forwards;
+
+  width: max(250px, 20dvw);
+  overflow: hidden;
+  position: relative;
+  padding: 0;
+  padding-left: 0.5rem;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-flow: row nowrap;
+  gap: 1rem;
+
+  border: none;
+  border-radius: 0.5rem;
+
+  z-index: 1;
+
+  & > img {
+    flex: 2;
+    height: 3rem;
+    width: 3rem;
+    color: rgb(0 0 0 / 0.2);
+  }
+
+  & > article {
+    flex: 7;
+    padding: 0.5rem;
+  }
+
+  & > button {
+    flex: 1;
+    border: none;
+    align-self: self-start;
+    background-color: rgb(0 0 0 / 0);
+    transition: background-color 0.2s ease;
+    border-radius: 0 0.5rem 0 0.5rem;
+
+    &:hover {
+      background-color: rgb(0 0 0 / 0.2);
+    }
+  }
+}
