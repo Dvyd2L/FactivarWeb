@@ -17,8 +17,6 @@ dialog {
     --bg-color: #3ab65cda;
     --bg-color-hover: #2d8a46da;
   }
-  background-color: var(--bg-color);
-  transition: background-color 0.2s ease;
   &:hover {
     background-color: var(--bg-color-hover);
   }
@@ -36,7 +34,9 @@ dialog {
     animation-timing-function: ease-out;
     animation-fill-mode: forwards;
   }
-  
+  background-color: var(--bg-color);
+  transition: background-color 0.2s ease;
+
   animation: toast-open 500ms ease 1ms 1 normal forwards,
     toast-close 200ms ease 2800ms 1 normal forwards;
 
