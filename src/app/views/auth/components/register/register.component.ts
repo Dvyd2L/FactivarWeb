@@ -1,9 +1,23 @@
-import { Component, inject } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import {
+  AfterViewInit,
+  Component,
+  ViewChild,
+  ViewContainerRef,
+  inject,
+} from '@angular/core';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '@/app/views/auth/services/auth.service';
 import { ServiceTermsComponent } from '../service-terms/service-terms.component';
 import { ModalComponent } from '../../../../shared/components/modal/modal.component';
+import { toastHelper } from '@/app/core/helpers/toast.helper';
+import { REGEXP } from '../../validators/regexp';
+import { IRegisterRequest } from '@/app/models/interfaces/auth';
 
 @Component({
   selector: 'app-register',
@@ -16,22 +30,52 @@ import { ModalComponent } from '../../../../shared/components/modal/modal.compon
     ServiceTermsComponent,
     ModalComponent,
   ],
-  providers: []
+  providers: [],
 })
-export class RegisterComponent {
-  // private messageService = inject(MessageService);
-  // private router = inject(Router);
+export class RegisterComponent implements AfterViewInit {
+  private router = inject(Router);
   private auth = inject(AuthService);
-  public infoRegister = {
-    nombre: '',
-    apellidos: '',
-    avatar: undefined,
-    email: '',
-    telefono: '',
-    password: '',
-  };
-  public password: string = '';
+  @ViewChild('toastContainer', { read: ViewContainerRef })
+  public toast!: ViewContainerRef;
+  public registerForm = new FormGroup({
+    nombre: new FormControl<string>({ value: '', disabled: false }, [
+      Validators.required,
+    ]),
+    apellidos: new FormControl<string>({ value: '', disabled: false }, [
+      Validators.required,
+    ]),
+    avatar: new FormControl<File | null>({ value: null, disabled: false }),
+    email: new FormControl<string>({ value: '', disabled: false }, [
+      Validators.required,
+      Validators.email,
+    ]),
+    telefono: new FormControl<string>({ value: '', disabled: false }),
+    password: new FormControl<string>({ value: '', disabled: false }, [
+      Validators.required,
+      Validators.pattern(REGEXP['PASSWORD']),
+    ]),
+  });
+  public password = new FormControl<string>({ value: '', disabled: false }, [
+    Validators.required,
+    Validators.pattern(REGEXP['PASSWORD']),
+  ]);
   public termsModal = false;
+
+  public addToast!: ({
+    title,
+    message,
+    type,
+    life,
+  }: {
+    title: string;
+    message: string;
+    type: string;
+    life: number;
+  }) => void;
+
+  ngAfterViewInit(): void {
+    this.addToast = toastHelper(this.toast);
+  }
 
   public toggleServiceTermsVisibility() {
     this.termsModal = !this.termsModal;
@@ -44,37 +88,60 @@ export class RegisterComponent {
     const file = (event.target as HTMLInputElement)?.files?.[0];
 
     if (file) {
-      // this.infoRegister.avatar = file;
+      this.registerForm.controls.avatar.setValue(file);
     }
   }
   /**
    * Realiza el registro del usuario.
    */
   public register() {
-    this.auth.register(this.infoRegister).subscribe({
-      next: (data) => {
-        console.log(data);
-        // this.router.navigate(['/auth','login']);
-      },
-      error: (err) => {
-        // if (err instanceof HttpErrorResponse) {
-        //   this.errorMessage(err, this.messageService);
-        // }
-      },
-    });
+    if (this.registerForm.valid && this.validPass()) {
+      this.auth
+        .register(this.registerForm.value as IRegisterRequest)
+        .subscribe({
+          next: (data) => {
+            console.log(data);
+            this.addToast({
+              title: 'éxito',
+              message: 'la operación se ha completado con éxito.',
+              type: 'success',
+              life: 3000,
+            });
+            setTimeout(() => {
+              this.router.navigate([/* '/auth', */ 'login']);
+            }, 3000);
+          },
+          error: (err) => {
+            this.addToast({
+              title: 'error',
+              message: err?.error?.message ?? 'algo salió mal',
+              type: 'error',
+              life: 3000,
+            });
+          },
+        });
+    } else {
+      this.addToast({
+        title: 'Formulario inválido',
+        message: 'Verifica los campos.',
+        type: 'error',
+        life: 3000,
+      });
+    }
   }
   /**
    * Valida si la contraseña y la contraseña de repetición coinciden.
    */
   public validPass() {
-    // if (this.infoRegister.password !== this.password) {
-    //   console.log('Las contraseñas no coinciden');
-    //   this.messageService.add({
-    //     severity: 'error',
-    //     summary: 'Error',
-    //     detail: 'Las contraseñas no coinciden',
-    //   });
-    // }
+    if (this.registerForm.controls.password.value !== this.password.value) {
+      this.addToast({
+        title: 'error',
+        message: 'Las contraseñas no coinciden.',
+        type: 'error',
+        life: 3000,
+      });
+      return false;
+    }
+    return true;
   }
-  // private errorMessage = addMessage;
 }
