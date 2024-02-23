@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+// import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
@@ -8,13 +8,13 @@ import { TranslateService } from '@ngx-translate/core';
   imports: [RouterOutlet],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
-  providers: [TranslateService],
+  providers: [/* TranslateService */],
 })
 export class AppComponent {
   public title = 'FactivarWeb';
 
-  constructor(private translate: TranslateService) {
-    translate.setDefaultLang('es');
-    translate.use('en');
-  }
+  // constructor(private translate: TranslateService) {
+  //   translate.setDefaultLang('es');
+  //   translate.use('en');
+  // }
 }
