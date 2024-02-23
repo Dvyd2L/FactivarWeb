@@ -17,13 +17,13 @@ import {
 import { errorResponseInterceptorFn } from '@/app/core/interceptors/error-response.interceptor';
 import { tokenInterceptorFn } from '@/app/core/interceptors/token-fn.interceptor';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
-import { HttpClient } from '@angular/common/http';
-import {
-  TranslateService,
-  TranslateLoader,
-  TranslateModule,
-} from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+// import { HttpClient } from '@angular/common/http';
+// import {
+//   TranslateService,
+//   TranslateLoader,
+//   TranslateModule,
+// } from '@ngx-translate/core';
+// import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 // export const appConfig: ApplicationConfig = {
 //   providers: [
@@ -40,9 +40,9 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 //     provideNoopAnimations(),
 //   ],
 // };
-export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http);
-}
+// export function HttpLoaderFactory(http: HttpClient) {
+//   return new TranslateHttpLoader(http);
+// }
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -58,14 +58,14 @@ export const appConfig: ApplicationConfig = {
     ),
     provideNoopAnimations(),
     importProvidersFrom(
-      TranslateModule.forRoot({
-        loader: {
-          provide: TranslateLoader,
-          useFactory: HttpLoaderFactory,
-          deps: [HttpClient],
-        },
-      })
+      // TranslateModule.forRoot({
+      //   loader: {
+      //     provide: TranslateLoader,
+      //     useFactory: HttpLoaderFactory,
+      //     deps: [HttpClient],
+      //   },
+      // })
     ),
-    TranslateService,
+    // TranslateService,
   ],
 };
