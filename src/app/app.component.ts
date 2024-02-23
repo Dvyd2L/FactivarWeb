@@ -7,7 +7,7 @@ import { RouterOutlet } from '@angular/router';
   imports: [RouterOutlet],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
-  providers: [TranslateService],
+  providers: [/* TranslateService */],
 })
 export class AppComponent {
   public title = 'FactivarWeb';
