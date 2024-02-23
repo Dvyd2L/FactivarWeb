@@ -1,49 +1,13 @@
 <article>
   <h1>CLIENTES</h1>
-  <div class="toast-wrapper">
-    <app-toast
-      [show]="true"
-      [toast-props]="{
-      title: 'información',
-      message: 'esto es un texto informativo.',
-      type: 'info',
-      life: 3000,
-    }"
-    />
-    <app-toast
-      [show]="true"
-      [toast-props]="{
-    title: 'atención',
-    message: 'esto es un texto de alerta.',
-    type: 'warn',
-    life: 3000,
-  }"
-    />
-    <app-toast
-      [show]="true"
-      [toast-props]="{
-    title: 'error',
-    message: 'esto es un texto de error.',
-    type: 'error',
-    life: 3000,
-  }"
-    />
-    <app-toast
-      [show]="true"
-      [toast-props]="{
-    title: 'completado',
-    message: 'la tarea se ha completado con éxito.',
-    type: 'success',
-    life: 3000,
-  }"
-    />
-  </div>
-</article>
-<!-- @if (response$ | async; as res) { @for (item of res; track item.cif) {
-<pre>{{ item | json }}</pre>
-<a [routerLink]="['/customeres', item.cif]">Ver {{ item.nombre }}</a>
-} } -->
-<!-- <article>
+
+  @if (response$ | async; as res) { @for (item of res; track item.cif) {
+  <pre>{{ item | json }}</pre>
+  <a [routerLink]="['/clientes', item.cif]">Ver {{ item.nombre }}</a>
+  } }
+
+  <ng-template #toastContainer class="toast-wrapper" />
+  <!-- <article>
   <p-table
     #dt
     [value]="(response$ | async)!"
@@ -180,8 +144,8 @@
   role="dialog"
   attr.aria-label="{{ newCustomer ? 'Crear' : 'Modificar' }} datos de Cliente" 
 > -->
-<!-- attr.aria-label="{{ newCustomer ? 'Crear' : 'Modificar' }} datos de Cliente" Cuidado que es una prueba para accesibilidad -->
-<!-- <ng-template pTemplate="content">
+  <!-- attr.aria-label="{{ newCustomer ? 'Crear' : 'Modificar' }} datos de Cliente" Cuidado que es una prueba para accesibilidad -->
+  <!-- <ng-template pTemplate="content">
     <form action="dialog">
     <div class="form-floating mb-1">
       <input
@@ -273,3 +237,4 @@
 
 <p-toast />
 <p-confirmDialog /> -->
+</article>

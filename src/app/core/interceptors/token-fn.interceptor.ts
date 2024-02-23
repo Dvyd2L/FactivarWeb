@@ -1,5 +1,3 @@
-// import { UserService } from '@/app/services/user.service';
-// import { IUserPayload } from '@/app/interfaces/user';
 import {
   HttpHandlerFn,
   HttpInterceptorFn,
@@ -7,7 +5,6 @@ import {
 } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { environment } from '@/environments/environment.development';
-import { StorageHelper } from '@/app/core/helpers/storage.helper';
 import { StorageKeyEnum } from '@/app/models/enums/storage.enum';
 import { StorageService } from '../services/storage.service';
 /**
@@ -21,13 +18,10 @@ export const tokenInterceptorFn: HttpInterceptorFn = (
   next: HttpHandlerFn
 ) => {
   if (req.url.includes(environment.urlAPI)) {
-    // const userService = inject(UserService<IUserPayload>);
-    // const token = userService.getToken();
     const storage = inject(StorageService);
-    const token = storage?.getItem<string>(StorageKeyEnum.Token);
-    console.log({ token });
+    const token = storage?.getItem<string>(StorageKeyEnum.Token) ?? '';
     const authReq = addTokenToRequest(req, token);
-
+    console.log({ authReq });
     return next(authReq);
   }
 
