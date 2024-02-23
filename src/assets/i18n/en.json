@@ -1,0 +1,51 @@
+{
+  "home": {
+    "eslogan": "Your website for simpler and more intuitive billing",
+    "sections": [
+      {
+        "titulo": "Online invoices",
+        "contenido": "Create invoices online in minutes, without the need for accounting knowledge. Easy, fast and secure."
+      },
+      {
+        "titulo": "Quick, easy and secure",
+        "contenido": "With our online invoice service, you can create invoices in minutes, without the need for accounting knowledge."
+      },
+      {
+        "titulo": "The future of billing",
+        "contenido": "You just have to enter the data of your company, the client and the product or service you are billing. In a matter of seconds, you will have a professional invoice that complies with current regulations. That easy!"
+      }
+    ]
+  },
+  "footer": {
+    "sections": [
+      {
+        "DIRECCION": "ADDRESS"
+      },
+      {
+        "TELEFONO": "PHONE"
+      },
+      {
+        "LINKEDIN": "Our Linkedin"
+      }
+    ]
+  },
+  "navbar": {
+    "sections": [
+      {
+        "INICIO": "HOME"
+      },
+      {
+        "CLIENTES": "CUSTOMERS"
+      },
+      {
+        "FACTURAS": "INVOICES"
+      },
+      {
+        "USUARIOS": "USERS"
+      },
+      {
+        "CONECTARSE": "SIGNIN"
+      }
+    ]
+  }
+}
