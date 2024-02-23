@@ -19,32 +19,32 @@
   "footer": {
     "sections": [
       {
-        "DIRECCION": "ADDRESS"
+        "direccion": "ADDRESS"
       },
       {
-        "TELEFONO": "PHONE"
+        "telefono": "PHONE"
       },
       {
-        "LINKEDIN": "Our Linkedin"
+        "linkedin": "Our Linkedin"
       }
     ]
   },
   "navbar": {
     "sections": [
       {
-        "INICIO": "HOME"
+        "inicio": "HOME"
       },
       {
-        "CLIENTES": "CUSTOMERS"
+        "clientes": "CUSTOMERS"
       },
       {
-        "FACTURAS": "INVOICES"
+        "facturas": "INVOICES"
       },
       {
-        "USUARIOS": "USERS"
+        "usuarios": "USERS"
       },
       {
-        "CONECTARSE": "SIGNIN"
+        "conectarse": "SIGNIN"
       }
     ]
   }

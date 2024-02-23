@@ -1,10 +1,7 @@
 import { FooterComponent } from '@/app/shared/layout/components/footer/footer.component';
-import { Component, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { home as langEs } from '@/assets/i18n/es.json';
-import { home as langEn } from '@/assets/i18n/en.json';
-// import * as langEs from '@/assets/i18n/es.json';
-// import * as langEn from '@/assets/i18n/en.json';
+import { TraductorService } from '@/app/core/services/traductor.service';
 
 @Component({
   selector: 'app-home',
@@ -13,24 +10,12 @@ import { home as langEn } from '@/assets/i18n/en.json';
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
-export class HomeComponent implements OnInit {
-  idioma = 'castellano';
-  textos: any;
-
-  ngOnInit(): void {
-    this.setIdioma();
-  }
-
-  setIdioma() {
-    if (this.idioma === 'castellano') {
-      this.textos = langEs;
-    } else {
-      this.textos = langEn;
-    }
-  }
+export class HomeComponent {
+  private traductor = inject(TraductorService);
+  textos = this.traductor.textos.home;
 
   cambiarIdioma(idiomaSeleccionado: string) {
-    this.idioma = idiomaSeleccionado;
-    this.setIdioma();
+    this.traductor.cambiarIdioma(idiomaSeleccionado);
+    this.textos = this.traductor.textos.home;
   }
 }
