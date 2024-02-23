@@ -1,6 +1,5 @@
 <main>
   <div class="sticky-parallax-header"></div>
-
   <header class="masthead sticky-parallax-masthead">
     <div
       class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center"
@@ -9,8 +8,17 @@
         <div class="text-center">
           <h1 class="mx-auto my-0 text-uppercase">Factivar</h1>
           <h2 class="text-white-50 mx-auto mt-2 mb-5">
+            {{textos.eslogan}}
+            </h2>
+            <button class="btnIdioma" (click)="cambiarIdioma('castellano')">
+              <img src="assets\images\svg\banderaEspañola.svg" alt="Bandera Española">
+            </button>
+            <button class="btnIdioma" (click)="cambiarIdioma('ingles')">
+              <img src="assets\images\svg\banderaInglesa.svg" alt="Bandera Inglesa">
+            </button>
+            <!-- <h2 class="text-white-50 mx-auto mt-2 mb-5">
             Tu página web para una facturación más sencilla e intuitiva
-          </h2>
+          </h2> -->
 
           <a
             [routerLink]="['/clientes']"
@@ -41,10 +49,9 @@
 
           <div class="col-xl-4 col-lg-5">
             <div class="featured-text text-center text-lg-left">
-              <h4>Facturas online</h4>
+              <h4>{{textos.sections[0].titulo}}</h4>
               <p class="mb-0">
-                Crea facturas online en minutos, sin necesidad de conocimientos
-                de contabilidad. Fácil, rápido y seguro.
+                {{textos.sections[0].contenido}}
               </p>
             </div>
           </div>
@@ -65,11 +72,9 @@
                 <div
                   class="project-text w-100 my-auto text-center text-lg-left"
                 >
-                  <h4 class="text-white">Rápidas, fáciles y seguras</h4>
+                  <h4 class="text-white">{{textos.sections[1].titulo}}</h4>
                   <p class="mb-0 text-white-50">
-                    Con nuestro servicio de facturas online, podrás crear
-                    facturas en minutos, sin necesidad de conocimientos de
-                    contabilidad.
+                    {{textos.sections[1].contenido}}
                   </p>
                 </div>
               </div>
@@ -91,12 +96,9 @@
                 <div
                   class="project-text w-100 my-auto text-center text-lg-right"
                 >
-                  <h4 class="text-white">El futuro de la facturación</h4>
+                  <h4 class="text-white">{{textos.sections[2].titulo}}</h4>
                   <p class="mb-0 text-white-50">
-                    Solo tienes que introducir los datos de tu empresa, del
-                    cliente y del producto o servicio que estás facturando. En
-                    cuestión de segundos, tendrás una factura profesional y
-                    ajustada a la normativa vigente. ¡Así de fácil!
+                    {{textos.sections[2].contenido}}
                   </p>
                 </div>
               </div>
