@@ -26,7 +26,7 @@ export class StorageService {
     useSessionStorage: boolean = false
   ): void {
     const storage = useSessionStorage ? this.sessionStorage : this.localStorage;
-    storage.setItem(key, JSON.stringify(value));
+    storage?.setItem(key, JSON.stringify(value));
   }
   /**
    * Obtiene un valor del almacenamiento local o de sesión.
@@ -39,7 +39,7 @@ export class StorageService {
     useSessionStorage: boolean = false
   ): T | null {
     const storage = useSessionStorage ? this.sessionStorage : this.localStorage;
-    const item = storage.getItem(key);
+    const item = storage?.getItem(key);
     return item ? JSON.parse(item) : null;
   }
   /**
@@ -52,7 +52,7 @@ export class StorageService {
     useSessionStorage: boolean = false
   ): void {
     const storage = useSessionStorage ? this.sessionStorage : this.localStorage;
-    storage.removeItem(key);
+    storage?.removeItem(key);
   }
   /**
    * Limpia todo el almacenamiento local o de sesión.
@@ -60,6 +60,6 @@ export class StorageService {
    */
   public clear(useSessionStorage: boolean = false): void {
     const storage = useSessionStorage ? this.sessionStorage : this.localStorage;
-    storage.clear();
+    storage?.clear();
   }
 }

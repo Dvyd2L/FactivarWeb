@@ -1,18 +1,18 @@
 import { StorageKeyEnum } from '@/app/models/enums/storage.enum';
-import { StorageHelper } from '@/app/core/helpers/storage.helper';
 import { IRegisterRequest } from '@/app/models/interfaces/auth';
 import { environment } from '@/environments/environment.development';
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { tap, Observable, mergeMap } from 'rxjs';
 import { ILoginRequest } from '@/app/models/interfaces/user';
+import { StorageService } from '@/app/core/services/storage.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
+  private storage = inject(StorageService);
   private http = inject(HttpClient);
-  // private userService = inject(UserService<IUserPayload>);
   private urlAPI: string = environment.urlAPI + 'auth';
   /**
    * Realiza el inicio de sesión.
@@ -23,9 +23,9 @@ export class AuthService {
       .post<{ token: string }>(`${this.urlAPI}/login`, credenciales)
       .pipe(
         tap(({ token }) => {
-          StorageHelper.setItem(StorageKeyEnum.Token, token);
-          // const helper = new JwtHelperService();
-          // const payload = helper.decodeToken(token) as IUserPayload;
+          this.storage.setItem(StorageKeyEnum.Token, token);
+          // const jwtHelper = new JwtHelperService();
+          // const payload = jwtHelper.decodeToken(token) as IUserPayload;
           // this.userService.updateUser({
           //   ...payload,
           //   token,
@@ -44,7 +44,8 @@ export class AuthService {
     return this.http
       .post<{ token: string }>(`${this.urlAPI}/google-authenticate`, idToken)
       .pipe(
-        tap((response) => {
+        tap(({ token }) => {
+          this.storage.setItem(StorageKeyEnum.Token, token);
           // const helper = new JwtHelperService();
           // const payload = helper.decodeToken(response.token);
           // const user: IUserPayload = {
