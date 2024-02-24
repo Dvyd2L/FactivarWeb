@@ -17,35 +17,36 @@
     ]
   },
   "footer": {
-    "sections": [
-      {
-        "direccion": "DIRECCION"
+    "sections": {
+      "direccion": {
+        "titulo": "dirección",
+        "contenido": "Océano Pacífico, en la ciudad submarina de Fondo de Bikini (Bikini Bottom)"
       },
-      {
-        "telefono": "TELEFONO"
+      "telefono": {
+        "titulo": "teléfono"
       },
-      {
-        "linkedin": "Nuestros Linkedin"
+      "social": {
+        "titulo": "nuestros linkedin"
       }
-    ]
+    }
   },
   "navbar": {
-    "sections": [
-      {
-        "inicio": "INICIO"
+    "sections": {
+      "inicio":{
+        "titulo": "inicio"
       },
-      {
-        "clientes": "CLIENTES"
+      "clientes":{
+        "titulo": "clientes"
       },
-      {
-        "facturas": "FACTURAS"
+      "facturas":{
+        "titulo": "facturas"
       },
-      {
-        "usuarios": "USUARIOS"
+      "usuarios":{
+        "titulo": "usuarios"
       },
-      {
-        "conectarse": "CONECTARSE"
+      "conectarse":{
+        "titulo": "inicio sesión"
       }
-    ]
+    }
   }
 }

@@ -1,7 +1,8 @@
 import { FooterComponent } from '@/app/shared/layout/components/footer/footer.component';
-import { Component, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { TraductorService } from '@/app/core/services/traductor.service';
+import { Home } from '@/app/models/interfaces/traductor';
 
 @Component({
   selector: 'app-home',
@@ -10,12 +11,11 @@ import { TraductorService } from '@/app/core/services/traductor.service';
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
   private traductor = inject(TraductorService);
-  textos = this.traductor.textos.home;
+  public textos!: Home;
 
-  cambiarIdioma(idiomaSeleccionado: string) {
-    this.traductor.cambiarIdioma(idiomaSeleccionado);
-    this.textos = this.traductor.textos.home;
+  ngOnInit(): void {
+    this.traductor.textos$.subscribe(({ home }) => (this.textos = home));
   }
 }

@@ -17,35 +17,36 @@
     ]
   },
   "footer": {
-    "sections": [
-      {
-        "direccion": "ADDRESS"
+    "sections": {
+      "direccion": {
+        "titulo": "address",
+        "contenido": "Pacific Ocean, in the underwater city of Bikini Bottom (Bikini Bottom)"
       },
-      {
-        "telefono": "PHONE"
+      "telefono": {
+        "titulo": "phone"
       },
-      {
-        "linkedin": "Our Linkedin"
+      "social": {
+        "titulo": "our linkedin"
       }
-    ]
+    }
   },
   "navbar": {
-    "sections": [
-      {
-        "inicio": "HOME"
+    "sections": {
+      "inicio": {
+        "titulo": "home"
       },
-      {
-        "clientes": "CUSTOMERS"
+      "clientes": {
+        "titulo": "customers"
       },
-      {
-        "facturas": "INVOICES"
+      "facturas": {
+        "titulo": "invoices"
       },
-      {
-        "usuarios": "USERS"
+      "usuarios": {
+        "titulo": "users"
       },
-      {
-        "conectarse": "SIGNIN"
+      "conectarse": {
+        "titulo": "signin"
       }
-    ]
+    }
   }
 }

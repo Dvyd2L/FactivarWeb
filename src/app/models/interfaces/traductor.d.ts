@@ -5,13 +5,13 @@ export interface ITraductor {
 }
 
 export interface Footer {
-  sections: FooterSection[];
+  sections: FooterSection;
 }
 
 export interface FooterSection {
-  direccion?: string;
-  telefono?: string;
-  linkedin?: string;
+  direccion: { titulo: string; contenido: string };
+  telefono: { titulo: string };
+  social: { titulo: string };
 }
 
 export interface Home {
@@ -25,13 +25,13 @@ export interface HomeSection {
 }
 
 export interface Navbar {
-  sections: NavbarSection[];
+  sections: NavbarSection;
 }
 
 export interface NavbarSection {
-  inicio?: string;
-  clientes?: string;
-  facturas?: string;
-  usuarios?: string;
-  conectarse?: string;
+  inicio: { titulo: string };
+  clientes: { titulo: string };
+  facturas: { titulo: string };
+  usuarios: { titulo: string };
+  conectarse: { titulo: string };
 }

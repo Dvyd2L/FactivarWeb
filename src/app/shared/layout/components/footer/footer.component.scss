@@ -147,6 +147,10 @@
   background-color: green;
 }
 
+address > p {
+  text-transform: capitalize;
+}
+
 @media (max-width: 991px) {
   .site-footer [class^="col-"] {
     margin-bottom: 30px;

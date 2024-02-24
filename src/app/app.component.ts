@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-// import { TranslateService } from '@ngx-translate/core';
+import { TraductorService } from './core/services/traductor.service';
 
 @Component({
   selector: 'app-root',
@@ -11,10 +11,10 @@ import { RouterOutlet } from '@angular/router';
   providers: [],
 })
 export class AppComponent {
+  private traductor = inject(TraductorService);
   public title = 'FactivarWeb';
 
-  // constructor(private translate: TranslateService) {
-  //   translate.setDefaultLang('es');
-  //   translate.use('en');
-  // }
+  public cambiarIdioma(idiomaSeleccionado: string) {
+    this.traductor.cambiarIdioma(idiomaSeleccionado);
+  }
 }

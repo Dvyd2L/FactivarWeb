@@ -2,10 +2,9 @@
   <div class="container">
     <div class="row">
       <div class="col-sm-12 col-md-6">
-        <h6>Dirreción</h6>
+        <h6>{{ textos.sections.direccion.titulo }}</h6>
         <p class="text-justify">
-          Océano Pacífico, en la ciudad submarina de Fondo de Bikini (Bikini
-          Bottom)
+          {{ textos.sections.direccion.contenido }}
         </p>
       </div>
 
@@ -17,7 +16,7 @@
       </div>
 
       <div class="col-xs-6 col-md-3">
-        <h6>Teléfono</h6>
+        <h6>{{ textos.sections.telefono.titulo }}</h6>
         <ul class="footer-links">
           <li>
             <p class="text-justify">+34 666 666 666</p>
@@ -34,9 +33,9 @@
       </div>
 
       <address class="col-md-4 col-sm-6 col-xs-12">
-        <div class="col-md-8 col-sm-6 col-xs-12">
-          <p class="copyright-text">Nuestros Linkedin:</p>
-        </div>
+        <!-- <div class="col-md-8 col-sm-6 col-xs-12"> -->
+        <p class="copyright-text">{{ textos.sections.social.titulo }}:</p>
+        <!-- </div> -->
         <ul class="social-icons">
           <li>
             <a

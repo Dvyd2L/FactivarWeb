@@ -1,5 +1,6 @@
 import { TraductorService } from '@/app/core/services/traductor.service';
-import { Component, inject } from '@angular/core';
+import { Footer } from '@/app/models/interfaces/traductor';
+import { Component, OnInit, inject } from '@angular/core';
 
 @Component({
   selector: 'app-footer',
@@ -8,12 +9,11 @@ import { Component, inject } from '@angular/core';
   templateUrl: './footer.component.html',
   styleUrl: './footer.component.scss',
 })
-export class FooterComponent {
+export class FooterComponent implements OnInit {
   private traductor = inject(TraductorService);
-  textos = this.traductor.textos.footer;
+  public textos!: Footer;
 
-  cambiarIdioma(idiomaSeleccionado: string) {
-    this.traductor.cambiarIdioma(idiomaSeleccionado);
-    this.textos = this.traductor.textos.footer;
+  ngOnInit(): void {
+    this.traductor.textos$.subscribe(({ footer }) => (this.textos = footer));
   }
 }
