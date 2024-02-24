@@ -92,3 +92,41 @@ p {
   width: 100%;
   max-width: 20dvw;
 }
+
+.btn-xio {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: fit-content;
+  padding-inline: .5rem;
+  align-self: center;
+
+  border: double 10px transparent;
+  border-radius: 2rem;
+
+  background-size: 300%;
+  transition: 0.5s;
+  animation: gradient_301 alternate 2.5s ease infinite;
+  /* animation-direction: alternate; */
+  background-image: linear-gradient(#21212100, #21212100),
+    linear-gradient(
+      137.48deg,
+      #37ede4 10%,
+      #3eb1e6eb 45%,
+      #20acce 67%,
+      #1dda92 87%
+    );
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+
+  cursor: pointer;
+  
+  > strong {
+    z-index: 2;
+    font-size: 14px;
+    letter-spacing: 2px;
+    color: #ffffff;
+    text-shadow: 0 0 4px white;
+  }
+}

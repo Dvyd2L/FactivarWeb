@@ -4,32 +4,15 @@
     <div
       class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center"
     >
-      <div class="d-flex justify-content-center">
-        <div class="text-center">
+        <div class="d-flex justify-content-center flex-column text-center">
           <h1 class="mx-auto my-0 text-uppercase">Factivar</h1>
           <h2 class="text-white-50 mx-auto mt-2 mb-5">
-            {{textos.eslogan}}
-            </h2>
-            
-            <!-- <button class="btnIdioma" (click)="cambiarIdioma('castellano')">
-              <img src="assets\images\svg\banderaEspañola.svg" alt="Bandera Española">
-            </button>
-            <button class="btnIdioma" (click)="cambiarIdioma('ingles')">
-              <img src="assets\images\svg\banderaInglesa.svg" alt="Bandera Inglesa">
-            </button> -->
-
-            <!-- <h2 class="text-white-50 mx-auto mt-2 mb-5">
-            Tu página web para una facturación más sencilla e intuitiva
-          </h2> -->
-
-          <a
-            [routerLink]="['/clientes']"
-            class="mt-2 d-flex justify-content-center"
-          >
-            Entrar
+            {{ textos.eslogan }}
+          </h2>
+          <a [routerLink]="['/clientes']" class="mt-2 btn-xio">
+            <strong>Entrar</strong>
           </a>
         </div>
-      </div>
     </div>
   </header>
   <!-- <div class="ricias"></div> -->
@@ -51,9 +34,9 @@
 
           <div class="col-xl-4 col-lg-5">
             <div class="featured-text text-center text-lg-left">
-              <h4>{{textos.sections[0].titulo}}</h4>
+              <h4>{{ textos.sections[0].titulo }}</h4>
               <p class="mb-0">
-                {{textos.sections[0].contenido}}
+                {{ textos.sections[0].contenido }}
               </p>
             </div>
           </div>
@@ -74,16 +57,16 @@
                 <div
                   class="project-text w-100 my-auto text-center text-lg-left"
                 >
-                  <h4 class="text-white">{{textos.sections[1].titulo}}</h4>
+                  <h4 class="text-white">{{ textos.sections[1].titulo }}</h4>
                   <p class="mb-0 text-white-50">
-                    {{textos.sections[1].contenido}}
+                    {{ textos.sections[1].contenido }}
                   </p>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        
+
         <div class="row gx-0 justify-content-center">
           <div class="col-lg-6">
             <img
@@ -98,9 +81,9 @@
                 <div
                   class="project-text w-100 my-auto text-center text-lg-right"
                 >
-                  <h4 class="text-white">{{textos.sections[2].titulo}}</h4>
+                  <h4 class="text-white">{{ textos.sections[2].titulo }}</h4>
                   <p class="mb-0 text-white-50">
-                    {{textos.sections[2].contenido}}
+                    {{ textos.sections[2].contenido }}
                   </p>
                 </div>
               </div>
