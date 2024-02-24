@@ -32,20 +32,54 @@
   },
   "navbar": {
     "sections": {
-      "inicio":{
+      "inicio": {
         "titulo": "inicio"
       },
-      "clientes":{
+      "clientes": {
         "titulo": "clientes"
       },
-      "facturas":{
+      "facturas": {
         "titulo": "facturas"
       },
-      "usuarios":{
+      "usuarios": {
         "titulo": "usuarios"
       },
-      "conectarse":{
+      "conectarse": {
         "titulo": "inicio sesión"
+      }
+    }
+  },
+  "auth": {
+    "boton-inicio": "Inicio",
+    "sections": {
+      "login": {
+        "titulo": "inicio sesión",
+        "boton": "Continuar",
+        "olvido-password": "¿Te olvidaste de tu contraseña?",
+        "register": {
+          "title": "¿Aún no tienes cuenta?",
+          "link": "Regístrate"
+        },
+        "social-login": "O inicia sesión con",
+        "form": {
+          "email": {
+            "label": "Correo electrónico",
+            "placeholder": "correo@ejemplo.com"
+          },
+          "password": {
+            "label": "Contraseña",
+            "placeholder": "Introduce la contraseña (obligatorio)"
+          }
+        }
+      },
+      "registro": {
+        "titulo": "registro"
+      },
+      "change-password": {
+        "titulo": "cambiar contraseña"
+      },
+      "forgot-password": {
+        "titulo": "olvidó su contraseña"
       }
     }
   }

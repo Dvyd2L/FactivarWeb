@@ -1,8 +1,13 @@
 <form class="form form-signin" [formGroup]="loginForm" (ngSubmit)="login()">
   <div class="form-group mb-3">
-    <label for="email" class="sr-only" hidden aria-label="email del usuario">{{
-      formConfig.email.label
-    }}</label>
+    <label
+      for="email"
+      class="sr-only"
+      hidden
+      [attr.aria-label]="textos.form.email.label"
+    >
+      {{ textos.form.email.label }}
+    </label>
     <input
       class="form-control"
       [autocomplete]="formConfig.email.autocomplete"
@@ -19,9 +24,10 @@
       [for]="formConfig.password.id"
       class="sr-only"
       hidden
-      aria-label="contraseña"
-      >{{ formConfig.password.label }}</label
+      [attr.aria-label]="textos.form.password.label"
     >
+      {{ textos.form.password.label }}
+    </label>
     <input
       class="form-control"
       [autocomplete]="formConfig.password.autocomplete"
@@ -29,7 +35,7 @@
       [id]="formConfig.password.id"
       [name]="formConfig.password.name"
       [type]="formConfig.password.type"
-      [placeholder]="formConfig.password.placeholder"
+      [placeholder]="textos.form.password.placeholder"
     />
   </div>
 
@@ -40,24 +46,26 @@
       type="submit"
       [disabled]="loginForm.invalid"
     >
-      Continuar
+      {{ textos.boton }}
     </button>
   </div>
 </form>
 
-<a class="forgot-password" [routerLink]="['/auth', 'forgot-password']"
-  >¿Te olvidaste de tu contraseña?</a
->
+<a class="forgot-password" [routerLink]="['/auth', 'forgot-password']">{{
+  textos["olvido-password"]
+}}</a>
 
 <section>
-  <span id="span23">¿Aún no tienes cuenta?&nbsp;</span>
-  <a href="#" [routerLink]="['/auth', 'register']">Registrate</a>
+  <span id="span23">{{ textos.register.title }}&nbsp;</span>
+  <a href="#" [routerLink]="['/auth', 'register']">{{
+    textos.register.link
+  }}</a>
 </section>
 
 <hr />
 
 <section class="social-account-container">
-  <span class="title1">O inicia sesión con</span>
+  <span class="title1">{{ textos["social-login"] }}</span>
   <div class="social-accounts">
     <!-- <app-google-signin (idToken)="loginWithGoogle($event)" /> -->
     <!-- <app-facebook-signin /> -->

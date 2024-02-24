@@ -1,42 +1,42 @@
 {
     "email": {
         "label": "Email",
+        "placeholder": "email@example.com",
         "type": "email",
         "name": "email",
         "id": "email",
-        "placeholder": "email@example.com",
         "autocomplete": "email"
     },
     "password": {
         "label": "Contraseña",
+        "placeholder": "Introduce la contraseña (obligatorio)",
         "type": "password",
         "name": "password",
         "id": "password",
-        "placeholder": "Introduce la contraseña (obligatorio)",
         "autocomplete": "current-password"
     },
     "repeatPassword": {
         "label": "Repetir contraseña",
+        "placeholder": "Repite la contraseña (obligatorio)",
         "type": "password",
         "name": "repeatPassword",
         "id": "repeatPassword",
-        "placeholder": "Repite la contraseña (obligatorio)",
         "autocomplete": "current-password"
     },
     "oldPassword": {
         "label": "Contraseña antigua",
+        "placeholder": "Introduce la contraseña antigua (obligatorio)",
         "type": "password",
         "name": "oldPassword",
         "id": "oldPassword",
-        "placeholder": "Introduce la contraseña antigua (obligatorio)",
         "autocomplete": "current-password"
     },
     "newPassword": {
         "label": "Nueva contraseña",
+        "placeholder": "Introduce la nueva contraseña (obligatorio)",
         "type": "password",
         "name": "newPassword",
         "id": "newPassword",
-        "placeholder": "Introduce la nueva contraseña (obligatorio)",
         "autocomplete": "current-password"
     }
 }

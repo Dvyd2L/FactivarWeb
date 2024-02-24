@@ -48,5 +48,39 @@
         "titulo": "signin"
       }
     }
+  },
+  "auth": {
+    "boton-inicio": "Home",
+    "sections": {
+      "login": {
+        "titulo": "login",
+        "boton": "Continue",
+        "olvido-password": "Forgot your password?",
+        "register": {
+          "title": "Don't have an account yet?",
+          "link": "Sign in"
+        },
+        "social-login": "Or sign in with",
+        "form": {
+          "email": {
+            "label": "Email",
+            "placeholder": "email@example.com"
+          },
+          "password": {
+            "label": "Password",
+            "placeholder": "Type your password (required)"
+          }
+        }
+      },
+      "registro": {
+        "titulo": "registro"
+      },
+      "change-password": {
+        "titulo": "cambiar contraseña"
+      },
+      "forgot-password": {
+        "titulo": "olvidó su contraseña"
+      }
+    }
   }
 }
