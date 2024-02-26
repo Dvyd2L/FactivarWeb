@@ -34,6 +34,7 @@ export class DetailComponent implements OnInit {
   public numeroFactuP = new FormControl({ value: 0, disabled: false });
   public numeroFactuC = new FormControl({ value: 0, disabled: false });
   //Para cálculos de IVA
+  public tipoCalculo = new FormControl({ value: "", disabled: false });
   public mes = new FormControl({ value: 0, disabled: false });
   public trimestre = new FormControl({ value: 0, disabled: false });
   public year = new FormControl({ value: 0, disabled: false });

@@ -6,23 +6,30 @@
 ><br />
 }  -->
 
-<form action="">
-  <p>IVA MENSUAL</p>
-  <label for="">Mes</label>
-  <input type="text" [formControl]="mes">
-  <label for="">Año</label>
-  <input type="text" [formControl]="year">>
-  <button
-          class="btn btn-success"
-          type="button"
-          (click)="calculaIvaMensual()"
-        >
-          Calcular
-        </button>
-</form>
+<label for="calculos">IVAs a calcular</label>
+<select [formControl]="tipoCalculo" name="" id="calculos">
+  <option value="mes">IVA Mensual</option>
+  <option value="trimestre">IVA Trimestral</option>
+  <option value="anual">IVA Anual</option>
+</select>
 
+@if(tipoCalculo.value === 'mes'){
+  <form action="">
+    <label for="">Mes</label>
+    <input type="text" [formControl]="mes">
+    <label for="">Año</label>
+    <input type="text" [formControl]="year">>
+    <button
+      class="btn btn-success"
+      type="button"
+      (click)="calculaIvaMensual()">
+          Calcular
+    </button>
+  </form>
+}
+
+@if(tipoCalculo.value === 'trimestre'){
 <form action="">
-  <p>IVA TRIMESTRAL</p>
   <label for="">Trimestre</label>
   <input type="text" [formControl]="trimestre">>
   <label for="">Año</label>
@@ -35,9 +42,10 @@
           Calcular
         </button>
 </form>
+}
 
+@if(tipoCalculo.value === 'anual'){
 <form action="">
-  <p>IVA ANUAL</p>
   <label for="">Año</label>
   <input type="text" [formControl]="year">>
   <button
@@ -48,6 +56,7 @@
           Calcular
         </button>
 </form>
+}
 
 
 @for (f of res.facturaProveedors; track f.facturaId) {
