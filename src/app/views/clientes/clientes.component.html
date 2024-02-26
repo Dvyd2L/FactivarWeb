@@ -1,10 +1,12 @@
 <article>
   <h1>CLIENTES</h1>
 
-  @if (response$ | async; as res) { @for (item of res; track item.cif) {
+  @if (response$ | async; as res) { 
+  
+    <!-- @for (item of res; track item.cif) {
   <pre>{{ item | json }}</pre>
   <a [routerLink]="['/clientes', item.cif]">Ver {{ item.nombre }}</a>
-  }
+  } -->
 
   <table class="table table-stripped">
     <thead>
