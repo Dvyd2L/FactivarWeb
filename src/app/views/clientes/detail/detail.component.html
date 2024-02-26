@@ -5,6 +5,51 @@
 <a [routerLink]="['/facturas', f.facturaId]">{{ f.facturaId }}</a
 ><br />
 }  -->
+
+<form action="">
+  <p>IVA MENSUAL</p>
+  <label for="">Mes</label>
+  <input type="text" [formControl]="mes">
+  <label for="">Año</label>
+  <input type="text" [formControl]="year">>
+  <button
+          class="btn btn-success"
+          type="button"
+          (click)="calculaIvaMensual()"
+        >
+          Calcular
+        </button>
+</form>
+
+<form action="">
+  <p>IVA TRIMESTRAL</p>
+  <label for="">Trimestre</label>
+  <input type="text" [formControl]="trimestre">>
+  <label for="">Año</label>
+  <input type="text" [formControl]="year">>
+  <button
+          class="btn btn-success"
+          type="button"
+          (click)="calculaIvaTrimestral()"
+        >
+          Calcular
+        </button>
+</form>
+
+<form action="">
+  <p>IVA ANUAL</p>
+  <label for="">Año</label>
+  <input type="text" [formControl]="year">>
+  <button
+          class="btn btn-success"
+          type="button"
+          (click)="calculaIvaAnual()"
+        >
+          Calcular
+        </button>
+</form>
+
+
 @for (f of res.facturaProveedors; track f.facturaId) {
 <!-- <a [routerLink]="['/facturas', f.facturaId]">{{ f.facturaId }}</a> -->
 <br />
