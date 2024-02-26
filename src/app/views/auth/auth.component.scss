@@ -1,55 +1,66 @@
 /* LOGIN Y REGISTRO RECUADRO */
-.background {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100dvh; /* Altura del viewport */
-  width: 100dvw; /* Ancho del viewport */
-  z-index: -1; /* Para que el fondo quede detrás del contenido */
-  background-image: url("../../../assets/images/FondoFinal.jpg");
-  background-size: cover;
-  background-repeat: no-repeat;
-}
+// .background {
+//   position: fixed;
+//   top: 0;
+//   left: 0;
+//   height: 100dvh; /* Altura del viewport */
+//   width: 100dvw; /* Ancho del viewport */
+//   z-index: -1; /* Para que el fondo quede detrás del contenido */
+//   background-image: url("../../../assets/images/FondoFinal.jpg");
+//   background-size: cover;
+//   background-repeat: no-repeat;
+//   filter: invert(0) grayscale(0);
 
-.container12 {
-  width: min(600px, 100%);
-  // width: 100%;
-  // max-width: 600px; /* Ajusta el ancho máximo según tus necesidades */
-  text-align: center;
-  background: linear-gradient(
-    0deg,
-    rgba(255, 255, 255, 0.75) 0%,
-    rgba(244, 247, 251, 0.75) 100%
-  );
-  border-radius: 40px;
-  padding: 25px 35px;
-  border: 5px solid rgb(255, 255, 255);
-  box-shadow: rgba(64, 202, 168, 0.878) 0px 30px 30px -20px;
-  // margin-inline: auto;
-  // margin-left: auto;
-  // margin-right: auto;
-  // margin-block: 100px;
-  // margin-top: 100px;
-  // margin-bottom: 100px;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+//   /* Estilos para el tema oscuro */
+//   [data-bs-theme=dark] & {
+//     filter: invert(1) grayscale(1);
+//   }
+// }
 
-  /* Fondo de imagen (INVESTIGAR) */
-  // &::before {
-  //   content: "";
-  //   position: fixed;
-  //   top: 0;
-  //   left: 0;
-  //   height: 100dvh; /* Altura del viewport */
-  //   width: 100dvw; /* Ancho del viewport */
-  //   z-index: -1; /* Para que el fondo quede detrás del contenido */
-  //   background-image: url("../../../assets/images/FondoFinal.jpg");
-  //   background-size: cover;
-  //   background-repeat: no-repeat;
-  // }
-}
+// .container-xio {
+//   width: min(600px, 100%);
+//   // width: 100%;
+//   // max-width: 600px; /* Ajusta el ancho máximo según tus necesidades */
+//   text-align: center;
+//   background: linear-gradient(
+//     0deg,
+//     rgba(255, 255, 255, 0.75) 0%,
+//     rgba(244, 247, 251, 0.75) 100%
+//   );
+//   border-radius: 40px;
+//   padding: 25px 35px;
+//   border: 5px solid rgb(255, 255, 255);
+//   box-shadow: rgba(64, 202, 168, 0.878) 0px 30px 30px -20px;
+//   // margin-inline: auto;
+//   // margin-left: auto;
+//   // margin-right: auto;
+//   // margin-block: 100px;
+//   // margin-top: 100px;
+//   // margin-bottom: 100px;
+//   position: absolute;
+//   left: 50%;
+//   top: 50%;
+//   transform: translate(-50%, -50%);
+
+//   /* Fondo de imagen (INVESTIGAR) */
+//   // &::before {
+//   //   content: "";
+//   //   position: fixed;
+//   //   top: 0;
+//   //   left: 0;
+//   //   height: 100dvh; /* Altura del viewport */
+//   //   width: 100dvw; /* Ancho del viewport */
+//   //   z-index: -1; /* Para que el fondo quede detrás del contenido */
+//   //   background-image: url("../../../assets/images/FondoFinal.jpg");
+//   //   background-size: cover;
+//   //   background-repeat: no-repeat;
+//   // }
+
+//     /* Estilos para el tema oscuro */
+//   [data-bs-theme=dark] & {
+//     color: canvas;
+//   }
+// }
 
 /* Aparece y desaparece el logo del registro y login */
 .fade-in {
@@ -102,15 +113,14 @@
 // }
 
 /* Estilos para el tema oscuro */
-[data-bs-theme="dark"]  {
-  .background{
-    filter: invert(1) grayscale(1);
-  }
-  .container12 {
-    color: canvas;
-  }
-}
-
+// [data-bs-theme="dark"]  {
+//   .background{
+//     filter: invert(1) grayscale(1);
+//   }
+//   .container12 {
+//     color: canvas;
+//   }
+// }
 
 // @media (prefers-color-scheme: dark) {
 //   // @media (prefers-color-scheme: light) {

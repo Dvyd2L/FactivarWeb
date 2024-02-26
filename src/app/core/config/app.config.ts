@@ -57,15 +57,6 @@ export const appConfig: ApplicationConfig = {
       withInterceptors([errorResponseInterceptorFn, tokenInterceptorFn])
     ),
     provideNoopAnimations(),
-    importProvidersFrom(
-      // TranslateModule.forRoot({
-      //   loader: {
-      //     provide: TranslateLoader,
-      //     useFactory: HttpLoaderFactory,
-      //     deps: [HttpClient],
-      //   },
-      // })
-    ),
-    // TranslateService,
+    importProvidersFrom(),
   ],
 };

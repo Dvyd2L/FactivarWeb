@@ -6,12 +6,14 @@ import { Injectable, inject } from '@angular/core';
 import { tap, Observable, mergeMap } from 'rxjs';
 import { ILoginRequest } from '@/app/models/interfaces/user';
 import { StorageService } from '@/app/core/services/storage.service';
+import { UserService } from '@/app/core/services/user.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   private storage = inject(StorageService);
+  private userSvc = inject(UserService);
   private http = inject(HttpClient);
   private urlAPI: string = environment.urlAPI + 'auth';
   /**
@@ -23,7 +25,8 @@ export class AuthService {
       .post<{ token: string }>(`${this.urlAPI}/login`, credenciales)
       .pipe(
         tap(({ token }) => {
-          this.storage.setItem(StorageKeyEnum.Token, token);
+          // this.storage.setItem(StorageKeyEnum.Token, token);
+          this.userSvc.updateUser({ Sid: crypto.randomUUID(), token });
           // const jwtHelper = new JwtHelperService();
           // const payload = jwtHelper.decodeToken(token) as IUserPayload;
           // this.userService.updateUser({

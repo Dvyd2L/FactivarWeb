@@ -1,0 +1,98 @@
+@layer utils {
+  .main-view-transition {
+    view-transition-name: main-transition;
+  }
+
+  .toast-wrapper {
+    position: absolute;
+    /* position: fixed; */
+    bottom: 0;
+    right: 2rem;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 0.5rem;
+    height: 100%;
+    width: 100%;
+    max-width: 20dvw;
+  }
+
+  .btn-xio {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: fit-content;
+    padding-inline: 0.5rem;
+    align-self: center;
+
+    border: double 10px transparent;
+    border-radius: 2rem;
+
+    background-size: 300%;
+    transition: 0.5s;
+    animation: gradient-xio alternate 2.5s ease infinite;
+    /* animation-direction: alternate; */
+    background-image: linear-gradient(#21212100, #21212100),
+      linear-gradient(
+        137.48deg,
+        #37ede4 10%,
+        #3eb1e6eb 45%,
+        #20acce 67%,
+        #1dda92 87%
+      );
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+
+    cursor: pointer;
+
+    > strong {
+      z-index: 2;
+      font-size: 14px;
+      letter-spacing: 2px;
+      color: #ffffff;
+      text-shadow: 0 0 4px white;
+    }
+  }
+
+  .background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100dvh; /* Altura del viewport */
+    width: 100dvw; /* Ancho del viewport */
+    z-index: -1; /* Para que el fondo quede detrás del contenido */
+    background-image: url("../../images/FondoFinal.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    filter: invert(0) grayscale(0);
+
+    /* Estilos para el tema oscuro */
+    [data-bs-theme="dark"] & {
+      filter: invert(1) grayscale(0.5);
+    }
+  }
+
+  .container-xio {
+    width: min(600px, 100%);
+    text-align: center;
+    background: linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.75) 0%,
+      rgba(244, 247, 251, 0.75) 100%
+    );
+    border-radius: 40px;
+    padding: 25px 35px;
+    border: 5px solid rgb(255, 255, 255);
+    box-shadow: rgba(64, 202, 168, 0.878) 0px 30px 30px -20px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+
+    /* Estilos para el tema oscuro */
+    [data-bs-theme="dark"] & {
+      color: canvas;
+    }
+  }
+}
