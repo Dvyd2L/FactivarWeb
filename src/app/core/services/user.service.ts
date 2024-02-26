@@ -12,15 +12,8 @@ import { UUID } from 'node:crypto';
   providedIn: 'root',
 })
 export class UserService<T extends { Sid: UUID; token: string }> {
-  // private idxDB = inject(IndexedDBService);
   private currentUserSubject = new BehaviorSubject<T>(null!);
   public user$ = this.currentUserSubject.asObservable();
-  /**
-   * Obtiene el valor actual del usuario.
-   */
-  public get userValue(): T {
-    return this.currentUserSubject.value;
-  }
   /**
    * Obtiene un observable que emite el usuario actual.
    * @returns Observable que emite el usuario actual.
@@ -30,32 +23,24 @@ export class UserService<T extends { Sid: UUID; token: string }> {
   }
   /**
    * Obtiene el token del usuario actual.
-   * @returns Token del usuario actual o null si no hay usuario.
+   * @returns Token del usuario actual.
    */
-  public getToken(): string | null {
-    return this.userValue && this.userValue.token
-      ? this.userValue.token
-      : StorageHelper.getItem<IUser>(StorageKeyEnum.User)?.token ??
-          StorageHelper.getItem(StorageKeyEnum.Token) ??
-          null;
+  public getToken(): string {
+    return this.currentUserSubject.value && this.currentUserSubject.value.token
+      ? this.currentUserSubject.value.token
+      : '';
   }
   /**
    * Actualiza la información del usuario.
    * @param user - Nuevo objeto de usuario.
    */
   public updateUser(user: T) {
-    StorageHelper.setItem(StorageKeyEnum.User, user);
-    // this.userValue
-    //   ? this.idxDB.create<T>(user, StoreEnum.USER)
-    //   : this.idxDB.update<T>(user, StoreEnum.USER);
     this.currentUserSubject.next(user);
   }
   /**
    * Elimina la información del usuario.
    */
   public clearUser() {
-    StorageHelper.removeItem(StorageKeyEnum.User);
-    // this.idxDB.delete<T>(this.userValue.Sid, StoreEnum.USER);
     this.currentUserSubject.next(null!);
   }
 }

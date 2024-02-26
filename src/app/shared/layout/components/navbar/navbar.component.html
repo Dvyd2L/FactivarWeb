@@ -1,10 +1,11 @@
 <div class="wrapper">
   <a
-    title="Inicio"
+    [title]="textos.sections.inicio.titulo"
     class="navbar-brand cursiv"
     [routerLink]="['/home']"
     routerLinkActive="active"
   >
+  <div class="dot"></div>
     <svg
       version="1.0"
       xmlns="http://www.w3.org/2000/svg"
@@ -108,7 +109,11 @@
   </a>
 
   <nav class="navigation">
-    <app-link [title]="'Inicio'" [route]="['/home']" aria-label="Inicio">
+    <app-link
+      [title]="textos.sections.inicio.titulo"
+      [route]="['/home']"
+      [attr.aria-label]="textos.sections.inicio.titulo"
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 576 512"
@@ -124,9 +129,9 @@
       </svg>
     </app-link>
     <app-link
-      [title]="'Clientes'"
+      [title]="textos.sections.clientes.titulo"
       [route]="['/clientes']"
-      aria-label="Clientes"
+      [attr.aria-label]="textos.sections.clientes.titulo"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -143,9 +148,9 @@
       </svg>
     </app-link>
     <app-link
-      [title]="'Facturas'"
+      [title]="textos.sections.facturas.titulo"
       [route]="['/facturas']"
-      aria-label="Facturas"
+      [attr.aria-label]="textos.sections.facturas.titulo"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -162,9 +167,9 @@
       </svg>
     </app-link>
     <app-link
-      [title]="'Usuarios'"
+      [title]="textos.sections.usuarios.titulo"
       [route]="['/usuarios']"
-      aria-label="Usuarios"
+      [attr.aria-label]="textos.sections.usuarios.titulo"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -185,7 +190,11 @@
   <menu class="menu">
     <!-- <app-theme-toggle /> -->
     <!-- <app-avatar /> -->
-    <app-link [title]="'SignIn'" [route]="['/auth']" aria-label="Identifíquese">
+    <app-link
+      [title]="textos.sections.conectarse.titulo"
+      [route]="['/auth']"
+      [attr.aria-label]="textos.sections.conectarse.titulo"
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 448 512"

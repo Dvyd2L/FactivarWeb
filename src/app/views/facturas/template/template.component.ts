@@ -21,4 +21,8 @@ export class TemplateComponent implements OnInit {
     this.api.setEndpoint(ApiEndpointEnum.FACTURAS);
     this.response$ = this.api.read<number, IInvoice>(this.dataId);
   }
+
+  public print() {
+    window.print();
+  }
 }

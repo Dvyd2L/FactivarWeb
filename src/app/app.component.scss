@@ -1,0 +1,45 @@
+menu {
+  position: fixed;
+  top: 1rem;
+  right: 0;
+  inline-size: 6.5rem;
+  block-size: 2rem;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.5rem 0 0 0.5rem;
+  transform: translateX(70%);
+  transition: all 0.2s ease;
+
+  &::before {
+    content: url(../assets/images/svg/gear-fill.svg);
+    inline-size: 1.25rem;
+    position: absolute;
+    left: .4rem;
+    top: .4rem;
+  }
+
+  &:hover {
+    transform: translateX(0);
+    transition: transform 0.5s ease, padding-inline-start 0.7s ease;
+  }
+
+  background-color: rgba(0, 0, 0, 0.2);
+  > button {
+    margin: 0;
+    inline-size: 36px;
+    block-size: 18px;
+    border: none;
+    background-color: transparent;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    > img {
+      height: 18px;
+      width: 36px;
+    }
+  }
+}

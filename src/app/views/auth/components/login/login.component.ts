@@ -1,6 +1,7 @@
 import {
   AfterViewInit,
   Component,
+  OnInit,
   ViewChild,
   ViewContainerRef,
   inject,
@@ -17,6 +18,9 @@ import { REGEXP } from '@/app/views/auth/validators/regexp';
 import { ILoginRequest } from '@/app/models/interfaces/user';
 import { email, password } from '@/app/views/auth/forms-config.json';
 import { toastHelper } from '@/app/core/helpers/toast.helper';
+import { TraductorService } from '@/app/core/services/traductor.service';
+import { IFormInput } from '@/app/models/interfaces/form';
+import { LoginSection } from '@/app/models/interfaces/traductor';
 
 @Component({
   selector: 'app-login',
@@ -26,7 +30,8 @@ import { toastHelper } from '@/app/core/helpers/toast.helper';
   styleUrls: ['./login.component.scss'],
   providers: [AuthService],
 })
-export class LoginComponent implements AfterViewInit {
+export class LoginComponent implements OnInit, AfterViewInit {
+  private i18n = inject(TraductorService);
   private auth = inject(AuthService);
   private router = inject(Router);
   @ViewChild('toastContainer', { read: ViewContainerRef })
@@ -41,15 +46,11 @@ export class LoginComponent implements AfterViewInit {
       Validators.pattern(REGEXP['PASSWORD']),
     ]),
   });
-  public formConfig = {
-    email: {
-      ...email,
-    },
-    password: {
-      ...password,
-    },
+  public formConfig: { email: IFormInput; password: IFormInput } = {
+    email: { ...email },
+    password: { ...password },
   };
-
+  public textos!: LoginSection;
   public addToast!: ({
     title,
     message,
@@ -62,9 +63,26 @@ export class LoginComponent implements AfterViewInit {
     life: number;
   }) => void;
 
+  /* hooks */
+  ngOnInit(): void {
+    this.i18n.textos$.subscribe(({ auth }) => {
+      const { login } = auth.sections;
+      const { email: mail, password: pass } = login.form;
+      this.textos = login;
+      this.formConfig.email = {
+        ...email,
+        ...mail,
+      };
+      this.formConfig.password = {
+        ...password,
+        ...pass,
+      };
+    });
+  }
   ngAfterViewInit(): void {
     this.addToast = toastHelper(this.toast);
   }
+  /* end hooks */
 
   public setPassword(value: string) {
     // this.infoLogin.password = value;

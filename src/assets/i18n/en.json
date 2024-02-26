@@ -17,35 +17,70 @@
     ]
   },
   "footer": {
-    "sections": [
-      {
-        "direccion": "ADDRESS"
+    "sections": {
+      "direccion": {
+        "titulo": "address",
+        "contenido": "Pacific Ocean, in the underwater city of Bikini Bottom (Bikini Bottom)"
       },
-      {
-        "telefono": "PHONE"
+      "telefono": {
+        "titulo": "phone"
       },
-      {
-        "linkedin": "Our Linkedin"
+      "social": {
+        "titulo": "our linkedin"
       }
-    ]
+    }
   },
   "navbar": {
-    "sections": [
-      {
-        "inicio": "HOME"
+    "sections": {
+      "inicio": {
+        "titulo": "home"
       },
-      {
-        "clientes": "CUSTOMERS"
+      "clientes": {
+        "titulo": "customers"
       },
-      {
-        "facturas": "INVOICES"
+      "facturas": {
+        "titulo": "invoices"
       },
-      {
-        "usuarios": "USERS"
+      "usuarios": {
+        "titulo": "users"
       },
-      {
-        "conectarse": "SIGNIN"
+      "conectarse": {
+        "titulo": "signin"
       }
-    ]
+    }
+  },
+  "auth": {
+    "boton-inicio": "Home",
+    "sections": {
+      "login": {
+        "titulo": "login",
+        "boton": "Continue",
+        "olvido-password": "Forgot your password?",
+        "register": {
+          "title": "Don't have an account yet?",
+          "link": "Sign in"
+        },
+        "social-login": "Or sign in with",
+        "form": {
+          "email": {
+            "label": "Email",
+            "placeholder": "email@example.com"
+          },
+          "password": {
+            "label": "Password",
+            "placeholder": "Type your password (required)"
+          }
+        }
+      },
+      "registro": {
+        "titulo": "registro"
+      },
+      "change-password": {
+        "titulo": "cambiar contraseña"
+      },
+      "forgot-password": {
+        "titulo": "olvidó su contraseña"
+      }
+    }
   }
 }
