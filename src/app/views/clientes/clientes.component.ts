@@ -165,7 +165,10 @@ export class ClientesComponent implements OnInit {
   }
 
   public confirmDelete(customer: ICustomer) {
-    this.delete(customer.cif);
+    const confirmDelete = confirm(`¿Eliminar cliente ${customer.nombre}? Esta acción no se puede deshacer`)
+    if (confirmDelete) {
+      this.delete(customer.cif);
+    }
     // this.confirmationService.confirm({
     //   message: `¿Eliminar cliente ${customer.nombre}?`,
     //   header: '¿Está seguro? Esta acción no se puede deshacer',
