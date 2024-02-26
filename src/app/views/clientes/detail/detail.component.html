@@ -1,12 +1,13 @@
 @if (response$ | async; as res) {
-<h1>{{ res.nombre }}</h1>
-<pre>{{ res | json }}</pre>
-@for (f of res.facturaClientes; track f.facturaId) {
+<!-- <h1>{{ res.nombre }}</h1> -->
+<!-- <pre>{{ res | json }}</pre> -->
+<!-- @for (f of res.facturaClientes; track f.facturaId) {
 <a [routerLink]="['/facturas', f.facturaId]">{{ f.facturaId }}</a
 ><br />
-} @for (f of res.facturaProveedors; track f.facturaId) {
-<a [routerLink]="['/facturas', f.facturaId]">{{ f.facturaId }}</a
-><br />
+}  -->
+@for (f of res.facturaProveedors; track f.facturaId) {
+<!-- <a [routerLink]="['/facturas', f.facturaId]">{{ f.facturaId }}</a> -->
+<br />
 } } @defer (on timer(1s)) { @if (response$ | async; as res) {
 <article class="card" style="width: 80dvw">
   <div class="card-body">
