@@ -1,75 +1,71 @@
 /* You can add global styles to this file, and also import other style files */
 @import url("assets/styles/colors/colors.css");
 @import url("assets/styles/animations");
+@import url("assets/styles/layers");
 
-:root {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  // color-scheme: dark light;
-}
+// :root {
+//   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+//     Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+// }
 
 // [data-bs-theme="auto"] {
 //   color-scheme: dark light;
 // }
 
-[data-bs-theme="light"] {
-  --color-text: canvasText;
-  --color-bg: canvas;
-  color-scheme: light;
-}
+// [data-bs-theme="light"] {
+//   --color-text: canvasText;
+//   --color-bg: canvas;
+//   color-scheme: light;
+// }
 
-[data-bs-theme="dark"] {
-  --color-text: canvasText;
-  --color-bg: canvas;
-  color-scheme: dark;
-}
+// [data-bs-theme="dark"] {
+//   --color-text: canvasText;
+//   --color-bg: canvas;
+//   color-scheme: dark;
+// }
 
-body {
-  color: var(--color-text);
-  background-color: var(--color-bg);
-}
+// body {
+//   color: var(--color-text);
+//   background-color: var(--color-bg);
+// }
 
-*,
-*::after,
-*::before {
-  box-sizing: border-box;
-  margin: 0;
+// *,
+// *::after,
+// *::before {
+//   box-sizing: border-box;
+//   margin: 0;
 
-  scrollbar-width: thin;
-  scrollbar-color: var(--color-bg-hexagons) transparent;
-}
+//   scrollbar-width: thin;
+//   scrollbar-color: var(--color-bg-hexagons) transparent;
+// }
 
-a {
-  text-decoration: none;
-}
+// a {
+//   text-decoration: none;
+// }
 
-ul {
-  list-style: none;
-}
+// ul {
+//   list-style: none;
+// }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  text-wrap: balance;
-  &::first-letter {
-    text-transform: uppercase;
-  }
-}
+// h1,
+// h2,
+// h3,
+// h4,
+// h5,
+// h6 {
+//   text-wrap: balance;
+//   &::first-letter {
+//     text-transform: uppercase;
+//   }
+// }
 
-p {
-  text-wrap: pretty;
-  margin-bottom: 0;
-  &::first-letter {
-    text-transform: uppercase;
-  }
-}
-
-.main-view-transition {
-  view-transition-name: main-transition;
-}
+// p {
+//   text-wrap: pretty;
+//   margin-bottom: 0;
+//   &::first-letter {
+//     text-transform: uppercase;
+//   }
+// }
 
 ::view-transition-old(main-transition) {
   animation: view-transition 0.5s ease 0s 1 normal forwards;
@@ -79,54 +75,99 @@ p {
   animation: view-transition 0.5s ease 0s 1 reverse backwards;
 }
 
-.toast-wrapper {
-  position: absolute;
-  // position: fixed;
-  bottom: 0;
-  right: 2rem;
-  padding: 1rem;
-  display: flex;
-  flex-direction: column-reverse;
-  gap: 0.5rem;
-  height: 100%;
-  width: 100%;
-  max-width: 20dvw;
-}
+// .main-view-transition {
+//   view-transition-name: main-transition;
+// }
 
-.btn-xio {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+// .toast-wrapper {
+//   position: absolute;
+//   // position: fixed;
+//   bottom: 0;
+//   right: 2rem;
+//   padding: 1rem;
+//   display: flex;
+//   flex-direction: column-reverse;
+//   gap: 0.5rem;
+//   height: 100%;
+//   width: 100%;
+//   max-width: 20dvw;
+// }
 
-  width: fit-content;
-  padding-inline: .5rem;
-  align-self: center;
+// .btn-xio {
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
 
-  border: double 10px transparent;
-  border-radius: 2rem;
+//   width: fit-content;
+//   padding-inline: .5rem;
+//   align-self: center;
 
-  background-size: 300%;
-  transition: 0.5s;
-  animation: gradient-xio alternate 2.5s ease infinite;
-  /* animation-direction: alternate; */
-  background-image: linear-gradient(#21212100, #21212100),
-    linear-gradient(
-      137.48deg,
-      #37ede4 10%,
-      #3eb1e6eb 45%,
-      #20acce 67%,
-      #1dda92 87%
-    );
-  background-origin: border-box;
-  background-clip: content-box, border-box;
+//   border: double 10px transparent;
+//   border-radius: 2rem;
 
-  cursor: pointer;
+//   background-size: 300%;
+//   transition: 0.5s;
+//   animation: gradient-xio alternate 2.5s ease infinite;
+//   /* animation-direction: alternate; */
+//   background-image: linear-gradient(#21212100, #21212100),
+//     linear-gradient(
+//       137.48deg,
+//       #37ede4 10%,
+//       #3eb1e6eb 45%,
+//       #20acce 67%,
+//       #1dda92 87%
+//     );
+//   background-origin: border-box;
+//   background-clip: content-box, border-box;
+
+//   cursor: pointer;
   
-  > strong {
-    z-index: 2;
-    font-size: 14px;
-    letter-spacing: 2px;
-    color: #ffffff;
-    text-shadow: 0 0 4px white;
-  }
-}
+//   > strong {
+//     z-index: 2;
+//     font-size: 14px;
+//     letter-spacing: 2px;
+//     color: #ffffff;
+//     text-shadow: 0 0 4px white;
+//   }
+// }
+
+// .background {
+//   position: fixed;
+//   top: 0;
+//   left: 0;
+//   height: 100dvh; /* Altura del viewport */
+//   width: 100dvw; /* Ancho del viewport */
+//   z-index: -1; /* Para que el fondo quede detrás del contenido */
+//   background-image: url("./assets/images/FondoFinal.jpg");
+//   background-size: cover;
+//   background-repeat: no-repeat;
+//   filter: invert(0) grayscale(0);
+
+//   /* Estilos para el tema oscuro */
+//   [data-bs-theme=dark] & {
+//     filter: invert(1) grayscale(.5);
+//   }
+// }
+
+// .container-xio {
+//   width: min(600px, 100%);
+//   text-align: center;
+//   background: linear-gradient(
+//     0deg,
+//     rgba(255, 255, 255, 0.75) 0%,
+//     rgba(244, 247, 251, 0.75) 100%
+//   );
+//   border-radius: 40px;
+//   padding: 25px 35px;
+//   border: 5px solid rgb(255, 255, 255);
+//   box-shadow: rgba(64, 202, 168, 0.878) 0px 30px 30px -20px;
+//   position: absolute;
+//   left: 50%;
+//   top: 50%;
+//   transform: translate(-50%, -50%);
+
+//     /* Estilos para el tema oscuro */
+//   [data-bs-theme=dark] & {
+//     color: canvas;
+//   }
+// }

@@ -1,7 +1,7 @@
 import { ApiService } from '@/app/core/api/api.service';
 import { ICustomer, IInvoice, IProduct } from '@/app/models/interfaces/api';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, ViewChild, ViewContainerRef, inject } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewContainerRef, inject } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -20,10 +20,11 @@ import { ApiEndpointEnum } from '@/app/models/enums/api.enum';
   providers: [ApiService],
   imports: [ReactiveFormsModule, ArticuloFacturaComponent],
 })
-export class FacturasComponent {
+export class FacturasComponent implements OnInit {
+  ngOnInit(): void {
+    this.magias();
+  }
   private api = inject(ApiService);
-  // private errorMessage = addMessage;
-  // private messageService = inject(MessageService);
   /**
    * Referencia al contenedor de vista del componente ArticuloFactura.
    */
@@ -135,5 +136,13 @@ export class FacturasComponent {
       this.facturaForm.reset();
       this.listaArticulos = [];
     }
+  }
+
+  public magias() {
+    const id = '55234902D';
+    const mes = '02';
+    const year = '2024';
+    this.api.setEndpoint(ApiEndpointEnum.FACTURAS);
+    this.api.read(`ivamensual/${id}/${mes}/${year}`).subscribe((res) => console.log(res));
   }
 }
