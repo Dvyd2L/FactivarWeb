@@ -29,16 +29,26 @@ export class DetailComponent implements OnInit {
   private api = inject(ApiService);
   @Input({ alias: 'id' }) public dataId!: string;
   public response$!: Observable<ICustomer>;
-  public facturasProv: IInvoice[] = [];
-  public facturasCli: IInvoice[] = [];
-  public facturasProv2: IInvoice[] = [];
-  public facturasCli2: IInvoice[] = [];
+  public facturasProv?: IInvoice[] = [];
+  public facturasCli?: IInvoice[] = [];
+  public facturasProv2?: IInvoice[] = [];
+  public facturasCli2?: IInvoice[] = [];
   public numeroFactuP = new FormControl({ value: 0, disabled: false });
   public numeroFactuC = new FormControl({ value: 0, disabled: false });
 
   ngOnInit(): void {
     this.api.setEndpoint(ApiEndpointEnum.CLIENTES);
     this.response$ = this.api.read<string, ICustomer>(this.dataId);
+
+    this.response$.subscribe({
+      next:(data) => {
+        this.facturasProv = data.facturaProveedors;
+        this.facturasProv2 = this.facturasProv;
+        this.facturasCli = data.facturaClientes;
+        this.facturasCli2 = this.facturasCli;
+      },
+      error:(error) => {console.error(error)},
+    });
   }
 
   public buscarFacturaProv(ev: Event) {
