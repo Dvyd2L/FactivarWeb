@@ -1,6 +1,6 @@
 import { ApiService } from '@/app/core/api/api.service';
 import { ApiEndpointEnum } from '@/app/models/enums/api.enum';
-import { ICustomer, IInvoice } from '@/app/models/interfaces/api';
+import { CalculosIva, ICustomer, IInvoice } from '@/app/models/interfaces/api';
 import { JsonPipe, AsyncPipe, DatePipe } from '@angular/common';
 import { Component, Input, OnInit, inject } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
@@ -33,6 +33,12 @@ export class DetailComponent implements OnInit {
   public facturasCli2?: IInvoice[] = [];
   public numeroFactuP = new FormControl({ value: 0, disabled: false });
   public numeroFactuC = new FormControl({ value: 0, disabled: false });
+  //Para cálculos de IVA
+  public mes = new FormControl({ value: 0, disabled: false });
+  public trimestre = new FormControl({ value: 0, disabled: false });
+  public year = new FormControl({ value: 0, disabled: false });
+  public resp: Observable<CalculosIva>[] = [];
+
 
   ngOnInit(): void {
     this.api.setEndpoint(ApiEndpointEnum.CLIENTES);
@@ -59,5 +65,20 @@ export class DetailComponent implements OnInit {
     this.facturasCli2 = this.facturasCli?.filter((f) =>
       f.numeroFactura.toString().includes(String(ev))
     );
+  }
+
+  public calculaIvaMensual(){
+    this.api.setEndpoint(ApiEndpointEnum.FACTURAS);
+    this.api.read(`ivamensual/${this.dataId}/${this.mes.value}/${this.year.value}`).subscribe((res) => console.log(res));
+  }
+
+  public calculaIvaTrimestral(){
+    this.api.setEndpoint(ApiEndpointEnum.FACTURAS);
+    this.api.read(`ivatrimestral/${this.dataId}/${this.trimestre.value}/${this.year.value}`).subscribe((res) => console.log(res));
+  }
+
+  public calculaIvaAnual(){
+    this.api.setEndpoint(ApiEndpointEnum.FACTURAS);
+    this.api.read(`ivaanual/${this.dataId}/${this.year.value}`).subscribe((res) => console.log(res));
   }
 }
