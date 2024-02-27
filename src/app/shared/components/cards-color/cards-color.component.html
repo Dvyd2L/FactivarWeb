@@ -2,20 +2,20 @@
   <div class="item">
     <div class="layer">
       <h3>{{ factura.cliente }}</h3>
-      <p>Numero factura: {{ factura.numeroFactura }}</p>
       <p>Descripción Operación: {{ factura.descripcionOperacion }}</p>
       <p>Fecha Expedición: {{ factura.fechaExpedicion | date }}</p>
       <p>Fecha Cobro: {{ factura.fechaCobro | date }}</p>
       <p>Pendiente Pago: {{ factura.pendientePago ? "SI" : "NO" }}</p>
       <p>Total: {{ factura.total | currency }}</p>
-      <span>
-        <!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
-        <!-- <svg xmlns="http://www.w3.org/2000/svg" height="30px" width="30px" viewBox="0 0 384 512" fill="currentColor">
+      <a [routerLink]="['/facturas', factura.facturaId]">
+        <span>
+          <!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+          <!-- <svg xmlns="http://www.w3.org/2000/svg" height="30px" width="30px" viewBox="0 0 384 512" fill="currentColor">
           <path
             d="M272 384c9.6-31.9 29.5-59.1 49.2-86.2l0 0c5.2-7.1 10.4-14.2 15.4-21.4c19.8-28.5 31.4-63 31.4-100.3C368 78.8 289.2 0 192 0S16 78.8 16 176c0 37.3 11.6 71.9 31.4 100.3c5 7.2 10.2 14.3 15.4 21.4l0 0c19.8 27.1 39.7 54.4 49.2 86.2H272zM192 512c44.2 0 80-35.8 80-80V416H112v16c0 44.2 35.8 80 80 80zM112 176c0 8.8-7.2 16-16 16s-16-7.2-16-16c0-61.9 50.1-112 112-112c8.8 0 16 7.2 16 16s-7.2 16-16 16c-44.2 0-80 35.8-80 80z"
           />
         </svg> -->
-        <!-- <svg
+          <!-- <svg
           width="30px"
           height="30px"
           viewBox="0 0 256 256"
@@ -193,59 +193,59 @@
             <circle class="cls-12" cx="157" cy="15" r="1" />
           </g>
         </svg> -->
-        <svg
-          fill="#000000"
-          width="30px"
-          height="30px"
-          viewBox="0 0 24 24"
-          id="invoice-euro"
-          data-name="Flat Line"
-          xmlns="http://www.w3.org/2000/svg"
-          class="icon flat-line"
-          fill="currentColor"
-        >
-          <path
-            id="secondary"
-            d="M11,10a8,8,0,0,1,4.13-7H5A1,1,0,0,0,4,4V20a1,1,0,0,0,1,1H17a1,1,0,0,0,1-1V17.93A8,8,0,0,1,11,10Z"
-            style="fill: rgb(44, 169, 188); stroke-width: 2"
-          ></path>
-          <path
-            id="primary"
-            d="M11,17H8m1-4H8m6-3h3"
-            style="
-              fill: none;
-              stroke: rgb(0, 0, 0);
-              stroke-linecap: round;
-              stroke-linejoin: round;
-              stroke-width: 2;
-            "
-          ></path>
-          <path
-            id="primary-2"
-            data-name="primary"
-            d="M20,7.77A3,3,0,0,0,18,7h0a3,3,0,0,0-3,3h0a3,3,0,0,0,3,3h0a3,3,0,0,0,2-.77"
-            style="
-              fill: none;
-              stroke: rgb(0, 0, 0);
-              stroke-linecap: round;
-              stroke-linejoin: round;
-              stroke-width: 2;
-            "
-          ></path>
-          <path
-            id="primary-3"
-            data-name="primary"
-            d="M18,18v2a1,1,0,0,1-1,1H5a1,1,0,0,1-1-1V4A1,1,0,0,1,5,3H15"
-            style="
-              fill: none;
-              stroke: rgb(0, 0, 0);
-              stroke-linecap: round;
-              stroke-linejoin: round;
-              stroke-width: 2;
-            "
-          ></path>
-        </svg>
-      </span>
+          <svg
+            fill="#000000"
+            width="30px"
+            height="30px"
+            viewBox="0 0 24 24"
+            id="invoice-euro"
+            data-name="Flat Line"
+            xmlns="http://www.w3.org/2000/svg"
+            class="icon flat-line"
+            fill="currentColor"
+          >
+            <path
+              id="secondary"
+              d="M11,10a8,8,0,0,1,4.13-7H5A1,1,0,0,0,4,4V20a1,1,0,0,0,1,1H17a1,1,0,0,0,1-1V17.93A8,8,0,0,1,11,10Z"
+              style="fill: rgb(44, 169, 188); stroke-width: 2"
+            ></path>
+            <path
+              id="primary"
+              d="M11,17H8m1-4H8m6-3h3"
+              style="
+                fill: none;
+                stroke: rgb(0, 0, 0);
+                stroke-linecap: round;
+                stroke-linejoin: round;
+                stroke-width: 2;
+              "
+            ></path>
+            <path
+              id="primary-2"
+              data-name="primary"
+              d="M20,7.77A3,3,0,0,0,18,7h0a3,3,0,0,0-3,3h0a3,3,0,0,0,3,3h0a3,3,0,0,0,2-.77"
+              style="
+                fill: none;
+                stroke: rgb(0, 0, 0);
+                stroke-linecap: round;
+                stroke-linejoin: round;
+                stroke-width: 2;
+              "
+            ></path>
+            <path
+              id="primary-3"
+              data-name="primary"
+              d="M18,18v2a1,1,0,0,1-1,1H5a1,1,0,0,1-1-1V4A1,1,0,0,1,5,3H15"
+              style="
+                fill: none;
+                stroke: rgb(0, 0, 0);
+                stroke-linecap: round;
+                stroke-linejoin: round;
+                stroke-width: 2;
+              "
+            ></path>
+          </svg> </span
+      ></a>
     </div>
     <h4>Factura {{ factura.numeroFactura }}</h4>
   </div>
