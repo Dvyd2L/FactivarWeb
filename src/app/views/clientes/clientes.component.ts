@@ -20,27 +20,22 @@ import {
   Validators,
 } from '@angular/forms';
 import { ToastComponent } from '@/app/shared/components/toast/toast.component';
+import { ModalComponent } from "../../shared/components/modal/modal.component";
 @Component({
-  selector: 'app-customeres',
-  standalone: true,
-  imports: [
-    RouterLink,
-    JsonPipe,
-    AsyncPipe,
-    DatePipe,
-    ReactiveFormsModule,
-    ToastComponent,
-    // ConfirmDialogModule,
-    // ToastModule,
-    // DialogModule,
-    // TableModule,
-    // ButtonModule,
-    // ToolbarModule,
-    // FileUploadModule,
-  ],
-  templateUrl: './clientes.component.html',
-  styleUrl: './clientes.component.scss',
-  providers: [ApiService /* ConfirmationService, MessageService */],
+    selector: 'app-customeres',
+    standalone: true,
+    templateUrl: './clientes.component.html',
+    styleUrl: './clientes.component.scss',
+    providers: [ApiService],
+    imports: [
+        RouterLink,
+        JsonPipe,
+        AsyncPipe,
+        DatePipe,
+        ReactiveFormsModule,
+        ToastComponent,
+        ModalComponent
+    ]
 })
 export class ClientesComponent implements OnInit {
   // private messageService = inject(MessageService);
@@ -129,7 +124,7 @@ export class ClientesComponent implements OnInit {
     this.customerDialog = true;
   }
   /**
-   * Oculta el diálogo de customere.
+   * Oculta el diálogo de cliente.
    */
   public hideDialog() {
     this.customerDialog = false;
@@ -165,7 +160,10 @@ export class ClientesComponent implements OnInit {
   }
 
   public confirmDelete(customer: ICustomer) {
-    this.delete(customer.cif);
+    const confirmDelete = confirm(`¿Eliminar cliente ${customer.nombre}? Esta acción no se puede deshacer`)
+    if (confirmDelete) {
+      this.delete(customer.cif);
+    }
     // this.confirmationService.confirm({
     //   message: `¿Eliminar cliente ${customer.nombre}?`,
     //   header: '¿Está seguro? Esta acción no se puede deshacer',

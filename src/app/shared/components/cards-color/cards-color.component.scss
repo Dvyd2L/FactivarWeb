@@ -1,0 +1,127 @@
+/* FALTAN 2 IMPORTS */
+@import url("https://fonts.googleapis.com/css2?family=Varela+Round");
+@import url("https://use.fontawesome.com/releases/v6.5.1/css/all.css");
+
+.containerRo {
+  display: flex;
+  gap: 50px;
+  align-items: center;
+  justify-content: center;
+  font-family: "Varela Round", sans-serif;
+  line-height: 1.5em;
+}
+
+.item {
+  --color: linear-gradient(#21212100, #21212100),
+    linear-gradient(
+      137.48deg,
+      #37ede4 10%,
+      #3eb1e6eb 45%,
+      #20acce 67%,
+      #1dda92 87%
+    );
+
+  color: aqua;
+  width: 185px;
+  // background-color: var(--color);
+  background-image: var(--color);
+  border-radius: 10px;
+  padding: 10px 5px;
+  box-shadow: #3c40434d 0px 1px 2px 0px, #3c404326 0px 1px 3px 1px;
+  position: relative;
+  cursor: pointer;
+}
+
+.item::after {
+  content: "";
+  position: absolute;
+  top: 8px;
+  left: 0;
+  z-index: 2;
+  height: 80%;
+  box-sizing: border-box;
+  border-style: solid;
+  border-radius: 0 10px 10px 0;
+  /* Donde estan los color es --color */
+  border-color: transparent transparent transparent (--color);
+  // border-width: 40px 40px 40px 40px;
+  border-width: 30px 30px 30px 30px;
+  filter: drop-shadow(5px 0 4px #00000094);
+  transition: filter 0.5s;
+}
+
+.layer {
+  background-color: #f2f2f2;
+  border: 1px solid #fff;
+
+  //   background-color: canvas;
+  //   border: 1px solid canvas;
+
+  border-radius: inherit;
+  padding: 20px;
+  box-shadow: #00000012 0px 1px 2px, #00000012 0px 2px 4px,
+    #00000012 0px 4px 8px, #00000012 0px 8px 16px, #00000012 0px 16px 32px,
+    #00000012 0px 32px 64px;
+  position: relative;
+  left: 10px;
+  transition: left 1s;
+  [data-bs-theme="dark"] & {
+    background-color: #1f1f1f;
+    border-color: #000;
+  }
+}
+
+.item:hover::after {
+  filter: drop-shadow(5px 0 4px #0000001a);
+}
+
+.item:hover .layer {
+  left: 50px;
+}
+
+h3,
+h4 {
+  margin: 0;
+}
+
+h3 {
+  font-weight: 700;
+  text-align: center;
+  color: var(--color-bg-hexagons);
+}
+
+h4 {
+  text-align: center;
+  font-size: 14px;
+  padding-top: 10px;
+  color: canvasText;
+}
+
+p {
+  font-size: 9px;
+  // color: canvasText;
+    color: #555;
+  //   [data-bs-theme="dark"] & {
+  //     color: #bbb;
+  //   }
+}
+
+span {
+  & > svg {
+    color: var(--color-bg-hexagons);
+  }
+  width: 40px;
+  height: 40px;
+  color: #fff;
+  background-image: var(--color);
+  border-radius: 50%;
+  display: grid;
+  place-content: center;
+  box-shadow: #00000012 0px 1px 2px, #00000012 0px 2px 4px,
+    #00000012 0px 4px 8px, #00000012 0px 8px 16px, #00000012 0px 16px 32px,
+    #00000012 0px 32px 64px;
+  font-size: 14px;
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+}

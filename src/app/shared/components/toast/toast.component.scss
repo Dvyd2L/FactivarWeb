@@ -1,5 +1,8 @@
 dialog {
   --toast-life: 3000ms;
+  --toast-open-duration: 500ms;
+  --toast-close-duration: 200ms;
+  --toast-close-delay: calc(var(--toast-life) - var(--toast-close-duration));
 
   &[toast-type="info"] {
     --bg-color: #1898c0da;
@@ -37,8 +40,8 @@ dialog {
   background-color: var(--bg-color);
   transition: background-color 0.2s ease;
 
-  animation: toast-open 500ms ease 1ms 1 normal forwards,
-    toast-close 200ms ease 2800ms 1 normal forwards;
+  animation: toast-open var(--toast-open-duration) ease 1ms 1 normal forwards,
+    toast-close var(--toast-close-duration) ease var(--toast-close-delay) 1 normal forwards;
 
   width: max(250px, 20dvw);
   overflow: hidden;
