@@ -2,6 +2,7 @@ import { ApiService } from '@/app/core/api/api.service';
 import { ICustomer, IInvoice, IProduct } from '@/app/models/interfaces/api';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, ViewChild, ViewContainerRef, inject } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewContainerRef, inject } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -20,19 +21,16 @@ import { ApiEndpointEnum } from '@/app/models/enums/api.enum';
   providers: [ApiService],
   imports: [ReactiveFormsModule, ArticuloFacturaComponent],
 })
-export class FacturasComponent implements OnInit {
-  ngOnInit(): void {
-    this.magias();
-  }
+export class FacturasComponent implements OnInit{
   private api = inject(ApiService);
   /**
    * Referencia al contenedor de vista del componente ArticuloFactura.
-   */
-  @ViewChild('articuloFactura', { read: ViewContainerRef })
-  public articuloFactura!: ViewContainerRef;
-  public facturaForm = new FormGroup({
-    numeroFactura: new FormControl({ value: 0, disabled: false }, [
-      Validators.required,
+  */
+ @ViewChild('articuloFactura', { read: ViewContainerRef })
+ public articuloFactura!: ViewContainerRef;
+ public facturaForm = new FormGroup({
+   numeroFactura: new FormControl<number>({ value: 0, disabled: false }, [
+     Validators.required,
     ]),
     pendientePago: new FormControl({ value: false, disabled: false }, [
       Validators.required,
@@ -41,27 +39,34 @@ export class FacturasComponent implements OnInit {
     fechaExpedicion: new FormControl(
       { value: new Date().toISOString().split('T')[0], disabled: true },
       [Validators.required]
-    ),
-    fechaCobro: new FormControl(
-      { value: new Date().toISOString().split('T')[0], disabled: false },
-      [Validators.required]
-    ),
-    clienteId: new FormControl({ value: '', disabled: false }, [
-      Validators.required,
-    ]),
-    proveedorId: new FormControl({ value: '', disabled: false }, [
-      Validators.required,
-    ]),
-  });
-  public listaFacturas: IInvoice[] = [];
-  public listaArticulos: IProduct[] = [];
-  public ricias = {
-    subTotal: 0,
-    importeTotal: 0,
-  };
-  public max = -1;
-
-  public comprobarNumeroFactura() {
+      ),
+      fechaCobro: new FormControl(
+        { value: new Date().toISOString().split('T')[0], disabled: false },
+        [Validators.required]
+        ),
+        clienteId: new FormControl({ value: '', disabled: false }, [
+          Validators.required,
+        ]),
+        proveedorId: new FormControl({ value: '', disabled: false }, [
+          Validators.required,
+        ]),
+      });
+      public listaFacturas: IInvoice[] = [];
+      public listaArticulos: IProduct[] = [];
+      public ricias = {
+        subTotal: 0,
+        importeTotal: 0,
+      };
+      public max = -1;
+      
+      ngOnInit(): void {
+        this.facturaForm.get('proveedorId')?.valueChanges.subscribe(nuevoValor => {
+          this.getNumerofactura(nuevoValor??'');
+          console.log({nuevoValor});
+        });
+      }
+      
+      public comprobarNumeroFactura() {
     return (
       this.facturaForm.value.numeroFactura &&
       this.facturaForm.value.numeroFactura < this.max
@@ -72,12 +77,13 @@ export class FacturasComponent implements OnInit {
   //   this.fechaCorrecta.setValue(this.fechaCobro >= this.fecha);
   // }
 
-  public getNumerofactura() {
-    if (this.facturaForm.value.proveedorId?.trim() != '') {
+  public getNumerofactura(proveedorId: string) {
+    console.log("EEEEENTRAAAAA");
+    if (proveedorId?.trim() != '') {
       this.api.setEndpoint(ApiEndpointEnum.CLIENTES);
 
       this.api
-        .read<string, ICustomer>(this.facturaForm.value.proveedorId!)
+        .read<string, ICustomer>(proveedorId)
         .subscribe({
           next: (res) => {
             this.listaFacturas = res.facturaProveedors!;
@@ -90,6 +96,10 @@ export class FacturasComponent implements OnInit {
               }, this.listaFacturas[0].numeroFactura) + 1;
 
             this.max = this.facturaForm.value.numeroFactura;
+            this.facturaForm.controls.numeroFactura.setValue(this.max);
+
+            console.log(this.max);
+            console.log(this.facturaForm.value.numeroFactura);
           },
           error: (error) => {
             console.error(error);
