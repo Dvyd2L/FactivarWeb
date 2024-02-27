@@ -1,4 +1,4 @@
-<div class="containerRo">
+<a [routerLink]="['/facturas', factura.facturaId]" class="containerRo">
   <div class="item">
     <div class="layer">
       <h3>{{ factura.cliente }}</h3>
@@ -7,7 +7,6 @@
       <p>Fecha Cobro: {{ factura.fechaCobro | date }}</p>
       <p>Pendiente Pago: {{ factura.pendientePago ? "SI" : "NO" }}</p>
       <p>Total: {{ factura.total | currency }}</p>
-      <a [routerLink]="['/facturas', factura.facturaId]">
         <span>
           <!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
           <!-- <svg xmlns="http://www.w3.org/2000/svg" height="30px" width="30px" viewBox="0 0 384 512" fill="currentColor">
@@ -245,8 +244,8 @@
               "
             ></path>
           </svg> </span
-      ></a>
+      >
     </div>
     <h4>Factura {{ factura.numeroFactura }}</h4>
   </div>
-</div>
+</a>
