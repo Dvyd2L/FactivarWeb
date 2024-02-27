@@ -1,8 +1,9 @@
 .ezeBodyNotExist {
   display: flex;
   flex-direction: row;
+  align-items: flex-end;
   justify-content: center;
-  align-items: center;
+  // align-items: center;
   flex-wrap: wrap;
   gap: 1rem;
 }
@@ -15,9 +16,11 @@
 }
 
 img {
-  max-width: 100%;
-  height: max-content;
-  align-self: center;
+  //  display: flex;
+  // max-width: 100%;
+  // height: max-content;
+  // align-self: center;
+  max-width: 500%;
 }
 
 h1 {
