@@ -37,7 +37,7 @@ export class ToastService {
         type,
         life,
       };
-      console.log({ toastRef });
+
       // Eliminar el componente del DOM y del árbol de componentes después de un tiempo determinado
       setTimeout(() => {
         toastRef.destroy();
