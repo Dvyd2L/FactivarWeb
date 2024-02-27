@@ -13,7 +13,7 @@ import {
 } from '@/app/views/auth/forms-config.json';
 import { AuthService } from '../../services/auth.service';
 import { Email } from '@/app/models/interfaces/user';
-import { tap } from 'rxjs';
+import { ToastService } from '@/app/core/services/toast.service';
 
 @Component({
   selector: 'app-change-password',
@@ -24,6 +24,7 @@ import { tap } from 'rxjs';
   providers: [AuthService],
 })
 export class ChangePasswordComponent {
+  private toastSvc = inject(ToastService);
   private auth = inject(AuthService);
   public form = new FormGroup(
     {
@@ -61,7 +62,26 @@ export class ChangePasswordComponent {
           email: this.form.value.email as Email,
           password: this.form.value.oldPassword!,
         })
-        .subscribe((res) => console.log({ res }));
+        .subscribe({
+          next: (res) => {
+            console.log({ res });
+            this.toastSvc.add({
+              title: 'éxito',
+              message: 'la operación se ha completado con éxito.',
+              type: 'success',
+              life: 3000,
+            });
+          },
+          error: (err) => {
+            console.error({ err });
+            this.toastSvc.add({
+              title: 'error',
+              message: err?.error?.message ?? 'algo salió mal',
+              type: 'error',
+              life: 3000,
+            });
+          },
+        });
 
       this.form.reset();
     }

@@ -2,8 +2,6 @@ import {
   AfterViewInit,
   Component,
   OnInit,
-  ViewChild,
-  ViewContainerRef,
   inject,
 } from '@angular/core';
 import {
@@ -17,10 +15,10 @@ import { AuthService } from '@/app/views/auth/services/auth.service';
 import { REGEXP } from '@/app/views/auth/validators/regexp';
 import { ILoginRequest } from '@/app/models/interfaces/user';
 import { email, password } from '@/app/views/auth/forms-config.json';
-import { toastHelper } from '@/app/core/helpers/toast.helper';
 import { TraductorService } from '@/app/core/services/traductor.service';
 import { IFormInput } from '@/app/models/interfaces/form';
 import { LoginSection } from '@/app/models/interfaces/traductor';
+import { ToastService } from '@/app/core/services/toast.service';
 
 @Component({
   selector: 'app-login',
@@ -30,12 +28,11 @@ import { LoginSection } from '@/app/models/interfaces/traductor';
   styleUrls: ['./login.component.scss'],
   providers: [AuthService],
 })
-export class LoginComponent implements OnInit, AfterViewInit {
+export class LoginComponent implements OnInit {
   private i18n = inject(TraductorService);
   private auth = inject(AuthService);
+  private toastSvc = inject(ToastService);
   private router = inject(Router);
-  @ViewChild('toastContainer', { read: ViewContainerRef })
-  public toast!: ViewContainerRef;
   public loginForm = new FormGroup({
     email: new FormControl({ value: '', disabled: false }, [
       Validators.required,
@@ -51,17 +48,6 @@ export class LoginComponent implements OnInit, AfterViewInit {
     password: { ...password },
   };
   public textos!: LoginSection;
-  public addToast!: ({
-    title,
-    message,
-    type,
-    life,
-  }: {
-    title: string;
-    message: string;
-    type: string;
-    life: number;
-  }) => void;
 
   /* hooks */
   ngOnInit(): void {
@@ -79,9 +65,6 @@ export class LoginComponent implements OnInit, AfterViewInit {
       };
     });
   }
-  ngAfterViewInit(): void {
-    this.addToast = toastHelper(this.toast);
-  }
   /* end hooks */
 
   public setPassword(value: string) {
@@ -96,7 +79,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
       if (email && password) {
         this.auth.login({ email, password }).subscribe({
           next: (response) => {
-            this.addToast({
+            this.toastSvc.add({
               title: 'éxito',
               message: 'la operación se ha completado con éxito.',
               type: 'success',
@@ -108,7 +91,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
           },
           error: (err) => {
             console.error({ err });
-            this.addToast({
+            this.toastSvc.add({
               title: 'error',
               message: err?.error?.message ?? 'algo salió mal',
               type: 'error',
@@ -119,7 +102,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
       } else {
         // Muestra errores si el formulario no es válido
         console.log('Formulario inválido. Verifica los campos.');
-        this.addToast({
+        this.toastSvc.add({
           title: 'Formulario inválido',
           message: 'Verifica los campos.',
           type: 'error',
