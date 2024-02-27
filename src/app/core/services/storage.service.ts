@@ -1,5 +1,6 @@
 import { StorageKeyEnum } from '@/app/models/enums/storage.enum';
-import { Injectable, afterRender } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Inject, Injectable, PLATFORM_ID, afterRender } from '@angular/core';
 
 @Injectable({
   providedIn: 'root',
@@ -7,12 +8,14 @@ import { Injectable, afterRender } from '@angular/core';
 export class StorageService {
   private localStorage!: Storage;
   private sessionStorage!: Storage;
+  private isBrowser: boolean;
 
-  constructor() {
-    afterRender(() => {
+  constructor(@Inject(PLATFORM_ID) platformId: string) {
+    this.isBrowser = isPlatformBrowser(platformId);
+    if (this.isBrowser) {
       this.localStorage = window.localStorage;
       this.sessionStorage = window.sessionStorage;
-    });
+    }
   }
   /**
    * Establece un valor en el almacenamiento local o de sesión.
@@ -20,7 +23,7 @@ export class StorageService {
    * @param value El valor a establecer.
    * @param useSessionStorage Indica si se debe utilizar el almacenamiento de sesión. Por defecto es verdadero.
    */
-  public setItem(
+  public set(
     key: StorageKeyEnum,
     value: any,
     useSessionStorage: boolean = false
@@ -34,7 +37,7 @@ export class StorageService {
    * @param useSessionStorage Indica si se debe utilizar el almacenamiento de sesión. Por defecto es verdadero.
    * @returns El valor obtenido o nulo si no se encuentra.
    */
-  public getItem<T>(
+  public get<T>(
     key: StorageKeyEnum,
     useSessionStorage: boolean = false
   ): T | null {
@@ -47,7 +50,7 @@ export class StorageService {
    * @param key La clave del valor a eliminar.
    * @param useSessionStorage Indica si se debe utilizar el almacenamiento de sesión. Por defecto es verdadero.
    */
-  public removeItem(
+  public remove(
     key: StorageKeyEnum,
     useSessionStorage: boolean = false
   ): void {

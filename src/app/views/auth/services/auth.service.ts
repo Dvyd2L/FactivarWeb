@@ -7,12 +7,12 @@ import { tap, Observable, mergeMap } from 'rxjs';
 import { ILoginRequest } from '@/app/models/interfaces/user';
 import { StorageService } from '@/app/core/services/storage.service';
 import { UserService } from '@/app/core/services/user.service';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private storage = inject(StorageService);
   private userSvc = inject(UserService);
   private http = inject(HttpClient);
   private urlAPI: string = environment.urlAPI + 'auth';
@@ -25,17 +25,12 @@ export class AuthService {
       .post<{ token: string }>(`${this.urlAPI}/login`, credenciales)
       .pipe(
         tap(({ token }) => {
-          // this.storage.setItem(StorageKeyEnum.Token, token);
-          this.userSvc.updateUser({ Sid: crypto.randomUUID(), token });
-          // const jwtHelper = new JwtHelperService();
-          // const payload = jwtHelper.decodeToken(token) as IUserPayload;
-          // this.userService.updateUser({
-          //   ...payload,
-          //   token,
-          // });
-          // this.userService
-          //   .getUser()
-          //   .subscribe({ next: (data) => console.log(data) });
+          const jwtHelper = new JwtHelperService();
+          const payload = jwtHelper.decodeToken(token);
+          this.userSvc.updateUser({
+            ...payload,
+            token,
+          });
         })
       );
   }
@@ -48,7 +43,7 @@ export class AuthService {
       .post<{ token: string }>(`${this.urlAPI}/google-authenticate`, idToken)
       .pipe(
         tap(({ token }) => {
-          this.storage.setItem(StorageKeyEnum.Token, token);
+          // this.storage.setItem(StorageKeyEnum.Token, token);
           // const helper = new JwtHelperService();
           // const payload = helper.decodeToken(response.token);
           // const user: IUserPayload = {
@@ -65,7 +60,7 @@ export class AuthService {
    * @returns Una solicitud HTTP para cerrar la sesión.
    */
   public logout({ email }: { email: string }) {
-    // this.userService.clearUser();
+    this.userSvc.clearUser();
     return this.http.post(`${this.urlAPI}/logout`, { email });
   }
   /**

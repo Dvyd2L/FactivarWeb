@@ -2,12 +2,14 @@ menu {
   position: fixed;
   top: 1rem;
   right: 0;
-  inline-size: 6.5rem;
+  inline-size: 8.5rem;
   block-size: 2rem;
+
   display: flex;
   flex-flow: row nowrap;
   justify-content: center;
   align-items: center;
+  
   border-radius: 0.5rem 0 0 0.5rem;
   padding-inline-start: .5rem;
   // transform: translateX(70%);

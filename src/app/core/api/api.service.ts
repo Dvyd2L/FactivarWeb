@@ -34,7 +34,6 @@ export class ApiService {
           headers,
         });
   }
-
   /**
    * Agrega un nuevo cliente.
    * @param cliente El objeto de tipo ICliente a agregar.

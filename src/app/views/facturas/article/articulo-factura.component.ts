@@ -20,7 +20,7 @@ import { IProduct } from '@/app/models/interfaces/api';
     // ButtonModule,
   ],
   templateUrl: './articulo-factura.component.html',
-  styleUrl: './articulo-factura.component.css',
+  styleUrl: './articulo-factura.component.scss',
 })
 export class ArticuloFacturaComponent {
   @Input() public articles: IProduct[] = [];
