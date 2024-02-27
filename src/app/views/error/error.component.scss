@@ -1,10 +1,10 @@
 .ezeBodyNotExist {
+  height: 100dvh;
+  width: 100dvw;
   display: flex;
-  flex-direction: row;
-  align-items: flex-end;
+  flex-flow: row wrap;
   justify-content: center;
-  // align-items: center;
-  flex-wrap: wrap;
+  align-items: center;
   gap: 1rem;
 }
 
@@ -16,11 +16,12 @@
 }
 
 img {
-  //  display: flex;
-  // max-width: 100%;
-  // height: max-content;
-  // align-self: center;
-  max-width: 500%;
+  max-width: 100%;
+  height: max-content;
+  align-self: center;
+  @media (orientation: portrait) {
+    min-width: 100%;
+  }
 }
 
 h1 {
