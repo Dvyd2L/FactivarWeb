@@ -58,7 +58,8 @@
     <ul class="facturas">
       @for (item of facturasCli2; track $index) {
       <li>
-        <p>Numero factura: {{ item.numeroFactura }}</p>
+        <app-cards-color [factura]="item"/>
+        <!-- <p>Numero factura: {{ item.numeroFactura }}</p>
         <figure style="--c: #fff5">
           <img
             src="https://www.educadictos.com/wp-content/uploads/2014/02/Factura-Proforma.png"
@@ -70,7 +71,7 @@
             <p>Fecha Expedición: {{ item.fechaExpedicion | date }}</p>
             <p>Fecha Cobro: {{ item.fechaCobro | date }}</p>
             <p>Pendiente Pago: {{ item.pendientePago ? "SI" : "NO" }}</p>
-            <!-- <p>Total: {{ item.total | currency }}</p> -->
+            <p>Total: {{ item.total | currency }}</p>
           </figcaption>
         </figure>
         <button
@@ -79,7 +80,7 @@
           [routerLink]="['facturas', 'detail', item.facturaId]"
         >
           Ver factura
-        </button>
+        </button> -->
 
         <!-- <p>Numero factura: {{ item.numeroFactura }}</p>
             <p>Descripción Operación: {{ item.descripcionOperacion }}</p>
@@ -134,7 +135,8 @@
     <ul class="facturas">
       @for (item of facturasProv2; track $index) {
       <li>
-        <p>Numero factura: {{ item.numeroFactura }}</p>
+        <app-cards-color [factura]="item"/>
+        <!-- <p>Numero factura: {{ item.numeroFactura }}</p>
         <figure style="--c: #fff5">
           <img
             src="https://www.educadictos.com/wp-content/uploads/2014/02/Factura-Proforma.png"
@@ -148,14 +150,14 @@
             <p>Pendiente Pago: {{ item.pendientePago ? "SI" : "NO" }}</p>
           </figcaption>
         </figure>
-        <!-- <p>Total: {{ item.total | currency }}</p> -->
+        <p>Total: {{ item.total | currency }}</p>
         <button
           class="btn btn-success"
           type="button"
           [routerLink]="['facturas', 'detail', item.facturaId]"
         >
           Ver factura
-        </button>
+        </button> -->
       </li>
       <!-- <pre>{{ item | json }}</pre> -->
       } @empty {

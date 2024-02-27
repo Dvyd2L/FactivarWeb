@@ -50,6 +50,9 @@ export class RegisterComponent implements AfterViewInit {
       Validators.email,
     ]),
     telefono: new FormControl<string>({ value: '', disabled: false }),
+    serviceTerms: new FormControl<boolean>({ value: false, disabled: false }, [
+      Validators.requiredTrue,
+    ]),
     password: new FormControl<string>({ value: '', disabled: false }, [
       Validators.required,
       Validators.pattern(REGEXP['PASSWORD']),
@@ -108,7 +111,7 @@ export class RegisterComponent implements AfterViewInit {
               life: 3000,
             });
             setTimeout(() => {
-              this.router.navigate([/* '/auth', */ 'login']);
+              this.router.navigate(['/auth', 'login']);
             }, 3000);
           },
           error: (err) => {

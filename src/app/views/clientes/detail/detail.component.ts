@@ -7,21 +7,23 @@ import { Router, RouterLink } from '@angular/router';
 import { Observable } from 'rxjs';
 import { LoaderComponent } from '../../../shared/components/loader/loader.component';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { CardsColorComponent } from "../../../shared/components/cards-color/cards-color.component";
 
 @Component({
-  selector: 'app-detail',
-  standalone: true,
-  templateUrl: './detail.component.html',
-  styleUrl: './detail.component.scss',
-  providers: [ApiService],
-  imports: [
-    RouterLink,
-    JsonPipe,
-    AsyncPipe,
-    LoaderComponent,
-    DatePipe,
-    ReactiveFormsModule,
-  ],
+    selector: 'app-detail',
+    standalone: true,
+    templateUrl: './detail.component.html',
+    styleUrl: './detail.component.scss',
+    providers: [ApiService],
+    imports: [
+        RouterLink,
+        JsonPipe,
+        AsyncPipe,
+        LoaderComponent,
+        DatePipe,
+        ReactiveFormsModule,
+        CardsColorComponent
+    ]
 })
 export class DetailComponent implements OnInit {
   private api = inject(ApiService);
