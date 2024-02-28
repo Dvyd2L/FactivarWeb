@@ -1,8 +1,6 @@
 import { Injectable, inject } from '@angular/core';
-import { StorageHelper } from '@/app/core/helpers/storage.helper';
 import { StorageKeyEnum } from '@/app/models/enums/storage.enum';
-import { IUser } from '@/app/models/interfaces/user';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { UUID } from 'node:crypto';
 import { StorageService } from './storage.service';
 import { RolesEnum } from '@/app/models/enums/roles.enum';
