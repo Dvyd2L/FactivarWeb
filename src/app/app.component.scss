@@ -9,7 +9,7 @@ menu {
   flex-flow: row nowrap;
   justify-content: center;
   align-items: center;
-  border-radius: 0.5rem 0 0 0.5rem;
+  border-radius: 0.5rem;
   padding-inline-start: .5rem;
 
   background-color: rgba(0, 0, 0, 0.2);
@@ -19,7 +19,7 @@ menu {
     block-size: 18px;
     border: none;
     background-color: transparent;
-border-radius: 10px;
+
     display: flex;
     justify-content: center;
     align-items: center;
