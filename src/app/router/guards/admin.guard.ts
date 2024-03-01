@@ -12,8 +12,8 @@ import { StorageService } from '@/app/core/services/storage.service';
 export const adminGuard: CanActivateFn = (): boolean => {
   const router = inject(Router);
   const storage = inject(StorageService);
-  const user = storage.get<{ Role: RolesEnum }>(StorageKeyEnum.User);
-  if (user?.Role === RolesEnum.Admin) {
+  const user = storage.get<{ role: RolesEnum }>(StorageKeyEnum.User);
+  if (user?.role === RolesEnum.Admin) {
     return true;
   }
   router.navigate(['/auth', 'login']);

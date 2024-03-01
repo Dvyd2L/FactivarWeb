@@ -44,7 +44,14 @@ export class ClientesComponent implements OnInit {
 
   public response$!: Observable<ICustomer[]>;
   public customers!: ICustomer[];
-  public customer!: ICustomer;
+  public customer: ICustomer = {
+    cif: '',
+    direccion: '',
+    email: '',
+    fechaAlta: new Date(),
+    nombre: '',
+    telefono: 0,
+  };
   public selectedCustomers!: ICustomer[] | null;
   public customerDialog: boolean = false;
   public submitted: boolean = false;
@@ -52,21 +59,21 @@ export class ClientesComponent implements OnInit {
   public form = new FormGroup({
     cif: new FormControl(
       {
-        value: this.newCustomer ? '' : this.customer.cif,
+        value: this.customer.cif,
         disabled: !this.newCustomer,
       },
       [Validators.required]
     ),
-    nombre: new FormControl({ value: '', disabled: false }, [
+    nombre: new FormControl({ value: this.customer.nombre, disabled: false }, [
       Validators.required,
     ]),
-    direccion: new FormControl({ value: '', disabled: false }, [
+    direccion: new FormControl({ value: this.customer.direccion, disabled: false }, [
       Validators.required,
     ]),
-    telefono: new FormControl({ value: 0, disabled: false }, [
+    telefono: new FormControl({ value: this.customer.telefono, disabled: false }, [
       Validators.required,
     ]),
-    email: new FormControl({ value: '', disabled: false }, [
+    email: new FormControl({ value: this.customer.email, disabled: false }, [
       Validators.required,
       Validators.email,
     ]),
@@ -93,7 +100,7 @@ export class ClientesComponent implements OnInit {
     this.newCustomer = true;
   }
   /**
-   * Elimina los customeres seleccionados.
+   * Elimina los clientes seleccionados.
    */
   // public deleteSelectedCustomers() {
   //   this.confirmationService.confirm({
@@ -116,10 +123,11 @@ export class ClientesComponent implements OnInit {
   //   });
   // }
   /**
-   * Abre el diálogo para editar un customere.
-   * @param customer - Customere a editar.
+   * Abre el diálogo para editar un cliente.
+   * @param customer - Cliente a editar.
    */
   public editCustomer(customer: ICustomer) {
+    this.newCustomer = false;
     this.customer = { ...customer };
     this.customerDialog = true;
   }

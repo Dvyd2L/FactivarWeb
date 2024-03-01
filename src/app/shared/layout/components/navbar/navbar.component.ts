@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { LinkComponent } from '../link/link.component';
 import { TraductorService } from '@/app/core/services/traductor.service';
 import { Navbar } from '@/app/models/interfaces/traductor';
@@ -25,6 +25,7 @@ export class NavbarComponent implements OnInit {
   private traductor = inject(TraductorService);
   private userSvc = inject(UserService<IUser>);
   private auth = inject(AuthService);
+  private router = inject(Router);
   public textos!: Navbar;
   public user!: IUser | null;
 
@@ -38,6 +39,7 @@ export class NavbarComponent implements OnInit {
   }
 
   public logout() {
+    this.router.navigate(['/home']);
     return this.auth.logout({ email: this.user?.email ?? '' });
   }
 }
