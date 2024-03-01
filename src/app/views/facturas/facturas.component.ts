@@ -1,7 +1,13 @@
 import { ApiService } from '@/app/core/api/api.service';
 import { ICustomer, IInvoice, IProduct } from '@/app/models/interfaces/api';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit, ViewChild, ViewContainerRef, inject } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  ViewContainerRef,
+  inject,
+} from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -11,6 +17,7 @@ import {
 import { calculateImportes } from './helpers/facturas.helper';
 import { ArticuloFacturaComponent } from './article/articulo-factura.component';
 import { ApiEndpointEnum } from '@/app/models/enums/api.enum';
+import { ToastService } from '@/app/core/services/toast.service';
 
 @Component({
   selector: 'app-facturas',
@@ -20,16 +27,17 @@ import { ApiEndpointEnum } from '@/app/models/enums/api.enum';
   providers: [ApiService],
   imports: [ReactiveFormsModule, ArticuloFacturaComponent],
 })
-export class FacturasComponent implements OnInit{
+export class FacturasComponent implements OnInit {
+  private toastSvc = inject(ToastService);
   private api = inject(ApiService);
   /**
    * Referencia al contenedor de vista del componente ArticuloFactura.
-  */
- @ViewChild('articuloFactura', { read: ViewContainerRef })
- public articuloFactura!: ViewContainerRef;
- public facturaForm = new FormGroup({
-   numeroFactura: new FormControl<number>({ value: 0, disabled: false }, [
-     Validators.required,
+   */
+  @ViewChild('articuloFactura', { read: ViewContainerRef })
+  public articuloFactura!: ViewContainerRef;
+  public facturaForm = new FormGroup({
+    numeroFactura: new FormControl<number>({ value: 0, disabled: false }, [
+      Validators.required,
     ]),
     pendientePago: new FormControl({ value: false, disabled: false }, [
       Validators.required,
@@ -38,34 +46,36 @@ export class FacturasComponent implements OnInit{
     fechaExpedicion: new FormControl(
       { value: new Date().toISOString().split('T')[0], disabled: true },
       [Validators.required]
-      ),
-      fechaCobro: new FormControl(
-        { value: new Date().toISOString().split('T')[0], disabled: false },
-        [Validators.required]
-        ),
-        clienteId: new FormControl({ value: '', disabled: false }, [
-          Validators.required,
-        ]),
-        proveedorId: new FormControl({ value: '', disabled: false }, [
-          Validators.required,
-        ]),
+    ),
+    fechaCobro: new FormControl(
+      { value: new Date().toISOString().split('T')[0], disabled: false },
+      [Validators.required]
+    ),
+    clienteId: new FormControl({ value: '', disabled: false }, [
+      Validators.required,
+    ]),
+    proveedorId: new FormControl({ value: '', disabled: false }, [
+      Validators.required,
+    ]),
+  });
+  public listaFacturas: IInvoice[] = [];
+  public listaArticulos: IProduct[] = [];
+  public ricias = {
+    subTotal: 0,
+    importeTotal: 0,
+  };
+  public max = -1;
+
+  ngOnInit(): void {
+    this.facturaForm
+      .get('proveedorId')
+      ?.valueChanges.subscribe((nuevoValor) => {
+        this.getNumerofactura(nuevoValor ?? '');
+        console.log({ nuevoValor });
       });
-      public listaFacturas: IInvoice[] = [];
-      public listaArticulos: IProduct[] = [];
-      public ricias = {
-        subTotal: 0,
-        importeTotal: 0,
-      };
-      public max = -1;
-      
-      ngOnInit(): void {
-        this.facturaForm.get('proveedorId')?.valueChanges.subscribe(nuevoValor => {
-          this.getNumerofactura(nuevoValor??'');
-          console.log({nuevoValor});
-        });
-      }
-      
-      public comprobarNumeroFactura() {
+  }
+
+  public comprobarNumeroFactura() {
     return (
       this.facturaForm.value.numeroFactura &&
       this.facturaForm.value.numeroFactura < this.max
@@ -77,33 +87,29 @@ export class FacturasComponent implements OnInit{
   // }
 
   public getNumerofactura(proveedorId: string) {
-    console.log("EEEEENTRAAAAA");
+    console.log('EEEEENTRAAAAA');
     if (proveedorId?.trim() != '') {
       this.api.setEndpoint(ApiEndpointEnum.CLIENTES);
 
-      this.api
-        .read<string, ICustomer>(proveedorId)
-        .subscribe({
-          next: (res) => {
-            this.listaFacturas = res.facturaProveedors!;
+      this.api.read<string, ICustomer>(proveedorId).subscribe({
+        next: (res) => {
+          this.listaFacturas = res.facturaProveedors!;
 
-            this.facturaForm.value.numeroFactura =
-              this.listaFacturas.reduce((max, factura) => {
-                return factura.numeroFactura > max
-                  ? factura.numeroFactura
-                  : max;
-              }, this.listaFacturas[0].numeroFactura) + 1;
+          this.facturaForm.value.numeroFactura =
+            this.listaFacturas.reduce((max, factura) => {
+              return factura.numeroFactura > max ? factura.numeroFactura : max;
+            }, this.listaFacturas[0].numeroFactura) + 1;
 
-            this.max = this.facturaForm.value.numeroFactura;
-            this.facturaForm.controls.numeroFactura.setValue(this.max);
+          this.max = this.facturaForm.value.numeroFactura;
+          this.facturaForm.controls.numeroFactura.setValue(this.max);
 
-            console.log(this.max);
-            console.log(this.facturaForm.value.numeroFactura);
-          },
-          error: (error) => {
-            console.error(error);
-          },
-        });
+          console.log(this.max);
+          console.log(this.facturaForm.value.numeroFactura);
+        },
+        error: (error) => {
+          console.error(error);
+        },
+      });
     }
   }
 
@@ -124,25 +130,42 @@ export class FacturasComponent implements OnInit{
       this.api
         .create({
           ...this.facturaForm.value,
-          articulos: this.listaArticulos,
+          pendientePago:
+            String(this.facturaForm.controls.pendientePago.value) === 'true',
+          articulos: this.listaArticulos.map((x) => {
+            return {
+              ...x,
+              iva: Number(x.iva),
+              pUnitario: Number(x.pUnitario),
+              unidades: Number(x.unidades),
+            };
+          }),
         })
         .subscribe({
           next: (data) => {
             console.log({ data });
-            // this.messageService.add({
-            //   severity: 'success',
-            //   summary: 'Registro Creado',
-            //   detail: 'Factura creada con éxito',
-            // });
+            this.toastSvc.add({
+              title: 'Registro Creado',
+              type: 'success',
+              message: 'Factura creada con éxito',
+              life: 3000,
+            });
           },
           error: (err) => {
             console.error({ err });
-            if (err instanceof HttpErrorResponse) {
-              // this.errorMessage(err, this.messageService);
-            }
+            this.toastSvc.add({
+              title: 'Registro fallido',
+              type: 'error',
+              message: 'Se ha producido un error al intentar crear la factura.',
+              life: 3000,
+            });
           },
         });
-      this.facturaForm.reset();
+      this.facturaForm.reset({
+        fechaExpedicion: new Date().toISOString().split('T')[0],
+        fechaCobro: new Date().toISOString().split('T')[0],
+        pendientePago: false,
+      });
       this.listaArticulos = [];
     }
   }
@@ -152,6 +175,8 @@ export class FacturasComponent implements OnInit{
     const mes = '02';
     const year = '2024';
     this.api.setEndpoint(ApiEndpointEnum.FACTURAS);
-    this.api.read(`ivamensual/${id}/${mes}/${year}`).subscribe((res) => console.log(res));
+    this.api
+      .read(`ivamensual/${id}/${mes}/${year}`)
+      .subscribe((res) => console.log(res));
   }
 }

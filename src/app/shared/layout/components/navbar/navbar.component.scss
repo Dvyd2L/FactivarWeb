@@ -19,7 +19,7 @@
 .menu {
   scale: 0.75;
   display: flex;
-  flex-flow: row wrap;
+  flex-flow: row nowrap;
   gap: 0.5rem;
   align-items: center;
   align-content: center;

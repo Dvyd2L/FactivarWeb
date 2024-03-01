@@ -1,9 +1,10 @@
 .ezeBodyNotExist {
+  height: 100dvh;
+  width: 100dvw;
   display: flex;
-  flex-direction: row;
+  flex-flow: row wrap;
   justify-content: center;
   align-items: center;
-  flex-wrap: wrap;
   gap: 1rem;
 }
 
@@ -18,6 +19,9 @@ img {
   max-width: 100%;
   height: max-content;
   align-self: center;
+  @media (orientation: portrait) {
+    min-width: 100%;
+  }
 }
 
 h1 {

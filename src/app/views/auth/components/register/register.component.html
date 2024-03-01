@@ -1,4 +1,4 @@
-<form class="form-signin">
+<form class="form-signin" [formGroup]="registerForm" (ngSubmit)="register()">
   <!-- (ngSubmit)="register()" -->
   <div class="form-group mb-3">
     <label for="nombre" hidden aria-label="nombre">Nombre</label>
@@ -9,7 +9,17 @@
       class="form-control"
       placeholder="Nombre"
       name="nombre"
+      required
     />
+    @if (registerForm.controls.nombre.invalid &&
+    (registerForm.controls.nombre.dirty || registerForm.controls.nombre.touched))
+    {
+    <div class="alert alert-danger">
+      @if (registerForm.controls.nombre.errors?.['required']) {
+      <span>El nombre es obligatorio</span>
+      } 
+    </div>
+    }
   </div>
 
   <div class="form-group mb-3">
@@ -21,7 +31,17 @@
       placeholder="Apellidos"
       id="apellidos"
       name="apellidos"
+      required
     />
+    @if (registerForm.controls.apellidos.invalid &&
+    (registerForm.controls.apellidos.dirty || registerForm.controls.apellidos.touched))
+    {
+    <div class="alert alert-danger">
+      @if (registerForm.controls.apellidos.errors?.['required']) {
+      <span>El apellido es obligatorio</span>
+      }
+    </div>
+    }
   </div>
 
   <div class="form-group mb-3">
@@ -46,7 +66,19 @@
       placeholder="E-mail"
       id="email"
       name="email"
+      required
     />
+    @if (registerForm.controls.email.invalid &&
+    (registerForm.controls.email.dirty || registerForm.controls.email.touched))
+    {
+    <div class="alert alert-danger">
+      @if (registerForm.controls.email.errors?.['required']) {
+      <span>El email es obligatoria</span>
+      } @if (registerForm.controls.email.errors?.['email']) {
+      <span>Introduce un email válido</span>
+      }
+    </div>
+    }
   </div>
 
   <div class="form-group mb-3">
@@ -72,8 +104,23 @@
       class="form-control"
       placeholder="Contraseña"
       name="password"
-      id="Password"
+      id="password"
+      required
     />
+    @if (registerForm.controls.password.invalid &&
+    (registerForm.controls.password.dirty ||
+    registerForm.controls.password.touched)) {
+    <div class="alert alert-danger">
+      @if (registerForm.controls.password.errors?.['required']) {
+      <span>La contrasea es obligatoria</span>
+      } @if (registerForm.controls.password.errors?.['pattern']) {
+      <span
+        >La contrasea debe tener mínimo 8 caracteres, al menos una mayúscula,
+        una minuscula y un símbolo</span
+      >
+      }
+    </div>
+    }
   </div>
 
   <div class="form-group mb-3">
@@ -86,9 +133,22 @@
       type="password"
       class="form-control"
       placeholder="Repetir Contraseña"
-      name="repeat-password"
+      name="repeatPassword"
       id="repeatPassword"
+      required
     />
+    @if (password.invalid && (password.dirty || password.touched)) {
+    <div class="alert alert-danger">
+      @if (password.errors?.['required']) {
+      <span>La contrasea es obligatoria</span>
+      } @if (password.errors?.['pattern']) {
+      <span
+        >La contrasea debe tener mínimo 8 caracteres, al menos una mayúscula,
+        una minuscula y un símbolo</span
+      >
+      }
+    </div>
+    }
   </div>
 
   <!-- <app-boton-accesos class="mt-2 d-flex justify-content-center" texto="Continuar" (click)="register()" /> -->
@@ -140,16 +200,13 @@
     <button
       class="btn-xio"
       title="Enviar"
-      type="click"
-      (click)="register()"
+      type="submit"
       [disabled]="registerForm.invalid"
     >
       <strong>Continuar</strong>
     </button>
   </div>
 </form>
-
-<ng-template #toastContainer class="toast-wrapper" />
 
 <app-modal [show]="termsModal">
   <app-service-terms class="modal-content" />

@@ -51,7 +51,8 @@
       font-size: 14px;
       letter-spacing: 2px;
       color: #ffffff;
-      text-shadow: 0 0 4px white;
+      /* text-shadow: 0 0 4px white; */
+      /* -webkit-text-stroke: 0,5px rgb(255, 255, 255);  */
     }
   }
 
@@ -65,8 +66,6 @@
     background-image: url("../../images/FondoFinal.jpg");
     background-size: cover;
     background-repeat: no-repeat;
-    filter: invert(0) grayscale(0);
-
     /* Estilos para el tema oscuro */
     [data-bs-theme="dark"] & {
       filter: invert(1) grayscale(0.5);

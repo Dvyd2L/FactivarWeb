@@ -1,8 +1,6 @@
 import {
   AfterViewInit,
   Component,
-  ViewChild,
-  ViewContainerRef,
   inject,
 } from '@angular/core';
 import {
@@ -15,9 +13,9 @@ import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '@/app/views/auth/services/auth.service';
 import { ServiceTermsComponent } from '../service-terms/service-terms.component';
 import { ModalComponent } from '../../../../shared/components/modal/modal.component';
-import { toastHelper } from '@/app/core/helpers/toast.helper';
 import { REGEXP } from '../../validators/regexp';
 import { IRegisterRequest } from '@/app/models/interfaces/auth';
+import { ToastService } from '@/app/core/services/toast.service';
 
 @Component({
   selector: 'app-register',
@@ -32,11 +30,10 @@ import { IRegisterRequest } from '@/app/models/interfaces/auth';
   ],
   providers: [],
 })
-export class RegisterComponent implements AfterViewInit {
+export class RegisterComponent {
   private router = inject(Router);
   private auth = inject(AuthService);
-  @ViewChild('toastContainer', { read: ViewContainerRef })
-  public toast!: ViewContainerRef;
+  private toastSvc = inject(ToastService);
   public registerForm = new FormGroup({
     nombre: new FormControl<string>({ value: '', disabled: false }, [
       Validators.required,
@@ -64,22 +61,6 @@ export class RegisterComponent implements AfterViewInit {
   ]);
   public termsModal = false;
 
-  public addToast!: ({
-    title,
-    message,
-    type,
-    life,
-  }: {
-    title: string;
-    message: string;
-    type: string;
-    life: number;
-  }) => void;
-
-  ngAfterViewInit(): void {
-    this.addToast = toastHelper(this.toast);
-  }
-
   public toggleServiceTermsVisibility() {
     this.termsModal = !this.termsModal;
   }
@@ -104,7 +85,7 @@ export class RegisterComponent implements AfterViewInit {
         .subscribe({
           next: (data) => {
             console.log(data);
-            this.addToast({
+            this.toastSvc.add({
               title: 'éxito',
               message: 'la operación se ha completado con éxito.',
               type: 'success',
@@ -115,7 +96,7 @@ export class RegisterComponent implements AfterViewInit {
             }, 3000);
           },
           error: (err) => {
-            this.addToast({
+            this.toastSvc.add({
               title: 'error',
               message: err?.error?.message ?? 'algo salió mal',
               type: 'error',
@@ -124,7 +105,7 @@ export class RegisterComponent implements AfterViewInit {
           },
         });
     } else {
-      this.addToast({
+      this.toastSvc.add({
         title: 'Formulario inválido',
         message: 'Verifica los campos.',
         type: 'error',
@@ -137,7 +118,7 @@ export class RegisterComponent implements AfterViewInit {
    */
   public validPass() {
     if (this.registerForm.controls.password.value !== this.password.value) {
-      this.addToast({
+      this.toastSvc.add({
         title: 'error',
         message: 'Las contraseñas no coinciden.',
         type: 'error',

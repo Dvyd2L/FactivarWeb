@@ -1,4 +1,5 @@
 import { UUID } from 'node:crypto';
+import { RolesEnum } from '../enums/roles.enum';
 /**
  * Interfaz base para un usuario.
  */
@@ -12,13 +13,13 @@ export interface IUserBase {
  * Interfaz para los datos de un usuario.
  */
 export interface IUser {
-  Sid: UUID;
-  Email: string;
-  Name: string;
-  Surname: string;
-  Role: string;
-  Thumbprint: string;
-  MobilePhone?: string;
+  sid: UUID;
+  email: string;
+  name: string;
+  surname: string;
+  role: RolesEnum;
+  thumbprint: string;
+  mobilephone?: string;
   exp: number;
   iss: string;
   aud: string;
