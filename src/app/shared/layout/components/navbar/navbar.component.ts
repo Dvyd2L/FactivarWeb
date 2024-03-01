@@ -13,12 +13,7 @@ import { AuthService } from '@/app/views/auth/services/auth.service';
   standalone: true,
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss',
-  imports: [
-    RouterLink,
-    RouterLinkActive,
-    LinkComponent,
-    AsyncPipe,
-  ],
+  imports: [RouterLink, RouterLinkActive, LinkComponent, AsyncPipe],
   providers: [UserService],
 })
 export class NavbarComponent implements OnInit {
@@ -36,6 +31,16 @@ export class NavbarComponent implements OnInit {
 
   public isAdmin() {
     return this.userSvc.isAdmin();
+  }
+
+  public thumbprint() {
+    const thumbprint = this.user?.thumbprint;
+    if (!thumbprint) return '';
+    if (thumbprint.includes('https')) return thumbprint;
+
+    const path = thumbprint.split('/');
+    path.splice(0, 5);
+    return 'https://localhost:7106/' + path.join('/');
   }
 
   public logout() {

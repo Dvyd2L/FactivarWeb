@@ -19,14 +19,15 @@ import { TraductorService } from '@/app/core/services/traductor.service';
 import { IFormInput } from '@/app/models/interfaces/form';
 import { LoginSection } from '@/app/models/interfaces/traductor';
 import { ToastService } from '@/app/core/services/toast.service';
+import { GoogleSigninComponent } from "../google-signin/google-signin.component";
 
 @Component({
-  selector: 'app-login',
-  standalone: true,
-  imports: [ReactiveFormsModule, RouterLink],
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
-  providers: [AuthService],
+    selector: 'app-login',
+    standalone: true,
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.scss'],
+    providers: [AuthService],
+    imports: [ReactiveFormsModule, RouterLink, GoogleSigninComponent]
 })
 export class LoginComponent implements OnInit {
   private i18n = inject(TraductorService);

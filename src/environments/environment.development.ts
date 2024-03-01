@@ -9,7 +9,7 @@ export const environment = {
     token_uri: 'https://oauth2.googleapis.com/token',
     auth_provider_x509_cert_url: 'https://www.googleapis.com/oauth2/v1/certs',
     client_secret: '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',
-    redirect_uris: ['http://localhost:4200/home', 'https://dvyd2l.github.io/'],
+    redirect_uris: ['http://localhost:4200/', 'http://localhost:4200/auth/callback'],
   },
   facebookOauth2: {
     id: '928477878989848',

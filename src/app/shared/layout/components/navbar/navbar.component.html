@@ -191,8 +191,7 @@
   <menu class="menu">
     @if (user) {
     <app-link [title]="user.name" [attr.aria-label]="user.name">
-      <img class="slot-icon" [src]="user.thumbprint" alt="Avatar de {{ user.name }}" />
-      <!-- @if (isAdmin()) {
+      @if (isAdmin() || !user.thumbprint ) {
       <svg
         class="slot-icon"
         xmlns="http://www.w3.org/2000/svg"
@@ -227,14 +226,8 @@
       </svg>
 
       } @else {
-      <img
-        class="slot-icon"
-        [src]="'assets/images/ApeMonster.png'"
-        alt="Avatar de {{ user.name }}"
-        height="75"
-        width="75"
-      />
-      } -->
+        <img class="user-avatar slot-icon" [src]="thumbprint()" alt="Avatar de {{ user.name }}" />
+      }
     </app-link>
 
     <app-link

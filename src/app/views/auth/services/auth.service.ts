@@ -38,19 +38,22 @@ export class AuthService {
    * Realiza el inicio de sesión con Google.
    * @param idToken El token de autenticación de Google.
    */
-  public loginWithGoogle(idToken?: string) {
+  public loginWithGoogle(googleIdToken?: string) {
+    console.log({ googleIdToken });
     return this.http
-      .post<{ token: string }>(`${this.urlAPI}/google-authenticate`, idToken)
-      .pipe(
-        tap(({ token }) => {
-          // this.storage.setItem(StorageKeyEnum.Token, token);
-          // const helper = new JwtHelperService();
-          // const payload = helper.decodeToken(response.token);
-          // const user: IUserPayload = {
-          //   ...payload,
-          //   token: response.token,
-          // };
-          // this.userService.updateUser(user);
+    .post<{ token: string }>(`${this.urlAPI}/google-authenticate`, {
+      googleIdToken,
+    })
+    .pipe(
+      tap(({ token }) => {
+          console.log({ token });
+          const helper = new JwtHelperService();
+          const payload = helper.decodeToken(token);
+
+          this.userSvc.updateUser({
+            ...payload,
+            token,
+          });
         })
       );
   }
