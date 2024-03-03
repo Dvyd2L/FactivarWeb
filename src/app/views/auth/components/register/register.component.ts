@@ -1,8 +1,4 @@
-import {
-  AfterViewInit,
-  Component,
-  inject,
-} from '@angular/core';
+import { AfterViewInit, Component, inject } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -60,6 +56,7 @@ export class RegisterComponent {
     Validators.pattern(REGEXP['PASSWORD']),
   ]);
   public termsModal = false;
+  public avatar: File | null = null;
 
   public toggleServiceTermsVisibility() {
     this.termsModal = !this.termsModal;
@@ -72,7 +69,7 @@ export class RegisterComponent {
     const file = (event.target as HTMLInputElement)?.files?.[0];
 
     if (file) {
-      this.registerForm.controls.avatar.setValue(file);
+      this.avatar = file;
     }
   }
   /**
@@ -80,30 +77,33 @@ export class RegisterComponent {
    */
   public register() {
     if (this.registerForm.valid && this.validPass()) {
-      this.auth
-        .register(this.registerForm.value as IRegisterRequest)
-        .subscribe({
-          next: (data) => {
-            console.log(data);
-            this.toastSvc.add({
-              title: 'éxito',
-              message: 'la operación se ha completado con éxito.',
-              type: 'success',
-              life: 3000,
-            });
-            setTimeout(() => {
-              this.router.navigate(['/auth', 'login']);
-            }, 3000);
-          },
-          error: (err) => {
-            this.toastSvc.add({
-              title: 'error',
-              message: err?.error?.message ?? 'algo salió mal',
-              type: 'error',
-              life: 3000,
-            });
-          },
-        });
+      const register = {
+        ...this.registerForm.value,
+        avatar: this.avatar,
+      } as IRegisterRequest;
+      
+      this.auth.register(register).subscribe({
+        next: (data) => {
+          console.log(data);
+          this.toastSvc.add({
+            title: 'éxito',
+            message: 'la operación se ha completado con éxito.',
+            type: 'success',
+            life: 3000,
+          });
+          setTimeout(() => {
+            this.router.navigate(['/auth', 'login']);
+          }, 3000);
+        },
+        error: (err) => {
+          this.toastSvc.add({
+            title: 'error',
+            message: err?.error?.message ?? 'algo salió mal',
+            type: 'error',
+            life: 3000,
+          });
+        },
+      });
     } else {
       this.toastSvc.add({
         title: 'Formulario inválido',

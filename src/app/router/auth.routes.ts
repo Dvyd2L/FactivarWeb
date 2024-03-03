@@ -33,5 +33,13 @@ export const authRoutes: Routes = [
         '@/app/views/auth/components/change-password/change-password.component'
       ).then((c) => c.ChangePasswordComponent),
   },
+  {
+    path: 'callback',
+    title: '',
+    loadComponent: () =>
+      import(
+        '@/app/views/auth/components/callback/callback.component'
+      ).then((c) => c.CallbackComponent),
+  },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
 ];
