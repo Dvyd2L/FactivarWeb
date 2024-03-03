@@ -132,8 +132,9 @@ export class FacturasComponent implements OnInit {
       this.api
         .create({
           ...this.facturaForm.value,
+          // TODO: revisar este campo
           pendientePago:
-            String(this.facturaForm.controls.pendientePago.value) === 'true',
+            !(String(this.facturaForm.controls.pendientePago.value) === 'true'),
           articulos: this.listaArticulos.map((x) => {
             return {
               ...x,

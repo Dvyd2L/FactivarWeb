@@ -3,6 +3,6 @@ export interface IRegisterRequest {
   nombre: string;
   apellidos: string;
   telefono?: number | string;
-  avatar?: File;
+  avatar?: File | null;
   password: string;
 }

@@ -1,6 +1,7 @@
 button {
     border: none;
     background-color: transparent;
+    border-radius: 2rem;
 }
 
 .update-btn {
@@ -9,4 +10,104 @@ button {
 
 .delete-btn {
     color: #bf333bda;
+}
+
+.reject {
+    filter: invert(1);
+}
+
+.patata {
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 1rem;
+    justify-content: center;
+}
+
+#clientes {
+    margin-bottom: 20px;
+  text-align: center;
+  font-size: 2em;
+  background: linear-gradient(270deg, #0d63dc, #0ba4b2, #09d3a4);
+  background-size: 200% 200%;
+  animation: gradientWave 5s ease infinite;
+  color: white;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  @keyframes gradientWave {
+    0% {background-position: 0% 50%;}
+    50% {background-position: 100% 50%;}
+    100% {background-position: 0% 50%;}
+  }
+}
+
+
+#content {
+  border: 0px solid; 
+  padding: 2px;
+  margin: 0 150px;
+  background: linear-gradient(270deg, #0d63dc, #0ba4b2, #09d3a4);
+  background-size: 200% 200%;
+  animation: gradientWave 5s ease infinite;
+
+  @keyframes gradientWave {
+    0% {background-position: 0% 50%;}
+    50% {background-position: 100% 50%;}
+    100% {background-position: 0% 50%;}
+  }
+}
+
+.table {
+    //es para quitar esto de bootstrat
+    margin-bottom: 0rem !important; 
+}
+
+#derecha {
+  margin-top: 10px;
+  display: flex;
+  justify-content: flex-end;
+// margin-left: 150px;
+margin-right: 150px;
+}
+
+/* Móviles (hasta 600px) */
+@media only screen and (max-width: 600px) {
+  #content, #clientes {
+    margin: 0 0px;
+  }
+  #derecha {
+    justify-content: center;
+    margin-right: 0px;
+  }
+}
+
+@media only screen and (min-width: 601px) and (max-width: 768px) {
+  #content, #clientes {
+    margin: 0 20px;
+  }
+  #derecha {
+    justify-content: center;
+    margin-right: 20px;
+  }
+}
+
+@media only screen and (min-width: 769px) and (max-width: 1024px) {
+  #content, #clientes {
+    margin: 0 40px;
+  }
+  #derecha {
+    justify-content: flex-end;
+    margin-right: 40px;
+  }
+}
+
+
+@media only screen and (min-width: 1025px) {
+  #content, #clientes {
+    margin: 0 150px;
+  }
+  #derecha {
+    justify-content: flex-end;
+    margin-right: 150px;
+  }
 }

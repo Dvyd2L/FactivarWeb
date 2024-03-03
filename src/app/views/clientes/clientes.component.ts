@@ -1,50 +1,38 @@
-import { ApiService } from '@/app/core/api/api.service';
-import { ApiEndpointEnum } from '@/app/models/enums/api.enum';
-import { ICustomer } from '@/app/models/interfaces/api';
-import { AsyncPipe, JsonPipe, DatePipe } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { Component, OnInit, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { Observable } from 'rxjs';
-// import { ConfirmDialogModule } from 'primeng/confirmdialog';
-// import { MessageService, ConfirmationService } from 'primeng/api';
-// import { TableModule } from 'primeng/table';
-// import { ToastModule } from 'primeng/toast';
-// import { ButtonModule } from 'primeng/button';
-// import { DialogModule } from 'primeng/dialog';
-// import { ToolbarModule } from 'primeng/toolbar';
-// import { FileUploadModule } from 'primeng/fileupload';
 import {
   FormControl,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { ApiService } from '@/app/core/api/api.service';
+import { ApiEndpointEnum } from '@/app/models/enums/api.enum';
+import { ICustomer } from '@/app/models/interfaces/api';
 import { ToastComponent } from '@/app/shared/components/toast/toast.component';
-import { ModalComponent } from "../../shared/components/modal/modal.component";
+import { ModalComponent } from '@/app/shared/components/modal/modal.component';
+import { ToastService } from '@/app/core/services/toast.service';
+
 @Component({
-    selector: 'app-customeres',
-    standalone: true,
-    templateUrl: './clientes.component.html',
-    styleUrl: './clientes.component.scss',
-    providers: [ApiService],
-    imports: [
-        RouterLink,
-        JsonPipe,
-        AsyncPipe,
-        DatePipe,
-        ReactiveFormsModule,
-        ToastComponent,
-        ModalComponent
-    ]
+  selector: 'app-customeres',
+  standalone: true,
+  templateUrl: './clientes.component.html',
+  styleUrl: './clientes.component.scss',
+  providers: [ApiService],
+  imports: [
+    RouterLink,
+    DatePipe,
+    ReactiveFormsModule,
+    ToastComponent,
+    ModalComponent,
+  ],
 })
 export class ClientesComponent implements OnInit {
-  // private messageService = inject(MessageService);
-  // private confirmationService = inject(ConfirmationService);
-  private api = inject(ApiService);
+  private readonly toastSvc = inject(ToastService);
+  private readonly api = inject(ApiService);
 
-  public response$!: Observable<ICustomer[]>;
   public customers!: ICustomer[];
-  public customer!: ICustomer;
   public selectedCustomers!: ICustomer[] | null;
   public customerDialog: boolean = false;
   public submitted: boolean = false;
@@ -52,76 +40,67 @@ export class ClientesComponent implements OnInit {
   public form = new FormGroup({
     cif: new FormControl(
       {
-        value: this.newCustomer ? '' : this.customer.cif,
+        value: '',
         disabled: !this.newCustomer,
       },
       [Validators.required]
     ),
-    nombre: new FormControl({ value: '', disabled: false }, [
-      Validators.required,
-    ]),
-    direccion: new FormControl({ value: '', disabled: false }, [
-      Validators.required,
-    ]),
-    telefono: new FormControl({ value: 0, disabled: false }, [
-      Validators.required,
-    ]),
-    email: new FormControl({ value: '', disabled: false }, [
-      Validators.required,
-      Validators.email,
-    ]),
+    nombre: new FormControl(
+      {
+        value: '',
+        disabled: false,
+      },
+      [Validators.required]
+    ),
+    direccion: new FormControl(
+      {
+        value: '',
+        disabled: false,
+      },
+      [Validators.required]
+    ),
+    telefono: new FormControl(
+      {
+        value: 0,
+        disabled: false,
+      },
+      [Validators.required]
+    ),
+    email: new FormControl(
+      {
+        value: '',
+        disabled: false,
+      },
+      [Validators.required, Validators.email]
+    ),
   });
-  // public statuses!: any[];
 
   ngOnInit(): void {
     this.api.setEndpoint(ApiEndpointEnum.CLIENTES);
-    this.response$ = this.api.read<Pick<ICustomer, 'cif'>, ICustomer[]>();
+    this.getCustomers();
   }
 
-  public eventHandler = (ev: Event) => (ev.target as HTMLInputElement).value;
   public openNew() {
-    this.customer = {
+    this.form.reset({
       cif: '',
       direccion: '',
       email: '',
       nombre: '',
       telefono: 0,
-      fechaAlta: new Date(),
-    };
+    });
     this.submitted = false;
     this.customerDialog = true;
     this.newCustomer = true;
   }
   /**
-   * Elimina los customeres seleccionados.
-   */
-  // public deleteSelectedCustomers() {
-  //   this.confirmationService.confirm({
-  //     message: '¿Estás seguro de eliminar estos registros?',
-  //     header: 'Confirmar',
-  //     icon: 'pi pi-exclamation-triangle',
-  //     accept: () => {
-  //       this.customers = this.customers.filter(
-  //         (val) => !this.selectedCustomers?.includes(val)
-  //       );
-  //       this.selectedCustomers = null;
-  //       this.messageService.add({
-  //         severity: 'success',
-  //         summary: 'Successful',
-  //         detail: 'Registros eliminados',
-  //         life: 3000,
-  //       });
-  //     },
-  //     reject: () => (this.selectedCustomers = null),
-  //   });
-  // }
-  /**
-   * Abre el diálogo para editar un customere.
-   * @param customer - Customere a editar.
+   * Abre el diálogo para editar un cliente.
+   * @param customer - Cliente a editar.
    */
   public editCustomer(customer: ICustomer) {
-    this.customer = { ...customer };
+    this.newCustomer = false;
+    this.form.reset({ ...customer });
     this.customerDialog = true;
+    this.submitted = false;
   }
   /**
    * Oculta el diálogo de cliente.
@@ -129,40 +108,42 @@ export class ClientesComponent implements OnInit {
   public hideDialog() {
     this.customerDialog = false;
     this.submitted = false;
+    this.newCustomer = false;
+    this.form.reset({
+      cif: '',
+      direccion: '',
+      email: '',
+      nombre: '',
+      telefono: 0,
+    });
   }
-  /**
-   * Guarda un cliente.
-   */
-  public saveCustomer() {
-    const customer = this.customers.find((x) => x.cif === this.customer.cif);
+
+  public saveCustomer(ev: Event) {
+    ev.preventDefault();
     this.submitted = true;
-    if (this.customer.nombre?.trim()) {
-      if (customer) {
-        this.update();
-      } else {
-        this.create();
-      }
-      this.customers = [...this.customers];
-      this.customerDialog = false;
-      this.newCustomer = false;
-      this.customer = {
-        cif: '',
-        direccion: '',
-        email: '',
-        nombre: '',
-        telefono: 0,
-        fechaAlta: new Date(),
-      };
+
+    if (this.newCustomer) {
+      this.create();
+    } else {
+      this.update(this.form.value.cif!);
     }
-  }
-  public findIndexById(id: string): number {
-    return this.customers.findIndex((x) => x.cif === id);
+
+    this.hideDialog();
   }
 
   public confirmDelete(customer: ICustomer) {
-    const confirmDelete = confirm(`¿Eliminar cliente ${customer.nombre}? Esta acción no se puede deshacer`)
+    const confirmDelete = confirm(
+      `¿Eliminar cliente ${customer.nombre}? Esta acción no se puede deshacer`
+    );
     if (confirmDelete) {
       this.delete(customer.cif);
+    } else {
+      this.toastSvc.add({
+        type: 'error',
+        title: 'Rechazado',
+        message: 'Se ha cancelado la operación',
+        life: 3000,
+      });
     }
     // this.confirmationService.confirm({
     //   message: `¿Eliminar cliente ${customer.nombre}?`,
@@ -176,10 +157,10 @@ export class ClientesComponent implements OnInit {
     //   rejectIcon: 'none',
     //   accept: () => this.delete(customer.cif),
     //   reject: () => {
-    //     this.messageService.add({
-    //       severity: 'error',
-    //       summary: 'Rechazado',
-    //       detail: 'Se ha cancelado la operación',
+    //     this.toastSvc.add({
+    //       type: 'error',
+    //       title: 'Rechazado',
+    //       message: 'Se ha cancelado la operación',
     //       life: 3000,
     //     });
     //   },
@@ -190,68 +171,86 @@ export class ClientesComponent implements OnInit {
     this.api.delete(cif).subscribe({
       next: (res) => {
         console.log(res);
-        // this.messageService.add({
-        //   severity: 'info',
-        //   summary: 'Aceptado',
-        //   detail: 'Registro eliminado',
-        // });
+        this.toastSvc.add({
+          type: 'info',
+          title: 'Aceptado',
+          message: 'Registro eliminado',
+          life: 3000,
+        });
+        this.getCustomers();
       },
       error: (err) => {
         console.error(err);
-        // this.messageService.add({
-        //   severity: 'error',
-        //   summary: 'Error',
-        //   detail: 'Algo salió mal',
-        //   life: 3000,
-        // });
+        this.toastSvc.add({
+          type: 'error',
+          title: 'Error',
+          message: 'Algo salió mal',
+          life: 3000,
+        });
       },
     });
   }
 
-  private update() {
-    // this.customers[this.findIndexById(this.customer.cif)] = this.customer;
-    this.api.update(this.customer).subscribe({
-      next: (res) => {
-        console.log(res);
-        // this.messageService.add({
-        //   severity: 'success',
-        //   summary: 'Aceptado',
-        //   detail: 'Registro Actualizado',
-        //   life: 3000,
-        // });
-      },
-      error: (err) => {
-        console.error(err);
-        // this.messageService.add({
-        //   severity: 'error',
-        //   summary: 'Error',
-        //   detail: 'Algo salió mal',
-        //   life: 3000,
-        // });
-      },
-    });
+  private update(id: string) {
+    const customer = this.customers.find((x) => x.cif === id);
+    this.api
+      .update({ ...this.form.value, fechaAlta: customer?.fechaAlta })
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.toastSvc.add({
+            type: 'success',
+            title: 'Aceptado',
+            message: 'Registro Actualizado',
+            life: 3000,
+          });
+          this.getCustomers();
+        },
+        error: (err) => {
+          console.error(err);
+          this.toastSvc.add({
+            type: 'error',
+            title: 'Error',
+            message: 'Algo salió mal',
+            life: 3000,
+          });
+        },
+      });
   }
 
   private create() {
-    this.api.create(this.customer).subscribe({
-      next: (res) => {
-        console.log(res);
-        // this.messageService.add({
-        //   severity: 'success',
-        //   summary: 'Aceptado',
-        //   detail: 'Registro Creado',
-        //   life: 3000,
-        // });
-      },
-      error: (err) => {
-        console.error(err);
-        // this.messageService.add({
-        //   severity: 'error',
-        //   summary: 'Error',
-        //   detail: 'Algo salió mal',
-        //   life: 3000,
-        // });
-      },
-    });
+    this.api
+      .create({ ...this.form.value, fechaAlta: this.parseDate(new Date()) })
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.toastSvc.add({
+            type: 'success',
+            title: 'Aceptado',
+            message: 'Registro Creado',
+            life: 3000,
+          });
+          this.getCustomers();
+        },
+        error: (err) => {
+          console.error(err);
+          this.toastSvc.add({
+            type: 'error',
+            title: 'Error',
+            message: 'Algo salió mal',
+            life: 3000,
+          });
+        },
+      });
+  }
+
+  private getCustomers() {
+    this.api
+      .read<Pick<ICustomer, 'cif'>, ICustomer[]>()
+      .subscribe((res) => (this.customers = res));
+  }
+
+  private parseDate(date: Date) {
+    return new DatePipe('es-ES').transform(date, 'yyyy-MM-dd');
   }
 }

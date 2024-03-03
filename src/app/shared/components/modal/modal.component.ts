@@ -1,9 +1,11 @@
 import {
   Component,
   ElementRef,
+  EventEmitter,
   Input,
   OnChanges,
   OnInit,
+  Output,
   ViewChild,
 } from '@angular/core';
 
@@ -18,6 +20,7 @@ export class ModalComponent implements OnChanges {
   @ViewChild('modalWindow', { static: false })
   public modal!: ElementRef<HTMLDialogElement>;
   @Input({ alias: 'show' }) public showModal: boolean = false;
+  @Output() public closeEv = new EventEmitter<void>();
   /**
    * Cambia el estado de visibilidad de la ventana modal.
    */
@@ -33,6 +36,7 @@ export class ModalComponent implements OnChanges {
    */
   public close() {
     this.modal.nativeElement.close();
+    this.closeEv.emit();
   }
   ngOnChanges(): void {
     this.toggleVisibility();

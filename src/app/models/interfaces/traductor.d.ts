@@ -18,6 +18,7 @@ export interface FooterSection {
 export interface Home {
   eslogan: string;
   sections: HomeSection[];
+  boton: string;
 }
 
 export interface HomeSection {
