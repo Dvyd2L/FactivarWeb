@@ -1,8 +1,8 @@
 <article>
-  <h1>CLIENTES</h1>
+  <h1 id="clientes">CLIENTES</h1>
 
   @if (customers) {
-  <table class="table table-stripped">
+  <table class="table table-stripped" aria-labelledby="clientes">
     <thead>
       <tr>
         <th scope="col">CIF</th>
@@ -12,18 +12,17 @@
         <th scope="col">Email</th>
         <th scope="col">Fecha de Alta</th>
         <th scope="col">
-          <button type="button" class="btn-xio" (click)="openNew()">
-            Agregar nuevo cliente
-          </button>
+
         </th>
       </tr>
     </thead>
+
     <tbody>
       @for (c of customers; track $index) {
       <tr>
         <th scope="row">
           {{ c.cif }}
-          <a [routerLink]="['/clientes', c.cif]">
+          <a [routerLink]="['/clientes', c.cif]" aria-label="Buscar detalles del cliente">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="16"
@@ -49,6 +48,7 @@
             title="modificar"
             class="update-btn"
             (click)="editCustomer(c)"
+            aria-label="Modificar cliente"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -68,6 +68,7 @@
             title="eliminar"
             class="delete-btn"
             (click)="confirmDelete(c)"
+            aria-label="eliminar cliente"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -87,6 +88,11 @@
       }
     </tbody>
   </table>
+            <div id="derecha">
+              <button type="button" class="btn-xio" (click)="openNew()">
+                Agregar nuevo cliente
+              </button>
+            </div>
   }
 
   <ng-template #toastContainer class="toast-wrapper" />
@@ -104,6 +110,7 @@
           [formControl]="form.controls.cif"
           placeholder="CIF obligatorio"
           autofocus
+          aria-label="CIF"
           />
           <label>CIF</label>
         </div>
@@ -117,6 +124,7 @@
           id="name"
           [formControl]="form.controls.nombre"
           autofocus
+          aria-label="Nombre"
           />
         <label for="name">Nombre</label>
       </div>
@@ -130,8 +138,9 @@
           [formControl]="form.controls.direccion"
           placeholder="Localidad obligatoria"
           autofocus
+          aria-label="Direccion"
           />
-          <label>Direccion</label>
+          <label for="direccion">Direccion</label>
         </div>
         
         <div class="form-floating mb-2">
@@ -143,8 +152,9 @@
           [formControl]="form.controls.telefono"
           placeholder="Teléfono obligatorio"
           autofocus
+          aria-label="Teléfono"
           />
-          <label>Teléfono</label>
+          <label for="telefono">Teléfono</label>
         </div>
         
         <div class="form-floating mb-2">
@@ -156,8 +166,9 @@
           [formControl]="form.controls.email"
           placeholder="Email obligatorio"
           autofocus
+          aria-label="Email"
           />
-        <label>Email</label>
+        <label for="email">Email</label>
       </div>
       <div class="patata">
         <button class="btn-xio" type="submit" (click)="saveCustomer($event)">Aceptar</button>

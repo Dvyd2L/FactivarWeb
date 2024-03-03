@@ -22,3 +22,29 @@ button {
     gap: 1rem;
     justify-content: center;
 }
+
+#clientes {
+  text-align: center;
+  font-size: 2em;
+  background: linear-gradient(270deg, #0d63dc, #0ba4b2, #09d3a4);
+  background-size: 200% 200%;
+  animation: gradientWave 5s ease infinite;
+  color: white;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  @keyframes gradientWave {
+    0% {background-position: 0% 50%;}
+    50% {background-position: 100% 50%;}
+    100% {background-position: 0% 50%;}
+  }
+}
+
+.table {
+  margin-top: 40px; 
+}
+
+#derecha {
+  display: flex;
+  justify-content: flex-end;
+}
