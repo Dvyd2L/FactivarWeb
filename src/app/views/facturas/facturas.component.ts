@@ -115,8 +115,6 @@ export class FacturasComponent implements OnInit {
 
   public addArticulo(item: IProduct) {
     this.listaArticulos.push(item);
-    console.log(this.articuloFactura);
-    console.log(this.listaArticulos);
     this.ricias = calculateImportes(this.listaArticulos);
   }
 
