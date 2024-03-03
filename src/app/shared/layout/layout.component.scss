@@ -1,9 +1,8 @@
 .app-layout {
   display: grid;
-  // gap: 1rem;
+
 
   /* Columnas para aside y contenido central */
-  // grid-template-columns: 1fr 5fr;
   grid-template-columns: 6fr;
 
   /* Filas para header, contenido y footer */
@@ -12,12 +11,10 @@
   grid-template-areas:
     "navbar navbar"
     "main main"
-    // "sidebar main"
     "footer footer";
 
   /* Asegura que el diseño ocupe al menos toda la altura de la ventana */
   min-height: 100dvh;
-  // transition-duration: 1s;
 }
 
 .app-header {
@@ -29,7 +26,7 @@
   grid-area: main;
   padding: 1rem;
   position: relative;
-  // min-height: 50dvh;
+
 }
 
 .app-footer {
