@@ -1,5 +1,5 @@
-<article>
-  <h1 id="clientes">CLIENTES</h1>
+<h1 id="clientes">CLIENTES</h1>
+<article id="content">
 
   @if (customers) {
   <table class="table table-stripped" aria-labelledby="clientes">
@@ -88,12 +88,8 @@
       }
     </tbody>
   </table>
-            <div id="derecha">
-              <button type="button" class="btn-xio" (click)="openNew()">
-                Agregar nuevo cliente
-              </button>
-            </div>
-  }
+}
+
 
   <ng-template #toastContainer class="toast-wrapper" />
 
@@ -177,3 +173,8 @@
     </form>
   </app-modal>
 </article>
+                <div id="derecha">
+                  <button type="button" class="btn-xio" (click)="openNew()">
+                    Agregar nuevo cliente
+                  </button>
+                </div>
