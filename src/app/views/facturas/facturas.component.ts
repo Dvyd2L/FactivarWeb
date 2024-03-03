@@ -115,6 +115,8 @@ export class FacturasComponent implements OnInit {
 
   public addArticulo(item: IProduct) {
     this.listaArticulos.push(item);
+    console.log(this.articuloFactura);
+    console.log(this.listaArticulos);
     this.ricias = calculateImportes(this.listaArticulos);
   }
 
@@ -170,13 +172,13 @@ export class FacturasComponent implements OnInit {
     }
   }
 
-  public magias() {
-    const id = '55234902D';
-    const mes = '02';
-    const year = '2024';
-    this.api.setEndpoint(ApiEndpointEnum.FACTURAS);
-    this.api
-      .read(`ivamensual/${id}/${mes}/${year}`)
-      .subscribe((res) => console.log(res));
-  }
+  // public magias() {
+  //   const id = '55234902D';
+  //   const mes = '02';
+  //   const year = '2024';
+  //   this.api.setEndpoint(ApiEndpointEnum.FACTURAS);
+  //   this.api
+  //     .read(`ivamensual/${id}/${mes}/${year}`)
+  //     .subscribe((res) => console.log(res));
+  // }
 }
