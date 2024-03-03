@@ -28,21 +28,21 @@ export class CallbackComponent implements OnInit {
   private getUrl() {
     const currentUrl = this.router.url;
     const token = currentUrl.split('id_token=')[1];
-    // const jwtHelper = new JwtHelperService();
-    // const payload = jwtHelper.decodeToken(token);
-    // this.storage.set(StorageKeyEnum.Token, token);
-    // this.userSvc.updateUser({
-    //   role: RolesEnum.User,
-    //   sid: crypto.randomUUID(),
-    //   token,
-    //   aud: payload.aud,
-    //   email: payload.email,
-    //   exp: payload.exp,
-    //   iss: payload.iss,
-    //   name: payload.given_name,
-    //   thumbprint: payload.picture,
-    //   surname: payload.family_name,
-    // });
+    const jwtHelper = new JwtHelperService();
+    const payload = jwtHelper.decodeToken(token);
+    this.storage.set(StorageKeyEnum.Token, token);
+    this.userSvc.updateUser({
+      role: RolesEnum.User,
+      sid: crypto.randomUUID(),
+      token,
+      aud: payload.aud,
+      email: payload.email,
+      exp: payload.exp,
+      iss: payload.iss,
+      name: payload.given_name,
+      thumbprint: payload.picture,
+      surname: payload.family_name,
+    });
     this.auth.loginWithGoogle(token).subscribe((res) => console.log(res));
     this.router.navigate(['/']);
   }

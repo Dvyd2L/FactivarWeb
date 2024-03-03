@@ -18,7 +18,7 @@ export class GoogleOauthService {
       issuer: 'https://accounts.google.com',
       strictDiscoveryDocumentValidation: false,
       clientId: environment.googleOauth2.client_id,
-      redirectUri: environment.googleOauth2.redirect_uris[1],
+      redirectUri: environment.googleOauth2.redirect_uris[0],
       scope: 'openid profile email',
     };
 
