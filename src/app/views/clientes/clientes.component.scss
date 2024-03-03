@@ -11,3 +11,14 @@ button {
 .delete-btn {
     color: #bf333bda;
 }
+
+.reject {
+    filter: invert(1);
+}
+
+.patata {
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 1rem;
+    justify-content: center;
+}
