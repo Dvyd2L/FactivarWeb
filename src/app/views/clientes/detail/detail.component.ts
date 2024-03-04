@@ -37,10 +37,12 @@ export class DetailComponent implements OnInit {
   public numeroFactuC = new FormControl({ value: 0, disabled: false });
   //Para cálculos de IVA
   public tipoCalculo = new FormControl({ value: "", disabled: false });
+  // public tipoTasas: string[] = ["0%", "4%", "5%", "10%", "21%"];
   public mes = new FormControl({ value: 0, disabled: false });
   public trimestre = new FormControl({ value: 0, disabled: false });
   public year = new FormControl({ value: 0, disabled: false });
-  public resp: Observable<CalculosIva>[] = [];
+  public resp: CalculosIva[] = [];
+  public totalCalculoIva = 0;
 
 
   ngOnInit(): void {
@@ -71,17 +73,34 @@ export class DetailComponent implements OnInit {
   }
 
   public calculaIvaMensual(){
+    this.totalCalculoIva = 0;
     this.api.setEndpoint(ApiEndpointEnum.FACTURAS);
-    this.api.read(`ivamensual/${this.dataId}/${this.mes.value}/${this.year.value}`).subscribe((res) => console.log(res));
+    this.api.read(`ivamensual/${this.dataId}/${this.mes.value}/${this.year.value}`).subscribe((res) => {
+      this.resp = res as CalculosIva[];
+      this.resp.forEach((iv) => {this.totalCalculoIva += iv.total});
+    });
   }
 
   public calculaIvaTrimestral(){
+    this.totalCalculoIva = 0;
     this.api.setEndpoint(ApiEndpointEnum.FACTURAS);
-    this.api.read(`ivatrimestral/${this.dataId}/${this.trimestre.value}/${this.year.value}`).subscribe((res) => console.log(res));
+    this.api.read(`ivatrimestral/${this.dataId}/${this.trimestre.value}/${this.year.value}`).subscribe((res) => {
+      this.resp = res as CalculosIva[];
+      this.resp.forEach((iv) => {this.totalCalculoIva += iv.total});
+    });
   }
 
   public calculaIvaAnual(){
+    this.totalCalculoIva = 0;
     this.api.setEndpoint(ApiEndpointEnum.FACTURAS);
-    this.api.read(`ivaanual/${this.dataId}/${this.year.value}`).subscribe((res) => console.log(res));
+    this.api.read(`ivaanual/${this.dataId}/${this.year.value}`).subscribe((res) => {
+      this.resp = res as CalculosIva[];
+      this.resp.forEach((iv) => {this.totalCalculoIva += iv.total});
+    });
+    this.resp = [];
+  }
+
+  public cambioTipoCalculo(){
+    this.resp = [];
   }
 }
