@@ -71,23 +71,32 @@ export class FacturasComponent implements OnInit {
       .get('proveedorId')
       ?.valueChanges.subscribe((nuevoValor) => {
         this.getNumerofactura(nuevoValor ?? '');
-        console.log({ nuevoValor });
       });
+
+      this.facturaForm.get('numeroFactura')?.valueChanges.subscribe((nuevoValor) => {
+          if(nuevoValor! < this.max) {console.log("Nop");}
+          else{console.log("Correcto");}
+        });
+
+        this.facturaForm.get('fechaCobro')?.valueChanges.subscribe((nuevoValor) => {
+          console.log(nuevoValor);
+          if(nuevoValor! < new Date().toISOString().split('T')[0]){ console.log("nop");}
+          else {console.log("Correcto");}
+        })
   }
 
-  public comprobarNumeroFactura() {
-    return (
-      this.facturaForm.value.numeroFactura &&
-      this.facturaForm.value.numeroFactura < this.max
-    );
-  }
+  // public comprobarNumeroFactura() {
+  //   return (
+  //     this.facturaForm.value.numeroFactura &&
+  //     this.facturaForm.value.numeroFactura < this.max
+  //   );
+  // }
 
   // public comprobarFecha() {
   //   this.fechaCorrecta.setValue(this.fechaCobro >= this.fecha);
   // }
 
   public getNumerofactura(proveedorId: string) {
-    console.log('EEEEENTRAAAAA');
     if (proveedorId?.trim() != '') {
       this.api.setEndpoint(ApiEndpointEnum.CLIENTES);
 
@@ -95,16 +104,18 @@ export class FacturasComponent implements OnInit {
         next: (res) => {
           this.listaFacturas = res.facturaProveedors!;
 
+          if(this.listaFacturas.length == 0){
+            this.max = 1;
+          } else {
           this.facturaForm.value.numeroFactura =
             this.listaFacturas.reduce((max, factura) => {
               return factura.numeroFactura > max ? factura.numeroFactura : max;
             }, this.listaFacturas[0].numeroFactura) + 1;
 
-          this.max = this.facturaForm.value.numeroFactura;
+            this.max = this.facturaForm.value.numeroFactura;
+          }
+          
           this.facturaForm.controls.numeroFactura.setValue(this.max);
-
-          console.log(this.max);
-          console.log(this.facturaForm.value.numeroFactura);
         },
         error: (error) => {
           console.error(error);
