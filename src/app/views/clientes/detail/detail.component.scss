@@ -1,5 +1,7 @@
 .pruebajuanan{
   display: flex;
+  flex-flow: row nowrap;
+  gap: 2rem;
 }
 
 li {
