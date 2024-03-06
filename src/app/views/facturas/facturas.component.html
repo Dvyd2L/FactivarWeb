@@ -78,6 +78,7 @@
                       id="numeroFactura"
                       [formControl]="facturaForm.controls.numeroFactura"
                       aria-label="Número de factura"
+                      (blur)="comprobarNumeroFactura()"
                     />
                   </div>
                 </div>

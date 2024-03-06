@@ -73,24 +73,29 @@ export class FacturasComponent implements OnInit {
         this.getNumerofactura(nuevoValor ?? '');
       });
 
-      this.facturaForm.get('numeroFactura')?.valueChanges.subscribe((nuevoValor) => {
-          if(nuevoValor! < this.max) {console.log("Nop");}
-          else{console.log("Correcto");}
-        });
-
-        this.facturaForm.get('fechaCobro')?.valueChanges.subscribe((nuevoValor) => {
-          console.log(nuevoValor);
-          if(nuevoValor! < new Date().toISOString().split('T')[0]){ console.log("nop");}
-          else {console.log("Correcto");}
-        })
+      this.facturaForm.get('fechaCobro')?.valueChanges.subscribe((nuevoValor) => {
+        console.log(nuevoValor);
+        if(nuevoValor! < new Date().toISOString().split('T')[0]){ 
+          this.toastSvc.add({
+            title: 'error',
+            message: 'La fecha de cobre debe ser superior o igual a la fecha de expedición',
+            type: 'error',
+            life: 3000,
+          });
+        }
+      })
   }
 
-  // public comprobarNumeroFactura() {
-  //   return (
-  //     this.facturaForm.value.numeroFactura &&
-  //     this.facturaForm.value.numeroFactura < this.max
-  //   );
-  // }
+  public comprobarNumeroFactura() {
+    if(this.facturaForm.value.numeroFactura! < this.max) {
+      this.toastSvc.add({
+        title: 'error',
+        message: 'Número de factura debe ser superior al último usado',
+        type: 'error',
+        life: 3000,
+      });
+    }
+  }
 
   // public comprobarFecha() {
   //   this.fechaCorrecta.setValue(this.fechaCobro >= this.fecha);

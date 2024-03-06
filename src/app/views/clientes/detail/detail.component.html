@@ -85,7 +85,7 @@
 </table>
 } -->
 
-@if(resp[0] != null ){
+<!-- @if(resp[0] != null ){
   <table class="table table-stripped" aria-labelledby="clientes">
     <thead>
       <tr>
@@ -134,7 +134,7 @@
       </tr>
     </tbody>
   </table>
-  }
+  } -->
 
 @for (f of res.facturaProveedors; track f.facturaId) {
 <!-- <a [routerLink]="['/facturas', f.facturaId]">{{ f.facturaId }}</a> -->
@@ -142,6 +142,8 @@
 } } @defer (on timer(1s)) { @if (response$ | async; as res) {
 <article class="card" style="width: 80dvw">
   <div class="card-body">
+  <div class="pruebajuanan">
+    <div>
     <header>
       <h5 class="card-title">{{ res.nombre }}</h5>
       <h6 class="card-subtitle mb-2 text-body-secondary">CIF: {{ res.cif }}</h6>
@@ -158,6 +160,62 @@
       <a href="mailto:{{ res.email }}" class="card-link">{{ res.email }}</a>
     </p>
     <p class="card-text">Dirección: {{ res.direccion }}</p>
+  </div>
+    <div>
+
+      @if(resp[0] != null ){
+        <table class="table table-stripped" aria-labelledby="clientes">
+          <thead>
+            <tr>
+              <th>Tasa</th>
+              <th>BImponible</th>
+              <th>Cuota</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>0%</td>
+              <td> {{ resp[0].bImponible }}</td>
+              <td> {{ resp[0].cuota }}</td>
+              <td> {{ resp[0].total }}</td>
+            </tr>
+            <tr>
+              <td>4%</td>
+              <td> {{ resp[1].bImponible }}</td>
+              <td> {{ resp[1].cuota }}</td>
+              <td> {{ resp[1].total }}</td>
+            </tr>
+            <tr>
+              <td>5%</td>
+              <td> {{ resp[2].bImponible }}</td>
+              <td> {{ resp[2].cuota }}</td>
+              <td> {{ resp[2].total }}</td>
+            </tr>
+            <tr>
+              <td>10%</td>
+              <td> {{ resp[3].bImponible }}</td>
+              <td> {{ resp[3].cuota }}</td>
+              <td> {{ resp[3].total }}</td>
+            </tr>
+            <tr>
+              <td>21%</td>
+              <td> {{ resp[4].bImponible }}</td>
+              <td> {{ resp[4].cuota }}</td>
+              <td> {{ resp[4].total }}</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td>TOTAL</td>
+              <td>{{totalCalculoIva}}</td>
+            </tr>
+          </tbody>
+        </table>
+        }
+
+    </div>
+    </div>
     <form
       class="edit_invoice"
       id="busqueda-form"
