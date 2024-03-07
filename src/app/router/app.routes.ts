@@ -20,7 +20,7 @@ export const routes: Routes = [
   {
     path: 'clientes',
     title: 'Clientes',
-    // canActivate: [authGuard],
+    canActivate: [authGuard],
     loadComponent: () =>
       import('@/app/shared/layout/layout.component').then(
         (c) => c.LayoutComponent
@@ -31,7 +31,7 @@ export const routes: Routes = [
   {
     path: 'facturas',
     title: 'Facturas',
-    // canActivate: [authGuard],
+    canActivate: [authGuard],
     loadComponent: () =>
       import('@/app/shared/layout/layout.component').then(
         (c) => c.LayoutComponent
@@ -42,7 +42,7 @@ export const routes: Routes = [
   {
     path: 'usuarios',
     title: 'Usuarios',
-    // canActivate: [adminGuard],
+    canActivate: [adminGuard],
     loadComponent: () =>
       import('@/app/shared/layout/layout.component').then(
         (c) => c.LayoutComponent
